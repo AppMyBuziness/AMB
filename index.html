@@ -357,289 +357,333 @@
                 font-size: 1.1rem;
             }
         }
-    </style>
-</head>
-<body>
-
-    <header>
-        <nav class="navbar">
-            <div class="logo">AppStore</div>
-            <ul class="nav-links">
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#categories">Categories</a></li>
-                <li><a href="#featured">Featured</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section id="hero">
-        <div class="hero-content">
-            <h1>Discover and Download the Best Apps</h1>
-            <p>Explore a wide range of applications for all your needs. Find the perfect app for productivity, entertainment, and more!</p>
-            <a href="#app-grid" class="cta-button">Explore Apps</a>
-        </div>
-    </section>
-
-    <section id="app-grid">
-        <h2>Apps</h2>
-        <div class="app-card" data-app-id="1">
-            <img src="https://via.placeholder.com/400x300/007bff/fff?text=App+Icon" alt="App Icon" class="app-icon">
-            <div class="app-details">
-                <h3 class="app-title">Awesome App 1</h3>
-                <p class="app-category">Productivity</p>
-                <div class="app-rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                    4.5 (123 Reviews)
-                </div>
-                <a href="#" class="download-button">Download</a>
-                <a href="#" class="try-button">Try It</a>
-                <a href="#" class="buy-button">Buy</a>
-
-                <div class="reviews-section">
-                    <h4>Reviews</h4>
-                    <div class="reviews">
-                        <!-- Reviews will be added here by JavaScript -->
-                    </div>
-                    <div class="add-review">
-                        <textarea placeholder="Write a review"></textarea>
-                        <button onclick="addReview(this)">Submit Review</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="app-card" data-app-id="2">
-            <img src="https://via.placeholder.com/400x300/28a745/fff?text=App+Icon" alt="App Icon" class="app-icon">
-            <div class="app-details">
-                <h3 class="app-title">Amazing Game 2</h3>
-                <p class="app-category">Entertainment</p>
-                <div class="app-rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                    4.0 (78 Reviews)
-                </div>
-                <a href="#" class="download-button">Download</a>
-                 <a href="#" class="try-button">Try It</a>
-                <a href="#" class="buy-button">Buy</a>
-                <div class="reviews-section">
-                    <h4>Reviews</h4>
-                    <div class="reviews">
-                        <!-- Reviews will be added here by JavaScript -->
-                    </div>
-                    <div class="add-review">
-                        <textarea placeholder="Write a review"></textarea>
-                        <button onclick="addReview(this)">Submit Review</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="app-card" data-app-id="3">
-            <img src="https://via.placeholder.com/400x300/dc3545/fff?text=App+Icon" alt="App Icon" class="app-icon">
-            <div class="app-details">
-                <h3 class="app-title">Cool Utility 3</h3>
-                <p class="app-category">Utilities</p>
-                <div class="app-rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                    <i class="far fa-star"></i>
-                    3.5 (45 Reviews)
-                </div>
-                <a href="#" class="download-button">Download</a>
-                 <a href="#" class="try-button">Try It</a>
-                <a href="#" class="buy-button">Buy</a>
-                <div class="reviews-section">
-                    <h4>Reviews</h4>
-                    <div class="reviews">
-                        <!-- Reviews will be added here by JavaScript -->
-                    </div>
-                    <div class="add-review">
-                        <textarea placeholder="Write a review"></textarea>
-                        <button onclick="addReview(this)">Submit Review</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Add more app cards here -->
-        <div class="app-card" data-app-id="4">
-            <img src="https://via.placeholder.com/400x300/ffc107/000?text=App+Icon" alt="App Icon" class="app-icon">
-            <div class="app-details">
-                <h3 class="app-title">New App 4</h3>
-                <p class="app-category">Education</p>
-                <div class="app-rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    5.0 (234 Reviews)
-                </div>
-                <a href="#" class="download-button">Download</a>
-                 <a href="#" class="try-button">Try It</a>
-                <a href="#" class="buy-button">Buy</a>
-                <div class="reviews-section">
-                    <h4>Reviews</h4>
-                    <div class="reviews">
-                        <!-- Reviews will be added here by JavaScript -->
-                    </div>
-                    <div class="add-review">
-                        <textarea placeholder="Write a review"></textarea>
-                        <button onclick="addReview(this)">Submit Review</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="app-card" data-app-id="5">
-            <img src="https://via.placeholder.com/400x300/17a2b8/fff?text=App+Icon" alt="App Icon" class="app-icon">
-            <div class="app-details">
-                <h3 class="app-title">Useful Tool 5</h3>
-                <p class="app-category">Tools</p>
-                <div class="app-rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                    4.5 (156 Reviews)
-                </div>
-                <a href="#" class="download-button">Download</a>
-                 <a href="#" class="try-button">Try It</a>
-                <a href="#" class="buy-button">Buy</a>
-                <div class="reviews-section">
-                    <h4>Reviews</h4>
-                    <div class="reviews">
-                        <!-- Reviews will be added here by JavaScript -->
-                    </div>
-                    <div class="add-review">
-                        <textarea placeholder="Write a review"></textarea>
-                        <button onclick="addReview(this)">Submit Review</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="categories">
-        <h2>Categories</h2>
-        <ul class="category-list">
-            <li><a href="#">Running Games</a></li>
-            <li><a href="#">Running Apps</a></li>
-            <li><a href="#">On Sale Games</a></li>
-            <li><a href="#">On Sale Apps</a></li>
-        </ul>
-    </section>
-
-    <section id="featured">
-        <h2>Featured Apps</h2>
-        <p>Check out our featured apps. This section is just a placeholder.</p>
-    </section>
-
-    <section id="about">
-        <h2>About Us</h2>
-        <p>At , we specialize in building custom web applications and interactive games designed to help businesses unlock new streams of revenue. Whether you're looking to engage users through gamified experiences, streamline operations with tailored web tools, or launch a monetizable digital product, we turn your ideas into powerful, scalable solutions.
-
-            Our team combines technical expertise with a deep understanding of digital engagement, creating web apps and games that not only function flawlessly but also drive measurable results. From e-commerce gamification to branded mini-games and SaaS tools, we partner with companies to bring innovation and profitability together in the digital space.
-            
-            Let us help you transform your business goals into smart, interactive solutions that captivate users and maximize ROI.</p>
-        
-    </section>
-
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Email: euphoryonlineschool@gmail.com</p>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 AppMyBuziness. All rights reserved.</p>
-    </footer>
-
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Font Awesome for the star icons -->
-
-    <script>
-        // Sample reviews data (replace with your actual data source)
-        const appReviews = {
-            "1": [
-                { author: "John Doe", text: "Great app! Very useful." },
-                { author: "Jane Smith", text: "I love this app, it's amazing!" }
-            ],
-            "2": [
-                { author: "Alice Brown", text: "Fun game, but needs more levels." }
-            ],
-            "3": [
-                { author: "Bob Johnson", text: "Simple and effective utility." }
-            ],
-            "4": [
-                { author: "Emily White", text: "Excellent educational app for kids!" },
-                { author: "David Black", text: "My kids love this app!" }
-            ],
-            "5": [
-                { author: "Sarah Green", text: "Very helpful tool for productivity." }
-            ]
-        };
-
-        // Function to add a review
-        function addReview(button) {
-            const appCard = button.closest('.app-card');
-            const appId = appCard.dataset.appId;
-            const textarea = appCard.querySelector('.add-review textarea');
-            const reviewText = textarea.value.trim();
-
-            if (reviewText !== "") {
-                // In a real application, you would get the user's name dynamically
-                const author = "Anonymous";
-
-                const newReview = { author: author, text: reviewText };
-
-                // Update the reviews data (in a real app, you'd send this to a server)
-                if (appReviews[appId]) {
-                    appReviews[appId].push(newReview);
-                } else {
-                    appReviews[appId] = [newReview];
-                }
-
-                // Clear the textarea
-                textarea.value = "";
-
-                // Refresh the reviews display
-                displayReviews(appId, appCard);
-            }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
         }
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 600px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+<header>
+    <nav class="navbar">
+        <div class="logo">AppStore</div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#featured">Featured</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
 
-        // Function to display reviews for a specific app
-        function displayReviews(appId, appCard) {
-            const reviewsContainer = appCard.querySelector('.reviews');
-            reviewsContainer.innerHTML = ""; // Clear existing reviews
+<section id="hero">
+    <div class="hero-content">
+        <h1>Discover and Download the Best Apps</h1>
+        <p>Explore a wide range of applications for all your needs. Find the perfect app for productivity, entertainment, and more!</p>
+        <a href="#app-grid" class="cta-button">Explore Apps</a>
+    </div>
+</section>
+
+<section id="app-grid">
+    <h2>Apps</h2>
+    <div class="app-card" data-app-id="1">
+        <img src="WhatsApp Image 2025-05-03 at 14.11.06.jpeg" alt="App Icon" class="app-icon">
+        <div class="app-details">
+             <h3 class="app-title" onclick="showAppInfo(1)">Euphory Online</h3>
+            <p class="app-category">education</p>
+            <div class="app-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                4.5 (123 Reviews)
+            </div>
+            <a href="#" class="download-button">Download</a>
+            <a href="https://appmybuziness.github.io/euphoryonlineschool/tt&grads.html" class="try-button">open/a>
+           
+
+            <div class="reviews-section">
+                <h4>Reviews</h4>
+                <div class="reviews">
+                    <!-- Reviews will be added here by JavaScript -->
+                </div>
+                <div class="add-review">
+                    <textarea placeholder="Write a review"></textarea>
+                    <button onclick="addReview(this)">Submit Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-card" data-app-id="2">
+        <img src="WhatsApp Image 2025-05-03 at 14.16.08.jpeg" alt="App Icon" class="app-icon">
+        <div class="app-details">
+            <h3 class="app-title" onclick="showAppInfo(2)">Novel Nexus</h3>
+            <p class="app-category">Entertainment</p>
+            <div class="app-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                4.0 (78 Reviews)
+            </div>
+           
+             <a href="#" class="try-button">Try It</a>
+            <a href="#" class="buy-button">Buy</a>
+            <div class="reviews-section">
+                <h4>Reviews</h4>
+                <div class="reviews">
+                    <!-- Reviews will be added here by JavaScript -->
+                </div>
+                <div class="add-review">
+                    <textarea placeholder="Write a review"></textarea>
+                    <button onclick="addReview(this)">Submit Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-card" data-app-id="3">
+        <img src="https://via.placeholder.com/400x300/dc3545/fff?text=App+Icon" alt="App Icon" class="app-icon">
+        <div class="app-details">
+            <h3 class="app-title">Cool Utility 3</h3>
+            <p class="app-category">Utilities</p>
+            <div class="app-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+                3.5 (45 Reviews)
+            </div>
+            <a href="#" class="download-button">Download</a>
+             <a href="#" class="try-button">Try It</a>
+            <a href="#" class="buy-button">Buy</a>
+            <div class="reviews-section">
+                <h4>Reviews</h4>
+                <div class="reviews">
+                    <!-- Reviews will be added here by JavaScript -->
+                </div>
+                <div class="add-review">
+                    <textarea placeholder="Write a review"></textarea>
+                    <button onclick="addReview(this)">Submit Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add more app cards here -->
+    <div class="app-card" data-app-id="4">
+        <img src="https://via.placeholder.com/400x300/ffc107/000?text=App+Icon" alt="App Icon" class="app-icon">
+        <div class="app-details">
+             <h3 class="app-title" onclick="showAppInfo(3)">Campus Connect</h3>
+            <p class="app-category">Education</p>
+            <div class="app-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                5.0 (234 Reviews)
+            </div>
+            <a href="#" class="download-button">Download</a>
+             <a href="https://tanaxas.github.io/CampusConnect3/" class="try-button">Try It</a>
+            <a href="#" class="buy-button">Buy</a>
+            <div class="reviews-section">
+                <h4>Reviews</h4>
+                <div class="reviews">
+                    <!-- Reviews will be added here by JavaScript -->
+                </div>
+                <div class="add-review">
+                    <textarea placeholder="Write a review"></textarea>
+                    <button onclick="addReview(this)">Submit Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-card" data-app-id="5">
+        <img src="https://via.placeholder.com/400x300/17a2b8/fff?text=App+Icon" alt="App Icon" class="app-icon">
+        <div class="app-details">
+           <h3 class="app-title" onclick="showAppInfo(4)">Tari Coaching</h3>
+            <p class="app-category">Tools</p>
+            <div class="app-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                4.5 (156 Reviews)
+            </div>
+            <a href="#" class="download-button">Download</a>
+             <a href="#" class="try-button">open</a>
+           
+            <div class="reviews-section">
+                <h4>Reviews</h4>
+                <div class="reviews">
+                    <!-- Reviews will be added here by JavaScript -->
+                </div>
+                <div class="add-review">
+                    <textarea placeholder="Write a review"></textarea>
+                    <button onclick="addReview(this)">Submit Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="categories">
+    <h2>Categories</h2>
+    <ul class="category-list">
+        <li><a href="#">Running Games</a></li>
+        <li><a href="#">Running Apps</a></li>
+        <li><a href="#">On Sale Games</a></li>
+        <li><a href="#">On Sale Apps</a></li>
+    </ul>
+</section>
+
+<section id="featured">
+    <h2>Featured Apps</h2>
+    <p>Check out our featured apps. This section is just a placeholder.</p>
+</section>
+
+<section id="about">
+    <h2>About Us</h2>
+    <p>At , we specialize in building custom web applications and interactive games designed to help businesses unlock new streams of revenue. Whether you're looking to engage users through gamified experiences, streamline operations with tailored web tools, or launch a monetizable digital product, we turn your ideas into powerful, scalable solutions.
+
+        Our team combines technical expertise with a deep understanding of digital engagement, creating web apps and games that not only function flawlessly but also drive measurable results. From e-commerce gamification to branded mini-games and SaaS tools, we partner with companies to bring innovation and profitability together in the digital space.
+        
+        Let us help you transform your business goals into smart, interactive solutions that captivate users and maximize ROI.</p>
+    
+</section>
+
+<section id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: euphoryonlineschool@gmail.com</p>
+</section>
+
+<footer>
+    <p>&copy; 2025 AppMyBuziness. All rights reserved.</p>
+</footer>
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Font Awesome for the star icons -->
+<!-- Modal Structure -->
+<div id="app-info-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAppInfo()">&times;</span>
+        <h2 id="modal-app-title">App Title</h2>
+        <p id="modal-app-description">App description goes here.</p>
+    </div>
+</div>
+<script>
+    const appDetails = {
+        "1": "Euphory Online is an educational app that helps students learn effectively.",
+        "2": "Novel Nexus provides a variety of entertainment options.",
+        "3": "Cool Utility 3 simplifies daily tasks with useful tools.",
+        "4": "New App 4 is designed for educational purposes for kids.",
+        "5": "Useful Tool 5 enhances productivity with innovative features."
+    };
+
+    function showAppInfo(appId) {
+        const modal = document.getElementById("app-info-modal");
+        const title = document.getElementById("modal-app-title");
+        const description = document.getElementById("modal-app-description");
+
+        title.innerText = document.querySelector(`[data-app-id="${appId}"] .app-title`).innerText;
+        description.innerText = appDetails[appId];
+
+        modal.style.display = "block";
+    }
+
+    function closeAppInfo() {
+        document.getElementById("app-info-modal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById("app-info-modal");
+        if (event.target === modal) {
+            closeAppInfo();
+        }
+    };
+
+    // Sample reviews data (replace with your actual data source)
+    const appReviews = {
+        "1": [{ author: "John Doe", text: "Great app! Very useful." }],
+        "2": [{ author: "Alice Brown", text: "Fun game, but needs more levels." }],
+        "3": [{ author: "Bob Johnson", text: "Simple and effective utility." }],
+        "4": [{ author: "Emily White", text: "Excellent educational app for kids!" }],
+        "5": [{ author: "Sarah Green", text: "Very helpful tool for productivity." }]
+    };
+
+    function addReview(button) {
+        const appCard = button.closest('.app-card');
+        const appId = appCard.dataset.appId;
+        const textarea = appCard.querySelector('.add-review textarea');
+        const reviewText = textarea.value.trim();
+
+        if (reviewText !== "") {
+            const author = "Anonymous";
+            const newReview = { author: author, text: reviewText };
 
             if (appReviews[appId]) {
-                appReviews[appId].forEach(review => {
-                    const reviewDiv = document.createElement('div');
-                    reviewDiv.classList.add('review');
-                    reviewDiv.innerHTML = `<span class="review-author">${review.author}:</span> ${review.text}`;
-                    reviewsContainer.appendChild(reviewDiv);
-                });
+                appReviews[appId].push(newReview);
             } else {
-                reviewsContainer.innerHTML = "<p>No reviews yet.</p>";
+                appReviews[appId] = [newReview];
             }
-        }
 
-        // Initial display of reviews for all apps
-        document.querySelectorAll('.app-card').forEach(appCard => {
-            const appId = appCard.dataset.appId;
+            textarea.value = "";
             displayReviews(appId, appCard);
-        });
-    </script>
+        }
+    }
+
+    function displayReviews(appId, appCard) {
+        const reviewsContainer = appCard.querySelector('.reviews');
+        reviewsContainer.innerHTML = "";
+
+        if (appReviews[appId]) {
+            appReviews[appId].forEach(review => {
+                const reviewDiv = document.createElement('div');
+                reviewDiv.classList.add('review');
+                reviewDiv.innerHTML = `<span class="review-author">${review.author}:</span> ${review.text}`;
+                reviewsContainer.appendChild(reviewDiv);
+            });
+        } else {
+            reviewsContainer.innerHTML = "<p>No reviews yet.</p>";
+        }
+    }
+
+    document.querySelectorAll('.app-card').forEach(appCard => {
+        const appId = appCard.dataset.appId;
+        displayReviews(appId, appCard);
+    });
+</script>
 </body>
 </html>
