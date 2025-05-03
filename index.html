@@ -211,6 +211,127 @@
             margin-right: 0.5rem;
         }
 
+        .add-review {
+            margin-top: 1rem;
+        }
+
+        .add-review textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .add-review button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-review button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Category Styles */
+        #categories {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        #categories h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-list li {
+            margin: 0.5rem 1rem;
+        }
+
+        .category-list a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .category-list a:hover {
+            background-color: #eee;
+        }
+
+        /* Featured Styles */
+        #featured {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        #featured h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* About Us Styles */
+        #about {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        #about h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        #about p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Contact Styles */
+        #contact {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        #contact h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        #contact p {
+            font-size: 1.1rem;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
         /* Modal Styles */
         .modal {
             display: none;
@@ -458,85 +579,4 @@
     const appDetails = {
         "1": "Euphory Online is an educational app that helps students learn effectively.",
         "2": "Novel Nexus provides a variety of entertainment options.",
-        "3": "Campus Connect is designed for educational purposes.",
-        "4": "Let's Talk with Tari enhances communication."
-    };
-
-    const appReviews = {
-        "1": [],
-        "2": [],
-        "3": [],
-        "4": []
-    };
-
-    function showAppInfo(appId) {
-        const modal = document.getElementById("app-info-modal");
-        const title = document.getElementById("modal-app-title");
-        const description = document.getElementById("modal-app-description");
-
-        title.innerText = document.querySelector(`[data-app-id="${appId}"] .app-title`).innerText;
-        description.innerText = appDetails[appId];
-
-        modal.style.display = "block";
-    }
-
-    function closeAppInfo() {
-        document.getElementById("app-info-modal").style.display = "none";
-    }
-
-    function openReviewModal(appId) {
-        const modal = document.getElementById("reviews-modal");
-        const reviewsContent = document.getElementById("reviews-content");
-        reviewsContent.innerHTML = "";
-
-        if (appReviews[appId].length > 0) {
-            appReviews[appId].forEach(review => {
-                const reviewDiv = document.createElement('div');
-                reviewDiv.classList.add('review');
-                reviewDiv.innerHTML = `<span class="review-author">${review.author}:</span> ${review.text}`;
-                reviewsContent.appendChild(reviewDiv);
-            });
-        } else {
-            reviewsContent.innerHTML = "<p>No reviews yet.</p>";
-        }
-
-        modal.style.display = "block";
-        document.getElementById("review-input").setAttribute("data-app-id", appId);
-    }
-
-    function closeReviewModal() {
-        document.getElementById("reviews-modal").style.display = "none";
-    }
-
-    function submitReview() {
-        const reviewInput = document.getElementById("review-input");
-        const appId = reviewInput.getAttribute("data-app-id");
-        const reviewText = reviewInput.value.trim();
-
-        if (reviewText !== "") {
-            const newReview = { author: "Anonymous", text: reviewText };
-            appReviews[appId].push(newReview);
-            reviewInput.value = "";
-            openReviewModal(appId); // Refresh the review list
-        }
-    }
-
-    window.onclick = function(event) {
-        const appInfoModal = document.getElementById("app-info-modal");
-        const reviewsModal = document.getElementById("reviews-modal");
-        if (event.target === appInfoModal) {
-            closeAppInfo();
-        }
-        if (event.target === reviewsModal) {
-            closeReviewModal();
-        }
-    };
-
-    document.querySelectorAll('.app-card').forEach(appCard => {
-        const appId = appCard.dataset.appId;
-        // Initialize reviews for each app
-        displayReviews(appId, appCard);
-    });
-</script>
-</body>
-</html>
+        "3": "Campus Connect is designed for educational
