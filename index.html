@@ -44,7 +44,7 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 2rem; /* Increased size */
             font-weight: bold;
             color: #333;
         }
@@ -121,7 +121,6 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             transition: transform 0.3s;
-            height:20cm;
         }
 
         .app-card:hover {
@@ -212,125 +211,40 @@
             margin-right: 0.5rem;
         }
 
-        .add-review {
-            margin-top: 1rem;
-        }
-
-        .add-review textarea {
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
             width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-bottom: 0.5rem;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
         }
 
-        .add-review button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .add-review button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Category Styles */
-        #categories {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        #categories h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .category-list {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .category-list li {
-            margin: 0.5rem 1rem;
-        }
-
-        .category-list a {
-            display: inline-block;
-            padding: 0.5rem 1rem;
+        .modal-content {
             background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
             border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s;
+            width: 80%;
+            max-width: 600px;
         }
 
-        .category-list a:hover {
-            background-color: #eee;
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
         }
 
-        /* Featured Styles */
-        #featured {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        #featured h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        /* About Us Styles */
-        #about {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        #about h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        #about p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
-        /* Contact Styles */
-        #contact {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        #contact h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        #contact p {
-            font-size: 1.1rem;
-        }
-
-        /* Footer Styles */
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1rem 0;
-            margin-top: 2rem;
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         /* Responsive Design */
@@ -358,38 +272,10 @@
                 font-size: 1.1rem;
             }
         }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.6);
-        }
-        .modal-content {
-            background-color: #fff;
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 5px;
-            width: 80%;
-            max-width: 600px;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
     </style>
+</head>
+<body>
+
 <header>
     <nav class="navbar">
         <div class="logo">AppStore</div>
@@ -416,8 +302,8 @@
     <div class="app-card" data-app-id="1">
         <img src="WhatsApp Image 2025-05-03 at 14.11.06.jpeg" alt="App Icon" class="app-icon">
         <div class="app-details">
-             <h3 class="app-title" onclick="showAppInfo(1)">Euphory Online</h3>
-            <p class="app-category">education</p>
+            <h3 class="app-title" onclick="showAppInfo(1)">Euphory Online</h3>
+            <p class="app-category">Education</p>
             <div class="app-rating">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
@@ -427,17 +313,13 @@
                 4.5 (123 Reviews)
             </div>
             <a href="#" class="download-button">Download</a>
-            <a href="https://appmybuziness.github.io/euphoryonlineschool/tt&grads.html" class="try-button">open</a>
-           
+            <a href="https://appmybuziness.github.io/euphoryonlineschool/tt&grads.html" class="try-button">Open</a>
+            <a href="#" onclick="openReviewModal(1)" class="try-button">View Reviews</a>
 
             <div class="reviews-section">
                 <h4>Reviews</h4>
                 <div class="reviews">
                     <!-- Reviews will be added here by JavaScript -->
-                </div>
-                <div class="add-review">
-                    <textarea placeholder="Write a review"></textarea>
-                    <button onclick="addReview(this)">Submit Review</button>
                 </div>
             </div>
         </div>
@@ -456,28 +338,22 @@
                 <i class="far fa-star"></i>
                 4.0 (78 Reviews)
             </div>
-           
-             <a href="#" class="try-button">Try It</a>
+            <a href="#" class="try-button">Try It</a>
             <a href="#" class="buy-button">Buy</a>
+            <a href="#" onclick="openReviewModal(2)" class="try-button">View Reviews</a>
             <div class="reviews-section">
                 <h4>Reviews</h4>
                 <div class="reviews">
                     <!-- Reviews will be added here by JavaScript -->
                 </div>
-                <div class="add-review">
-                    <textarea placeholder="Write a review"></textarea>
-                    <button onclick="addReview(this)">Submit Review</button>
-                </div>
             </div>
         </div>
     </div>
 
-   
-    <!-- Add more app cards here -->
-    <div class="app-card" data-app-id="4">
+    <div class="app-card" data-app-id="3">
         <img src="https://via.placeholder.com/400x300/ffc107/000?text=App+Icon" alt="App Icon" class="app-icon">
         <div class="app-details">
-             <h3 class="app-title" onclick="showAppInfo(3)">Campus Connect</h3>
+            <h3 class="app-title" onclick="showAppInfo(3)">Campus Connect</h3>
             <p class="app-category">Education</p>
             <div class="app-rating">
                 <i class="fas fa-star"></i>
@@ -487,26 +363,22 @@
                 <i class="fas fa-star"></i>
                 5.0 (234 Reviews)
             </div>
-          
-             <a href="https://tanaxas.github.io/CampusConnect3/" class="try-button">Try It</a>
+            <a href="https://tanaxas.github.io/CampusConnect3/" class="try-button">Try It</a>
             <a href="#" class="buy-button">Buy</a>
+            <a href="#" onclick="openReviewModal(3)" class="try-button">View Reviews</a>
             <div class="reviews-section">
                 <h4>Reviews</h4>
                 <div class="reviews">
                     <!-- Reviews will be added here by JavaScript -->
                 </div>
-                <div class="add-review">
-                    <textarea placeholder="Write a review"></textarea>
-                    <button onclick="addReview(this)">Submit Review</button>
-                </div>
             </div>
         </div>
     </div>
 
-    <div class="app-card" data-app-id="5">
+    <div class="app-card" data-app-id="4">
         <img src="WhatsApp Image 2025-05-03 at 17.49.15.jpeg" alt="App Icon" class="app-icon">
         <div class="app-details">
-           <h3 class="app-title" onclick="showAppInfo(4)">let's talk with Tari</h3>
+            <h3 class="app-title" onclick="showAppInfo(4)">Let's Talk with Tari</h3>
             <p class="app-category">Tools</p>
             <div class="app-rating">
                 <i class="fas fa-star"></i>
@@ -517,16 +389,12 @@
                 4.5 (156 Reviews)
             </div>
             <a href="#" class="download-button">Download</a>
-             <a href="https://appmybuziness.github.io/tarii/index.html" class="try-button">open</a>
-           
+            <a href="https://appmybuziness.github.io/tarii/index.html" class="try-button">Open</a>
+            <a href="#" onclick="openReviewModal(4)" class="try-button">View Reviews</a>
             <div class="reviews-section">
                 <h4>Reviews</h4>
                 <div class="reviews">
                     <!-- Reviews will be added here by JavaScript -->
-                </div>
-                <div class="add-review">
-                    <textarea placeholder="Write a review"></textarea>
-                    <button onclick="addReview(this)">Submit Review</button>
                 </div>
             </div>
         </div>
@@ -550,12 +418,7 @@
 
 <section id="about">
     <h2>About Us</h2>
-    <p>At , we specialize in building custom web applications and interactive games designed to help businesses unlock new streams of revenue. Whether you're looking to engage users through gamified experiences, streamline operations with tailored web tools, or launch a monetizable digital product, we turn your ideas into powerful, scalable solutions.
-
-        Our team combines technical expertise with a deep understanding of digital engagement, creating web apps and games that not only function flawlessly but also drive measurable results. From e-commerce gamification to branded mini-games and SaaS tools, we partner with companies to bring innovation and profitability together in the digital space.
-        
-        Let us help you transform your business goals into smart, interactive solutions that captivate users and maximize ROI.</p>
-    
+    <p>At AppStore, we specialize in building custom web applications and interactive games designed to help businesses unlock new streams of revenue. Whether you're looking to engage users through gamified experiences, streamline operations with tailored web tools, or launch a monetizable digital product, we turn your ideas into powerful, scalable solutions.</p>
 </section>
 
 <section id="contact">
@@ -567,8 +430,7 @@
     <p>&copy; 2025 AppMyBuziness. All rights reserved.</p>
 </footer>
 
-<script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Font Awesome for the star icons -->
-<!-- Modal Structure -->
+<!-- Modal Structure for App Info -->
 <div id="app-info-modal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeAppInfo()">&times;</span>
@@ -576,13 +438,35 @@
         <p id="modal-app-description">App description goes here.</p>
     </div>
 </div>
+
+<!-- Reviews Modal Structure -->
+<div id="reviews-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeReviewModal()">&times;</span>
+        <h2>Reviews</h2>
+        <div id="reviews-content"></div>
+        <div class="add-review">
+            <textarea id="review-input" placeholder="Write a review"></textarea>
+            <button onclick="submitReview()">Submit Review</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Font Awesome for the star icons -->
+
 <script>
     const appDetails = {
         "1": "Euphory Online is an educational app that helps students learn effectively.",
         "2": "Novel Nexus provides a variety of entertainment options.",
-        "3": "Cool Utility 3 simplifies daily tasks with useful tools.",
-        "4": "New App 4 is designed for educational purposes for kids.",
-        "5": "Useful Tool 5 enhances productivity with innovative features."
+        "3": "Campus Connect is designed for educational purposes.",
+        "4": "Let's Talk with Tari enhances communication."
+    };
+
+    const appReviews = {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
     };
 
     function showAppInfo(appId) {
@@ -600,61 +484,57 @@
         document.getElementById("app-info-modal").style.display = "none";
     }
 
-    window.onclick = function(event) {
-        const modal = document.getElementById("app-info-modal");
-        if (event.target === modal) {
-            closeAppInfo();
-        }
-    };
+    function openReviewModal(appId) {
+        const modal = document.getElementById("reviews-modal");
+        const reviewsContent = document.getElementById("reviews-content");
+        reviewsContent.innerHTML = "";
 
-    // Sample reviews data (replace with your actual data source)
-    const appReviews = {
-        "1": [{ author: "John Doe", text: "Great app! Very useful." }],
-        "2": [{ author: "Alice Brown", text: "Fun game, but needs more levels." }],
-        "3": [{ author: "Bob Johnson", text: "Simple and effective utility." }],
-        "4": [{ author: "Emily White", text: "Excellent educational app for kids!" }],
-        "5": [{ author: "Sarah Green", text: "Very helpful tool for productivity." }]
-    };
-
-    function addReview(button) {
-        const appCard = button.closest('.app-card');
-        const appId = appCard.dataset.appId;
-        const textarea = appCard.querySelector('.add-review textarea');
-        const reviewText = textarea.value.trim();
-
-        if (reviewText !== "") {
-            const author = "Anonymous";
-            const newReview = { author: author, text: reviewText };
-
-            if (appReviews[appId]) {
-                appReviews[appId].push(newReview);
-            } else {
-                appReviews[appId] = [newReview];
-            }
-
-            textarea.value = "";
-            displayReviews(appId, appCard);
-        }
-    }
-
-    function displayReviews(appId, appCard) {
-        const reviewsContainer = appCard.querySelector('.reviews');
-        reviewsContainer.innerHTML = "";
-
-        if (appReviews[appId]) {
+        if (appReviews[appId].length > 0) {
             appReviews[appId].forEach(review => {
                 const reviewDiv = document.createElement('div');
                 reviewDiv.classList.add('review');
                 reviewDiv.innerHTML = `<span class="review-author">${review.author}:</span> ${review.text}`;
-                reviewsContainer.appendChild(reviewDiv);
+                reviewsContent.appendChild(reviewDiv);
             });
         } else {
-            reviewsContainer.innerHTML = "<p>No reviews yet.</p>";
+            reviewsContent.innerHTML = "<p>No reviews yet.</p>";
+        }
+
+        modal.style.display = "block";
+        document.getElementById("review-input").setAttribute("data-app-id", appId);
+    }
+
+    function closeReviewModal() {
+        document.getElementById("reviews-modal").style.display = "none";
+    }
+
+    function submitReview() {
+        const reviewInput = document.getElementById("review-input");
+        const appId = reviewInput.getAttribute("data-app-id");
+        const reviewText = reviewInput.value.trim();
+
+        if (reviewText !== "") {
+            const newReview = { author: "Anonymous", text: reviewText };
+            appReviews[appId].push(newReview);
+            reviewInput.value = "";
+            openReviewModal(appId); // Refresh the review list
         }
     }
 
+    window.onclick = function(event) {
+        const appInfoModal = document.getElementById("app-info-modal");
+        const reviewsModal = document.getElementById("reviews-modal");
+        if (event.target === appInfoModal) {
+            closeAppInfo();
+        }
+        if (event.target === reviewsModal) {
+            closeReviewModal();
+        }
+    };
+
     document.querySelectorAll('.app-card').forEach(appCard => {
         const appId = appCard.dataset.appId;
+        // Initialize reviews for each app
         displayReviews(appId, appCard);
     });
 </script>
