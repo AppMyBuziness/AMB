@@ -5,394 +5,273 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AppStore - Discover Amazing Apps</title>
     <style>
-        /* General Styles */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
-            color: #333;
-            line-height: 1.6;
-        }
+     /* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    color: #333;
+    line-height: 1.6;
+}
 
-        a {
-            text-decoration: none;
-            color: #007bff;
-        }
+a {
+    text-decoration: none;
+    color: #007bff;
+}
 
-        a:hover {
-            text-decoration: underline;
-        }
+a:hover {
+    text-decoration: underline;
+}
 
-        /* Header Styles */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 1rem 0;
-            position: sticky; /* Stick the header to the top */
-            top: 0;
-            z-index: 100; /* Ensure it stays on top */
-        }
+/* Header Styles */
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    position: sticky; /* Stick the header to the top */
+    top: 0;
+    z-index: 100; /* Ensure it stays on top */
+}
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
 
-        .logo {
-            font-size: 2rem; /* Increased size */
-            font-weight: bold;
-            color: #333;
-        }
+.logo {
+    font-size: 2rem; /* Increased size */
+    font-weight: bold;
+    color: #333;
+}
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-        }
+.nav-links {
+    list-style: none;
+    display: flex;
+}
 
-        .nav-links li {
-            margin-left: 1.5rem;
-        }
+.nav-links li {
+    margin-left: 1.5rem;
+}
 
-        .nav-links a {
-            color: #555;
-            transition: color 0.3s;
-        }
+.nav-links a {
+    color: #555;
+    transition: color 0.3s;
+}
 
-        .nav-links a:hover {
-            color: #007bff;
-        }
+.nav-links a:hover {
+    color: #007bff;
+}
 
-        /* Hero Section Styles */
-        #hero {
-            background: linear-gradient(135deg, #70e1f5, #ffd194);
-            color: #fff;
-            text-align: center;
-            padding: 4rem 0;
-        }
+/* Hero Section Styles */
+#hero {
+    background: linear-gradient(135deg, #70e1f5, #ffd194);
+    color: #fff;
+    text-align: center;
+    padding: 4rem 0;
+}
 
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
 
-        .hero-content h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
 
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
 
-        .cta-button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            transition: background-color 0.3s;
-            display: inline-block; /* Make it a block-level element */
-        }
+.cta-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+    display: inline-block; /* Make it a block-level element */
+}
 
-        .cta-button:hover {
-            background-color: #0056b3;
-            text-decoration: none;
-        }
+.cta-button:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+}
 
-        /* App Grid Styles */
-        #app-grid {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
+/* App Grid Styles */
+#app-grid {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
 
-        .app-card {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
+.app-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+}
 
-        .app-card:hover {
-            transform: translateY(-5px);
-        }
+.app-card:hover {
+    transform: translateY(-5px);
+}
 
-        .app-icon {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-        }
+.app-icon {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
 
-        .app-details {
-            padding: 1rem;
-        }
+.app-details {
+    padding: 1rem;
+}
 
-        .app-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
+.app-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
 
-        .app-category {
-            color: #777;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
+.app-category {
+    color: #777;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
 
-        .app-rating {
-            display: flex;
-            align-items: center;
-            color: #f39c12;
-        }
+.app-rating {
+    display: flex;
+    align-items: center;
+    color: #f39c12;
+}
 
-        .app-rating i {
-            margin-right: 0.3rem;
-        }
+.app-rating i {
+    margin-right: 0.3rem;
+}
 
-        .download-button, .try-button, .buy-button {
-            display: block;
-            padding: 0.75rem 1rem;
-            border-radius: 5px;
-            text-align: center;
-            margin-top: 0.5rem;
-            transition: background-color 0.3s;
-            text-decoration: none;
-            color: #fff;
-        }
+.download-button, .try-button, .buy-button {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 0.5rem;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    color: #fff;
+}
 
-        .download-button {
-            background-color: #28a745;
-        }
+.download-button {
+    background-color: #28a745;
+}
 
-        .download-button:hover {
-            background-color: #218838;
-        }
+.download-button:hover {
+    background-color: #218838;
+}
 
-        .try-button {
-            background-color: #007bff;
-        }
+.try-button {
+    background-color: #007bff;
+}
 
-        .try-button:hover {
-            background-color: #0056b3;
-        }
+.try-button:hover {
+    background-color: #0056b3;
+}
 
-        .buy-button {
-            background-color: #dc3545;
-        }
+.buy-button {
+    background-color: #dc3545;
+}
 
-        .buy-button:hover {
-            background-color: #c82333;
-        }
+.buy-button:hover {
+    background-color: #c82333;
+}
 
-        /* Review Styles */
-        .reviews-section {
-            margin-top: 1rem;
-            border-top: 1px solid #eee;
-            padding-top: 1rem;
-        }
+/* Review Styles */
+.reviews-section {
+    margin-top: 1rem;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+}
 
-        .review {
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
+.review {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
 
-        .review-author {
-            font-weight: bold;
-            margin-right: 0.5rem;
-        }
+.review-author {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
 
-        .add-review {
-            margin-top: 1rem;
-        }
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+}
 
-        .add-review textarea {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-bottom: 0.5rem;
-        }
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+}
 
-        .add-review button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
 
-        .add-review button:hover {
-            background-color: #0056b3;
-        }
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
 
-        /* Category Styles */
-        #categories {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-        #categories h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
+    .nav-links {
+        margin-top: 1rem;
+        flex-direction: column;
+    }
 
-        .category-list {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+    .nav-links li {
+        margin-left: 0;
+        margin-bottom: 0.5rem;
+    }
 
-        .category-list li {
-            margin: 0.5rem 1rem;
-        }
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
 
-        .category-list a {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s;
-        }
-
-        .category-list a:hover {
-            background-color: #eee;
-        }
-
-        /* Featured Styles */
-        #featured {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        #featured h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        /* About Us Styles */
-        #about {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        #about h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        #about p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
-        /* Contact Styles */
-        #contact {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        #contact h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        #contact p {
-            font-size: 1.1rem;
-        }
-
-        /* Footer Styles */
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1rem 0;
-            margin-top: 2rem;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.6);
-        }
-
-        .modal-content {
-            background-color: #fff;
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 5px;
-            width: 80%;
-            max-width: 600px;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .nav-links {
-                margin-top: 1rem;
-                flex-direction: column;
-            }
-
-            .nav-links li {
-                margin-left: 0;
-                margin-bottom: 0.5rem;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-content p {
-                font-size: 1.1rem;
-            }
-        }
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -431,7 +310,7 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
-                4.5 (123 Reviews)
+                <span class="rating-info">4.5 (0 Reviews)</span>
             </div>
             <a href="#" class="download-button">Download</a>
             <a href="https://appmybuziness.github.io/euphoryonlineschool/tt&grads.html" class="try-button">Open</a>
@@ -457,7 +336,7 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="far fa-star"></i>
-                4.0 (78 Reviews)
+                <span class="rating-info">4.0 (0 Reviews)</span>
             </div>
             <a href="#" class="try-button">Try It</a>
             <a href="#" class="buy-button">Buy</a>
@@ -482,7 +361,7 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
-                5.0 (234 Reviews)
+                <span class="rating-info">5.0 (0 Reviews)</span>
             </div>
             <a href="https://tanaxas.github.io/CampusConnect3/" class="try-button">Try It</a>
             <a href="#" class="buy-button">Buy</a>
@@ -507,7 +386,7 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
-                4.5 (156 Reviews)
+                <span class="rating-info">4.5 (0 Reviews)</span>
             </div>
             <a href="#" class="download-button">Download</a>
             <a href="https://appmybuziness.github.io/tarii/index.html" class="try-button">Open</a>
@@ -579,4 +458,97 @@
     const appDetails = {
         "1": "Euphory Online is an educational app that helps students learn effectively.",
         "2": "Novel Nexus provides a variety of entertainment options.",
-        "3": "Campus Connect is designed for educational
+        "3": "Campus Connect is designed for educational purposes.",
+        "4": "Let's Talk with Tari enhances communication."
+    };
+
+    const appReviews = {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+    };
+
+    function showAppInfo(appId) {
+        const modal = document.getElementById("app-info-modal");
+        const title = document.getElementById("modal-app-title");
+        const description = document.getElementById("modal-app-description");
+
+        title.innerText = document.querySelector(`[data-app-id="${appId}"] .app-title`).innerText;
+        description.innerText = appDetails[appId];
+
+        modal.style.display = "block";
+    }
+
+    function closeAppInfo() {
+        document.getElementById("app-info-modal").style.display = "none";
+    }
+
+    function openReviewModal(appId) {
+        const modal = document.getElementById("reviews-modal");
+        const reviewsContent = document.getElementById("reviews-content");
+        reviewsContent.innerHTML = "";
+
+        if (appReviews[appId].length > 0) {
+            appReviews[appId].forEach(review => {
+                const reviewDiv = document.createElement('div');
+                reviewDiv.classList.add('review');
+                reviewDiv.innerHTML = `<span class="review-author">${review.author}:</span> ${review.text}`;
+                reviewsContent.appendChild(reviewDiv);
+            });
+        } else {
+            reviewsContent.innerHTML = "<p>No reviews yet.</p>";
+        }
+
+        modal.style.display = "block";
+        document.getElementById("review-input").setAttribute("data-app-id", appId);
+        updateRatingInfo(appId);
+    }
+
+    function closeReviewModal() {
+        document.getElementById("reviews-modal").style.display = "none";
+    }
+
+    function submitReview() {
+        const reviewInput = document.getElementById("review-input");
+        const appId = reviewInput.getAttribute("data-app-id");
+        const reviewText = reviewInput.value.trim();
+
+        if (reviewText !== "") {
+            const newReview = { author: "Anonymous", text: reviewText };
+            appReviews[appId].push(newReview);
+            reviewInput.value = "";
+            openReviewModal(appId); // Refresh the review list
+        }
+    }
+
+    function updateRatingInfo(appId) {
+        const reviews = appReviews[appId];
+        const ratingInfo = document.querySelector(`[data-app-id="${appId}"] .rating-info`);
+        const reviewCount = reviews.length;
+        const averageRating = reviewCount > 0 
+            ? (reviews.reduce((sum, review) => sum + 4.5, 0) / reviewCount).toFixed(1) 
+            : "0.0";
+
+        ratingInfo.innerText = `${averageRating} (${reviewCount} Reviews)`;
+    }
+
+    window.onclick = function(event) {
+        const appInfoModal = document.getElementById("app-info-modal");
+       const reviewsModal = document.getElementById("reviews-modal");
+        if (event.target === appInfoModal) {
+            closeAppInfo();
+        }
+        if (event.target === reviewsModal) {
+            closeReviewModal();
+        }
+    };
+
+    // Initialize reviews for each app
+    document.querySelectorAll('.app-card').forEach(appCard => {
+        const appId = appCard.dataset.appId;
+        updateRatingInfo(appId);
+    });
+</script>
+</body>
+</html>
