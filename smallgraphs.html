@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Small Business Growth Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .graph-container {
+            margin-bottom: 30px;
+        }
+        .business-description {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        h1, h2 {
+            color: #9b59b6; /* Purple color for titles */
+        }
+    </style>
+</head>
+<body> 
+
+    <h1>Small Business Growth Dashboard</h1>
+    <p>An overview of growth rates for selected small businesses. See descriptions below each chart.</p>
+
+    <div class="graph-container">
+        <h2>Growth Rate of Small Businesses in 2024-2025</h2>
+        <canvas id="businessChart" width="400" height="200"></canvas>
+
+        <div class="business-description">
+            <h3>Craft Store A</h3>
+            <p>Description: Local craft store specializing in handmade goods.</p>
+            <p>Net Worth (2025): $150,000</p>
+            <p>Growth Rate (2024-2025): 25%</p>
+        </div>
+
+        <div class="business-description">
+            <h3>Restaurant B</h3>
+            <p>Description: Family-owned Italian restaurant known for its pasta.</p>
+            <p>Net Worth (2025): $300,000</p>
+            <p>Growth Rate (2024-2025): 15%</p>
+        </div>
+
+        <div class="business-description">
+            <h3>Tech Startup C</h3>
+            <p>Description: SaaS company providing project management tools.</p>
+            <p>Net Worth (2025): $500,000</p>
+            <p>Growth Rate (2024-2025): 30%</p>
+        </div>
+
+        <div class="business-description">
+            <h3>Fitness Studio D</h3>
+            <p>Description: Boutique fitness studio offering yoga and pilates classes.</p>
+            <p>Net Worth (2025): $200,000</p>
+            <p>Growth Rate (2024-2025): 20%</p>
+        </div>
+
+        <div class="business-description">
+            <h3>Online Retailer E</h3>
+            <p>Description: E-commerce platform selling eco-friendly products.</p>
+            <p>Net Worth (2025): $400,000</p>
+            <p>Growth Rate (2024-2025): 35%</p>
+        </div>
+    </div>
+
+    <p>Data Source: [Insert Data Source Here - e.g., Hypothetical Data]</p>
+    <p>Disclaimer: This information is for illustrative purposes only and should not be used for making financial decisions.</p>
+
+    <footer>
+        &copy; 2025 Small Business Growth Dashboard
+    </footer>
+
+    <script>
+        // JavaScript to create the chart
+        const businessChart = new Chart(document.getElementById('businessChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Craft Store A', 'Restaurant B', 'Tech Startup C', 'Fitness Studio D', 'Online Retailer E'],
+                datasets: [{
+                    label: 'Growth Rate (%)',
+                    data: [25, 15, 30, 20, 35], // Replace with actual data
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Percentage'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
