@@ -3,178 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App My Buziness</title>
+    <title>Budget App</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            background-color: black;
-            color: white;
             font-family: Arial, sans-serif;
+            background-color: #ffffff; /* White background */
+            color: #333; /* Dark text color */
             margin: 0;
             padding: 20px;
         }
-        header {
-            text-align: center;
-            padding: 20px;
-        }
-        h1 {
-            color: purple;
-        }
-        .search-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .search-bar {
+
+        .navbar {
+            background-color: #000; /* Black background */
             padding: 10px;
-            width: 300px;
-            border: 2px solid purple;
-            border-radius: 5px;
-            background-color: #222;
-            color: white;
-        }
-        .app-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
+            justify-content: space-around;
+            margin-bottom: 20px;
         }
-        .app-card {
-            background-color: #222;
-            border: 2px solid purple;
-            border-radius: 10px;
-            padding: 15px;
-            width: 250px;
-            text-align: center;
-            transition: transform 0.2s;
-        }
-        .app-card:hover {
-            transform: scale(1.05);
-        }
-        .app-title {
-            font-size: 1.2em;
-            margin: 10px 0;
-        }
-        .app-description {
-            font-size: 0.9em;
-            margin: 10px 0;
-        }
-        .app-button {
-            background-color: purple;
+
+        .navbar a {
             color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 15px;
-            cursor: pointer;
+            text-decoration: none;
+            padding: 10px 20px;
             transition: background-color 0.3s;
         }
-        .app-button:hover {
-            background-color: #a500d8;
+
+        .navbar a:hover {
+            background-color: #444; /* Darker gray on hover */
         }
-        .slideshow {
-            position: relative;
-            margin: 20px auto;
+
+        .container {
             max-width: 600px;
-            border: 2px solid purple;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .slides {
-            display: none;
-            width: 100%;
-        }
-        .about {
-            margin: 40px 0;
-            text-align: center;
-        }
-        footer {
-            text-align: center;
-            margin-top: 40px;
+            margin: auto;
+            background: #f4f4f4; /* Light gray container */
             padding: 20px;
-            border-top: 1px solid purple;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
-        .open-button {
-            margin-top: 10px;
-            background-color: purple;
+
+        h1 {
+            text-align: center;
+            color: #9b59b6; /* Purple color for title */
+            margin-bottom: 20px;
+        }
+
+        .top-bar {
+            background-color: #000000; /* Black bar */
+            padding: 10px;
             color: white;
-            border: none;
             border-radius: 5px;
-            padding: 10px 15px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
-        .open-button:hover {
-            background-color: #a500d8;
+
+        .top-bar div {
+            flex: 1;
+            text-align: center;
+        }
+
+        .top-bar button {
+            background-color: #000000; /* Black for navigation button */
+            border: none;
+            color: rgb(250, 243, 243);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px; /* Space between buttons */
+        }
+
+        .top-bar button:hover {
+            background-color: #8e44ad; /* Darker purple on hover */
+        }
+
+        .balance {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #9b59b6; /* Purple color for balance */
+        }
+
+        .form, .asset-form, .income-form {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 45%;
+            padding: 10px;
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #fff; /* White input background */
+            color: #333; /* Dark text color */
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #9b59b6; /* Purple color for buttons */
+            color: white;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-left: 10px; /* Space between buttons */
+        }
+
+        button:hover {
+            background-color: #8e44ad; /* Darker purple on hover */
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ccc; /* Light border for table */
+        }
+
+        th {
+            background-color: #9b59b6; /* Purple header */
+            color: white;
+        }
+
+        .income {
+            color: #9b59b6; /* Purple color for income */
+        }
+
+        .expense {
+            color: #e74c3c; /* Red color for expenses */
+        }
+
+        .asset {
+            color: #3498db; /* Blue color for assets */
+        }
+
+        .delete-btn {
+            color: #e74c3c; /* Red color for delete */
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        #myChart {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>App My Buziness</h1>
-        <p>Discover and purchase amazing web applications</p>
-    </header>
-
-    <div class="search-container">
-        <input type="text" class="search-bar" placeholder="Search for apps...">
+    <div class="navbar">
+        <a href="shares.html">Shares</a>
+        <a href="index.html">My Account</a>
+        <a href="chat.html">Chat</a>
     </div>
-
-    <div class="slideshow">
-        <div class="slides">
-            <img src="app1.jpg" alt="App One" style="width:100%">
-            <button class="open-button" onclick="window.location.href='https://example.com/app1'">Open App One</button>
+    
+    <div class="container">
+        <h1>Budget Tracker</h1>
+        <div class="top-bar">
+            <div>General Balance: <span id="generalBalance">$0.00</span></div>
+            <div>Asset Balance: <span id="assetBalance">$0.00</span></div>
+            <div>Shares Value: <span id="sharesValue">$0.00</span></div>
+            <div>Rate of Growth: <span id="rateGrowth">0%</span></div>
+            <div>Rate of Shares Growth: <span id="rateSharesGrowth">0%</span></div>
         </div>
-        <div class="slides">
-            <img src="app2.jpg" alt="App Two" style="width:100%">
-            <button class="open-button" onclick="window.location.href='https://example.com/app2'">Open App Two</button>
+        <div class="balance">
+            <h2>Balance: <span id="balanceAmount">$0.00</span></h2>
         </div>
-        <div class="slides">
-            <img src="app3.jpg" alt="App Three" style="width:100%">
-            <button class="open-button" onclick="window.location.href='https://example.com/app3'">Open App Three</button>
+        <canvas id="myChart" width="400" height="200"></canvas>
+        <div class="income-form">
+            <input type="text" id="incomeSource" placeholder="Income Source" required>
+            <input type="number" id="fixedIncomeAmount" placeholder="Amount per Month" required>
+            <button id="addFixedIncomeBtn">Add Fixed Income</button>
         </div>
+        <div class="form">
+            <input type="text" id="description" placeholder="Transaction Description" required>
+            <input type="number" id="amount" placeholder="Amount" required>
+            <button id="addExpenseBtn">Add Expense</button>
+        </div>
+        <div class="asset-form">
+            <input type="text" id="assetDescription" placeholder="Asset Name" required>
+            <input type="number" id="assetValue" placeholder="Asset Worth" required>
+            <button id="addAssetBtn">Add Asset</button>
+        </div>
+        <h3>Transactions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="transactionList"></tbody>
+        </table>
+        <h3>Assets</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Asset Name</th>
+                    <th>Worth</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="assetList"></tbody>
+        </table>
     </div>
-
-    <div class="app-container">
-        <div class="app-card">
-            <img src="WhatsApp Image 2025-05-03 at 17.49.15.jpeg" alt="App Two" style="width:100%">
-            <div class="app-title">let's talk with Tari</div>
-            <div class="app-description">A brief description of App One.</div>
-            <button class="app-button"><a style="color:white;" href="https://appmybuziness.github.io/tarii/#hero">open</a></button>
-        </div>
-        <div class="app-card">
-            <img src="app2.jpg" alt="App Two" style="width:100%">
-            <div class="app-title">App Two</div>
-            <div class="app-description">A brief description of App Two.</div>
-            <button class="app-button">Buy Now</button>
-        </div>
-        <div class="app-card">
-            <img src="app2.jpg" alt="App Two" style="width:100%">
-            <div class="app-title">App Three</div>
-            <div class="app-description">A brief description of App Three.</div>
-            <button class="app-button">Buy Now</button>
-        </div>
-    </div>
-
-    <div class="about">
-        <h2>About Us</h2>
-        <p>We provide top-notch web applications tailored for your needs. Our goal is to enhance your online experience with innovative solutions.</p>
-    </div>
-
-    <footer>
-        <p>Contact Us: info@example.com | Phone: (123) 456-7890</p>
-    </footer>
 
     <script>
-        let slideIndex = 0;
-        const slides = document.getElementsByClassName("slides");
-        function showSlides() {
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";  
+        let balance = 0;
+        let assetBalance = 0;
+        let sharesValue = 0;
+        let totalFixedIncome = 0;
+
+        // Initialize Chart.js
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Assets', 'Income', 'Shares'],
+                datasets: [{
+                    label: 'Amount ($)',
+                    data: [0, 0, 0],
+                    backgroundColor: [
+                        'rgba(52, 152, 219, 0.6)', // Blue for assets
+                        'rgba(155, 89, 182, 0.6)', // Purple for income
+                        'rgba(241, 196, 15, 0.6)' // Yellow for shares
+                    ],
+                    borderColor: [
+                        'rgba(52, 152, 219, 1)',
+                        'rgba(155, 89, 182, 1)',
+                        'rgba(241, 196, 15, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}    
-            slides[slideIndex - 1].style.display = "block";  
-            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        });
+
+        document.getElementById('addFixedIncomeBtn').addEventListener('click', function() {
+            const incomeSource = document.getElementById('incomeSource').value;
+            const fixedIncomeAmount = parseFloat(document.getElementById('fixedIncomeAmount').value);
+            
+            if (incomeSource && !isNaN(fixedIncomeAmount) && fixedIncomeAmount > 0) {
+                totalFixedIncome += fixedIncomeAmount;
+                addTransaction(`Fixed Income from ${incomeSource}`, fixedIncomeAmount, 'income');
+                updateBalances();
+            } else {
+                alert('Please enter valid income source and amount.');
+            }
+
+            clearIncomeInputs();
+        });
+
+        document.getElementById('addExpenseBtn').addEventListener('click', function() {
+            const description = document.getElementById('description').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            
+            if (description && !isNaN(amount) && amount > 0) {
+                balance -= amount;
+                addTransaction(description, amount, 'expense');
+                updateBalances();
+            } else {
+                alert('Please enter valid description and amount.');
+            }
+
+            clearInputs();
+        });
+
+        document.getElementById('addAssetBtn').addEventListener('click', function() {
+            const assetDescription = document.getElementById('assetDescription').value;
+            const assetValue = parseFloat(document.getElementById('assetValue').value);
+            
+            if (assetDescription && !isNaN(assetValue) && assetValue > 0) {
+                const incomeResponse = confirm(`Does the asset "${assetDescription}" generate income?`);
+                if (incomeResponse) {
+                    const incomeAmount = parseFloat(prompt(`How much income does "${assetDescription}" generate per month?`));
+                    const goesToIncome = confirm(`Does this income go to income or remain in assets? Press "OK" for income, "Cancel" for assets.`);
+                    if (!isNaN(incomeAmount) && incomeAmount > 0) {
+                        if (goesToIncome) {
+                            totalFixedIncome += incomeAmount; // Add to income
+                        } else {
+                            assetBalance += incomeAmount; // Add to assets
+                        }
+                    }
+                }
+                assetBalance += assetValue; // Add asset value
+                addAsset(assetDescription, assetValue);
+                updateBalances();
+            } else {
+                alert('Please enter valid asset name and value.');
+            }
+
+            clearAssetInputs();
+        });
+
+        function addTransaction(description, amount, type) {
+            const transactionList = document.getElementById('transactionList');
+            const tr = document.createElement('tr');
+            const tdDescription = document.createElement('td');
+            const tdAmount = document.createElement('td');
+            const tdDate = document.createElement('td');
+            const tdAction = document.createElement('td');
+            const deleteBtn = document.createElement('span');
+
+            const dateAdded = new Date().toLocaleDateString();
+            tdDescription.textContent = description;
+            tdAmount.textContent = `$${amount.toFixed(2)}`;
+            tdDate.textContent = dateAdded;
+            deleteBtn.textContent = '❌'; // Delete symbol
+            deleteBtn.classList.add('delete-btn');
+            deleteBtn.onclick = function() {
+                transactionList.removeChild(tr);
+                updateBalances(); // Update balances after deletion
+            };
+
+            tr.classList.add(type);
+            tr.appendChild(tdDescription);
+            tr.appendChild(tdAmount);
+            tr.appendChild(tdDate);
+            tdAction.appendChild(deleteBtn);
+            tr.appendChild(tdAction);
+            transactionList.appendChild(tr);
         }
-        showSlides();
+
+        function addAsset(description, value) {
+            const assetList = document.getElementById('assetList');
+            const tr = document.createElement('tr');
+            const tdDescription = document.createElement('td');
+            const tdValue = document.createElement('td');
+            const tdDate = document.createElement('td');
+            const tdAction = document.createElement('td');
+            const deleteBtn = document.createElement('span');
+
+            const dateAdded = new Date().toLocaleDateString();
+            tdDescription.textContent = description;
+            tdValue.textContent = `$${value.toFixed(2)}`;
+            tdDate.textContent = dateAdded;
+            deleteBtn.textContent = '❌'; // Delete symbol
+            deleteBtn.classList.add('delete-btn');
+            deleteBtn.onclick = function() {
+                assetList.removeChild(tr);
+                updateBalances(); // Update balances after deletion
+            };
+
+            tr.classList.add('asset');
+            tr.appendChild(tdDescription);
+            tr.appendChild(tdValue);
+            tr.appendChild(tdDate);
+            tdAction.appendChild(deleteBtn);
+            tr.appendChild(tdAction);
+            assetList.appendChild(tr);
+        }
+
+        function updateBalances() {
+            balance += totalFixedIncome; // Update balance with fixed income
+            document.getElementById('balanceAmount').textContent = `$${balance.toFixed(2)}`;
+            document.getElementById('generalBalance').textContent = `$${balance.toFixed(2)}`;
+            document.getElementById('assetBalance').textContent = `$${assetBalance.toFixed(2)}`;
+            document.getElementById('sharesValue').textContent = `$${sharesValue.toFixed(2)}`;
+            document.getElementById('rateGrowth').textContent = `${((balance / (balance + 1)) * 100).toFixed(2)}%`;
+            document.getElementById('rateSharesGrowth').textContent = `${((sharesValue / (sharesValue + 1)) * 100).toFixed(2)}%`;
+
+            // Update chart data
+            myChart.data.datasets[0].data[0] = assetBalance;
+            myChart.data.datasets[0].data[1] = Math.abs(balance); // Show expenses as positive
+            myChart.data.datasets[0].data[2] = sharesValue; // Add shares to the chart
+            myChart.update();
+        }
+
+        function clearInputs() {
+            document.getElementById('description').value = '';
+            document.getElementById('amount').value = '';
+        }
+
+        function clearAssetInputs() {
+            document.getElementById('assetDescription').value = '';
+            document.getElementById('assetValue').value = '';
+        }
+
+        function clearIncomeInputs() {
+            document.getElementById('incomeSource').value = '';
+            document.getElementById('fixedIncomeAmount').value = '';
+        }
     </script>
 </body>
 </html>
