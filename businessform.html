@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff; /* White background */
+            color: #000; /* Black text color */
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #f4f4f4; /* Light gray container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(128, 0, 128, 0.7); /* Purple glow */
+        }
+
+        h1 {
+            text-align: center;
+            color: #800080; /* Dark purple color for title */
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-bottom: 5px; /* Space between label and input */
+            color: #000; /* Black text for labels */
+        }
+
+        input[type="text"], input[type="email"], input[type="file"] {
+            padding: 10px;
+            border: 1px solid #800080; /* Dark purple border */
+            border-radius: 4px; /* Slightly curved edges */
+            font-size: 16px;
+            margin-bottom: 10px;
+            background-color: #fff; /* White input background */
+            color: #000; /* Black text color */
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px; /* Slightly curved edges */
+            cursor: pointer;
+            background-color: #800080; /* Dark purple for buttons */
+            color: white;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #6a006a; /* Darker purple on hover */
+        }
+
+        .required {
+            color: #ff0000; /* Red text for required fields */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Business Registration Form</h1>
+        <div class="form">
+            <label for="name">Name <span class="required">*</span></label>
+            <input type="text" id="name" required>
+            
+            <label for="middleNames">Middle Names <span class="required">*</span></label>
+            <input type="text" id="middleNames" required>
+            
+            <label for="surname">Surname <span class="required">*</span></label>
+            <input type="text" id="surname" required>
+            
+            <label for="country">Country <span class="required">*</span></label>
+            <input type="text" id="country" required>
+            
+            <label for="idPhoto">ID Photo <span class="required">*</span></label>
+            <input type="file" id="idPhoto" required>
+            
+            <label for="passportPhoto">Passport Photo <span class="required">*</span></label>
+            <input type="file" id="passportPhoto" required>
+            
+            <label for="email">Email <span class="required">*</span></label>
+            <input type="email" id="email" required>
+            
+            <label for="policeCheck">Police Check <span class="required">*</span></label>
+            <input type="file" id="policeCheck" required>
+            
+            <label for="businessDescription">Business Description <span class="required">*</span></label>
+            <input type="text" id="businessDescription" required>
+            
+            <label for="businessRegistration">Business Registration <span class="required">*</span></label>
+            <input type="text" id="businessRegistration" required>
+            
+            <label for="businessName">Business/Company Name <span class="required">*</span></label>
+            <input type="text" id="businessName" required>
+            
+            <button id="submitBusinessBtn">Submit Business</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('submitBusinessBtn').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const middleNames = document.getElementById('middleNames').value;
+            const surname = document.getElementById('surname').value;
+            const country = document.getElementById('country').value;
+            const email = document.getElementById('email').value;
+            const businessDescription = document.getElementById('businessDescription').value;
+            const businessRegistration = document.getElementById('businessRegistration').value;
+            const businessName = document.getElementById('businessName').value;
+
+            if (name && middleNames && surname && country && email && businessDescription && businessRegistration && businessName) {
+                alert('Business submitted successfully!');
+                // Add functionality to handle file uploads and save the data
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+    </script>
+</body>
+</html>
