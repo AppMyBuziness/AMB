@@ -10,6 +10,23 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+        .navbar {
+            background-color: #000; /* Black background */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between; /* Space between links */
+            align-items: center; /* Center align items */
+            margin-bottom: 20px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #444; /* Darker gray on hover */
+        }
         .graph-container {
             margin-bottom: 30px;
         }
@@ -21,9 +38,22 @@
         h1, h2 {
             color: #9b59b6; /* Purple color for titles */
         }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body> 
+
+    <div class="navbar">
+        <div>
+            <a href="share.html">Shares</a>
+            <a href="index.html">My Account</a>
+            <a href="chat.html">Chat</a>
+             <a href="smallgraphs.html">SB shares</a>
+        </div>
+    </div>
 
     <h1>Small Business Growth Dashboard</h1>
     <p>An overview of growth rates for selected small businesses. See descriptions below each chart.</p>
