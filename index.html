@@ -18,7 +18,8 @@
             background-color: #000; /* Black background */
             padding: 10px;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between; /* Space between links and button */
+            align-items: center; /* Center align items */
             margin-bottom: 20px;
         }
 
@@ -31,6 +32,39 @@
 
         .navbar a:hover {
             background-color: #444; /* Darker gray on hover */
+        }
+
+        .dropdown {
+            display: none; /* Hidden by default */
+            position: absolute; /* Position relative to navbar */
+            background-color: #444; /* Dropdown background */
+            min-width: 160px; /* Minimum width of dropdown */
+            z-index: 1; /* Ensure dropdown appears on top */
+        }
+
+        .dropdown a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: block; /* Make links block-level */
+        }
+
+        .dropdown a:hover {
+            background-color: #555; /* Darker gray on hover */
+        }
+
+        .plus-button {
+            background-color: #9b59b6; /* Purple color */
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .plus-button:hover {
+            background-color: #8e44ad; /* Darker purple on hover */
         }
 
         .container {
@@ -160,9 +194,17 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="share.html">Shares</a>
-        <a href="index.html">My Account</a>
-        <a href="chat.html">Chat</a>
+        <div>
+            <a href="share.html">Shares</a>
+            <a href="index.html">My Account</a>
+            <a href="chat.html">Chat</a>
+             <a href="smallgraphs.html">SB shares</a>
+        </div>
+        <button class="plus-button" id="toggleDropdown">+</button>
+        <div class="dropdown" id="dropdownMenu">
+            <a href="businessform">List Business</a>
+            <a href="SBform">List Small Business</a>
+        </div>
     </div>
     
     <div class="container">
@@ -401,6 +443,12 @@
             document.getElementById('incomeSource').value = '';
             document.getElementById('fixedIncomeAmount').value = '';
         }
+
+        // Toggle dropdown menu
+        document.getElementById('toggleDropdown').addEventListener('click', function() {
+            const dropdown = document.getElementById('dropdownMenu');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
     </script>
 </body>
 </html>
