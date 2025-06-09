@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            margin: 0;
+            padding: 20px;
+        }
+
+        .navbar {
+            background-color: #000;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #444;
+            border-radius: 5px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #000; /* Black container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5); /* Purple glow */
+        }
+
+        h1 {
+            text-align: center;
+            color: #9b59b6; /* Purple title */
+            margin-bottom: 20px;
+        }
+
+        .balance {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #9b59b6;
+        }
+
+        .game-item {
+            background-color: #333;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .game-item:hover {
+            background-color: #444;
+        }
+
+        .game-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .game-description {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .game-price {
+            font-size: 16px;
+            color: #e74c3c; /* Red color for price */
+        }
+
+        /* Glowing borders for each game */
+        .game-zelda {
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); /* Green glow */
+        }
+
+        .game-mario {
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* Yellow glow */
+        }
+
+        .game-reddead {
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); /* Red glow */
+        }
+
+        .game-witcher {
+            box-shadow: 0 0 15px rgba(0, 0, 255, 0.7); /* Blue glow */
+        }
+
+        .game-darksouls {
+            box-shadow: 0 0 15px rgba(255, 165, 0, 0.7); /* Orange glow */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="share.html"><i class="fas fa-chart-line"></i></a>
+        <a href="index.html"><i class="fas fa-user"></i></a>
+        <a href="chat.html"><i class="fas fa-comments"></i></a>
+        <a href="smallgraphs.html"><i class="fas fa-business-time"></i></a>
+        <a href="games.html"><i class="fas fa-gamepad"></i></a>
+    </div>
+
+    <div class="container">
+        <h1>Games</h1>
+        <div class="balance">
+            <h2>Balance: <span id="balanceAmount">$100.00</span> | Hours Played: <span id="hoursCount">50</span></h2>
+        </div>
+        <a href="bingo.html" style="color: white;"><div class="game-item game-zelda">
+            <div class="game-title">bingo</div>
+            <div class="game-description">An open-world action-adventure game set in a vast world.</div>
+            <div class="game-price">$2</div>
+        </div></a>
+
+        <a href="door.html" style="color: white;"> <div class="game-item game-mario">
+            <div class="game-title">the door game</div>
+            <div class="game-description">A platform game featuring Mario on a globe-trotting adventure.</div>
+            <div class="game-price">$3</div>
+        </div></a>
+        <div class="game-item game-reddead">
+            <div class="game-title">the 5 guess game</div>
+            <div class="game-description">An epic tale of life in America’s unforgiving heartland.</div>
+            <div class="game-price">$3</div>
+        </div>
+
+        <a href="guessing.html" style="color: white;"> <div class="game-item game-witcher">
+            <div class="game-title">The Witcher 3: Wild Hunt</div>
+            <div class="game-description">A story-driven RPG where you play as Geralt of Rivia.</div>
+            <div class="game-price">$39.99</div>
+        </div></a>
+        <div class="game-item game-darksouls">
+            <div class="game-title">Dark Souls III</div>
+            <div class="game-description">An action role-playing game known for its challenging gameplay.</div>
+            <div class="game-price">$39.99</div>
+        </div>
+    </div>
+</body>
+</html>
+
