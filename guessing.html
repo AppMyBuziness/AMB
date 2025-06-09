@@ -50,11 +50,10 @@
             font-size: 18px;
             color: #32cd32; /* Green message text */
         }
-        .result {
-            margin-top: 20px;
+        .countdown {
             font-size: 20px;
-            font-weight: bold;
-            color: #ff4500; /* Orange result text */
+            margin-top: 20px;
+            color: #ffff00; /* Yellow countdown text */
         }
     </style>
 </head>
@@ -66,39 +65,77 @@
         <input type="number" id="guessInput" min="1" max="100">
         <button id="guessButton">Guess</button>
         <div class="message" id="message"></div>
-        <div class="result" id="result"></div>
+        <div class="countdown" id="countdown"></div>
+        <iframe src="https://giphy.com/embed/yFOPcG6r3YBVfrtdee" width="80" height="80" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/transparent-yFOPcG6r3YBVfrtdee"></a></p>
     </div>
 
     <script>
         let randomNumber = Math.floor(Math.random() * 100) + 1;
         let guessesRemaining = 5;
+        let userGuess = null;
+        let countdownInterval;
+        let hasGuessedCorrectly = false;
+
+        function startCountdown(duration) {
+            let countdown = duration;
+            const countdownDisplay = document.getElementById('countdown');
+            countdownDisplay.style.display = 'block';
+
+            countdownInterval = setInterval(() => {
+                const hours = Math.floor(countdown / 3600);
+                const minutes = Math.floor((countdown % 3600) / 60);
+                const seconds = countdown % 60;
+                countdownDisplay.innerText = `${hours}h ${minutes}m ${seconds}s`;
+                countdown--;
+
+                if (countdown < 0) {
+                    clearInterval(countdownInterval);
+                    revealNumber();
+                }
+            }, 1000);
+        }
+
+        function revealNumber() {
+            const messageElement = document.getElementById('message');
+            if (hasGuessedCorrectly) {
+                messageElement.textContent = `Congratulations! You've guessed the number ${randomNumber} before time ran out!`;
+            } else {
+                messageElement.textContent = `The number was ${randomNumber}.`;
+            }
+            document.getElementById('guessButton').disabled = true; // Disable the guess button
+        }
 
         document.getElementById('guessButton').addEventListener('click', function() {
-            const userGuess = Number(document.getElementById('guessInput').value);
+            userGuess = Number(document.getElementById('guessInput').value);
             const messageElement = document.getElementById('message');
-            const resultElement = document.getElementById('result');
 
             if (guessesRemaining > 0) {
+                if (userGuess < 1 || userGuess > 100) {
+                    messageElement.textContent = "Please guess a number between 1 and 100.";
+                    return;
+                }
+
                 guessesRemaining--;
 
                 if (userGuess === randomNumber) {
-                    messageElement.textContent = "Congratulations! You've guessed the number!";
-                    resultElement.textContent = '';
-                } else if (userGuess < randomNumber) {
-                    messageElement.textContent = "Higher! You have " + guessesRemaining + " guesses left.";
+                    hasGuessedCorrectly = true; // Mark as guessed correctly
                 } else {
-                    messageElement.textContent = "Lower! You have " + guessesRemaining + " guesses left.";
+                    messageElement.textContent = userGuess < randomNumber 
+                        ? `Higher! You have ${guessesRemaining} guesses left.` 
+                        : `Lower! You have ${guessesRemaining} guesses left.`;
                 }
-            }
 
-            if (guessesRemaining === 0 && userGuess !== randomNumber) {
-                messageElement.textContent = "Game over! The number was " + randomNumber + ".";
-                resultElement.textContent = '';
+                if (guessesRemaining === 0 && !hasGuessedCorrectly) {
+                    messageElement.textContent = "Out of guesses!";
+                }
             }
 
             // Clear the input field
             document.getElementById('guessInput').value = '';
         });
+
+        // Start the game and countdown
+        startCountdown(2 * 60 * 60); // 2 hours in seconds
     </script>
 </body>
 </html>
