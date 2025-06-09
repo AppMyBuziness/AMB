@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #fff; /* White background */
-            color: #000; /* Black text color */
+            background-color: #fff;
+            color: #000;
             margin: 0;
             padding: 20px;
         }
@@ -16,15 +16,15 @@
         .container {
             max-width: 600px;
             margin: auto;
-            background: #f4f4f4; /* Light gray container */
+            background: #f4f4f4;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(128, 0, 128, 0.7); /* Purple glow */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(128, 0, 128, 0.7);
         }
 
         h1 {
             text-align: center;
-            color: #800080; /* Dark purple color for title */
+            color: #800080;
         }
 
         .form {
@@ -34,37 +34,37 @@
         }
 
         label {
-            margin-bottom: 5px; /* Space between label and input */
-            color: #000; /* Black text for labels */
+            margin-bottom: 5px;
+            color: #000;
         }
 
-        input[type="text"], input[type="email"], input[type="file"] {
+        input[type="text"], input[type="email"], input[type="file"], input[type="month"], input[type="tel"] {
             padding: 10px;
-            border: 1px solid #800080; /* Dark purple border */
-            border-radius: 4px; /* Slightly curved edges */
+            border: 1px solid #800080;
+            border-radius: 4px;
             font-size: 16px;
             margin-bottom: 10px;
-            background-color: #fff; /* White input background */
-            color: #000; /* Black text color */
+            background-color: #fff;
+            color: #000;
         }
 
         button {
             padding: 10px;
             border: none;
-            border-radius: 4px; /* Slightly curved edges */
+            border-radius: 4px;
             cursor: pointer;
-            background-color: #800080; /* Dark purple for buttons */
+            background-color: #800080;
             color: white;
             font-size: 16px;
             transition: background-color 0.3s;
         }
 
         button:hover {
-            background-color: #6a006a; /* Darker purple on hover */
+            background-color: #6a006a;
         }
 
         .required {
-            color: #ff0000; /* Red text for required fields */
+            color: #ff0000;
         }
     </style>
 </head>
@@ -72,14 +72,32 @@
     <div class="container">
         <h1>Business Registration Form</h1>
         <div class="form">
-            <label for="name">Name <span class="required">*</span></label>
-            <input type="text" id="name" required>
+            <label for="firstName">First Name <span class="required">*</span></label>
+            <input type="text" id="firstName" required>
             
-            <label for="middleNames">Middle Names <span class="required">*</span></label>
-            <input type="text" id="middleNames" required>
+            <label for="middleName">Middle Name <span class="required">*</span></label>
+            <input type="text" id="middleName" required>
             
-            <label for="surname">Surname <span class="required">*</span></label>
-            <input type="text" id="surname" required>
+            <label for="lastName">Last Name <span class="required">*</span></label>
+            <input type="text" id="lastName" required>
+            
+            <label for="businessName">Business/Company Name <span class="required">*</span></label>
+            <input type="text" id="businessName" required>
+            
+            <label for="businessInstagram">Business Instagram</label>
+            <input type="text" id="businessInstagram">
+            
+            <label for="businessFacebook">Business Facebook</label>
+            <input type="text" id="businessFacebook">
+            
+            <label for="businessTikTok">Business TikTok</label>
+            <input type="text" id="businessTikTok">
+            
+            <label for="businessEmail">Business Email <span class="required">*</span></label>
+            <input type="email" id="businessEmail" required>
+            
+            <label for="businessContact">Business Contact <span class="required">*</span></label>
+            <input type="tel" id="businessContact" required>
             
             <label for="country">Country <span class="required">*</span></label>
             <input type="text" id="country" required>
@@ -90,20 +108,11 @@
             <label for="passportPhoto">Passport Photo <span class="required">*</span></label>
             <input type="file" id="passportPhoto" required>
             
-            <label for="email">Email <span class="required">*</span></label>
-            <input type="email" id="email" required>
-            
-            <label for="policeCheck">Police Check <span class="required">*</span></label>
-            <input type="file" id="policeCheck" required>
+            <label for="startDate">Start Date of Business <span class="required">*</span></label>
+            <input type="month" id="startDate" required>
             
             <label for="businessDescription">Business Description <span class="required">*</span></label>
             <input type="text" id="businessDescription" required>
-            
-            <label for="businessRegistration">Business Registration <span class="required">*</span></label>
-            <input type="text" id="businessRegistration" required>
-            
-            <label for="businessName">Business/Company Name <span class="required">*</span></label>
-            <input type="text" id="businessName" required>
             
             <button id="submitBusinessBtn">Submit Business</button>
         </div>
@@ -111,20 +120,20 @@
 
     <script>
         document.getElementById('submitBusinessBtn').addEventListener('click', function() {
-            const name = document.getElementById('name').value;
-            const middleNames = document.getElementById('middleNames').value;
-            const surname = document.getElementById('surname').value;
-            const country = document.getElementById('country').value;
-            const email = document.getElementById('email').value;
-            const businessDescription = document.getElementById('businessDescription').value;
-            const businessRegistration = document.getElementById('businessRegistration').value;
+            const firstName = document.getElementById('firstName').value;
+            const middleName = document.getElementById('middleName').value;
+            const lastName = document.getElementById('lastName').value;
             const businessName = document.getElementById('businessName').value;
+            const businessEmail = document.getElementById('businessEmail').value;
+            const businessContact = document.getElementById('businessContact').value;
+            const country = document.getElementById('country').value;
+            const businessDescription = document.getElementById('businessDescription').value;
 
-            if (name && middleNames && surname && country && email && businessDescription && businessRegistration && businessName) {
+            if (firstName && middleName && lastName && businessName && businessEmail && businessContact && country && businessDescription) {
                 alert('Business submitted successfully!');
                 // Add functionality to handle file uploads and save the data
             } else {
-                alert('Please fill in all fields.');
+                alert('Please fill in all required fields.');
             }
         });
     </script>
