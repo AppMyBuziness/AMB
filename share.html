@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Registration Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Business Shares Graph</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,10 +15,28 @@
             padding: 20px;
         }
 
+        .navbar {
+            background-color: #000;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #444;
+        }
+
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
-            background: #f4f4f4;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -24,131 +44,121 @@
 
         h1 {
             text-align: center;
-            color: #800080;
         }
 
-        .form {
-            display: flex;
-            flex-direction: column;
+        canvas {
+            margin-top: 20px;
         }
 
-        label {
-            margin-bottom: 5px;
-            color: #000;
+        .business-info {
+            margin-top: 20px;
         }
 
-        input[type="text"], input[type="email"], input[type="file"], input[type="month"], input[type="tel"] {
+        .business {
+            border: 1px solid #ccc;
             padding: 10px;
-            border: 1px solid #800080;
-            border-radius: 4px;
-            font-size: 16px;
             margin-bottom: 10px;
-            background-color: #fff;
-            color: #000;
-        }
-
-        button {
-            padding: 10px;
-            border: none;
             border-radius: 4px;
-            cursor: pointer;
-            background-color: #800080;
-            color: white;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #6a006a;
-        }
-
-        .required {
-            color: #ff0000;
         }
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <a href="businessform.html"><i class="fas fa-chart-line"></i> Register Business</a>
+        <a href="index.html"><i class="fas fa-user"></i> Profile</a>
+        <a href="chat.html"><i class="fas fa-comments"></i> Chat</a>
+        <a href="games.html"><i class="fas fa-gamepad"></i> Games</a>
+    </div>
+    
     <div class="container">
-        <h1>Business Registration Form</h1>
-        <div class="form">
-            <label for="firstName">First Name <span class="required">*</span></label>
-            <input type="text" id="firstName" required>
-            
-            <label for="middleName">Middle Name <span class="required">*</span></label>
-            <input type="text" id="middleName" required>
-            
-            <label for="lastName">Last Name <span class="required">*</span></label>
-            <input type="text" id="lastName" required>
-            
-            <label for="businessName">Business/Company Name <span class="required">*</span></label>
-            <input type="text" id="businessName" required>
-            
-            <label for="businessInstagram">Business Instagram</label>
-            <input type="text" id="businessInstagram">
-            
-            <label for="businessFacebook">Business Facebook</label>
-            <input type="text" id="businessFacebook">
-            
-            <label for="businessTikTok">Business TikTok</label>
-            <input type="text" id="businessTikTok">
-            
-            <label for="businessEmail">Business Email <span class="required">*</span></label>
-            <input type="email" id="businessEmail" required>
-            
-            <label for="businessContact">Business Contact <span class="required">*</span></label>
-            <input type="tel" id="businessContact" required>
-            
-            <label for="country">Country <span class="required">*</span></label>
-            <input type="text" id="country" required>
-            
-            <label for="startDate">Start Date of Business <span class="required">*</span></label>
-            <input type="month" id="startDate" required>
-            
-            <label for="businessDescription">Business Description <span class="required">*</span></label>
-            <input type="text" id="businessDescription" required>
-            
-            <button id="submitBusinessBtn">Submit Business</button>
-        </div>
+        <h1>Business Shares Graph</h1>
+        <div id="graphsContainer"></div>
+        <div class="business-info" id="businessInfoContainer"></div>
     </div>
 
     <script>
-        document.getElementById('submitBusinessBtn').addEventListener('click', function() {
-            const firstName = document.getElementById('firstName').value;
-            const middleName = document.getElementById('middleName').value;
-            const lastName = document.getElementById('lastName').value;
-            const businessName = document.getElementById('businessName').value;
-            const businessEmail = document.getElementById('businessEmail').value;
-            const businessContact = document.getElementById('businessContact').value;
-            const country = document.getElementById('country').value;
-            const startDate = document.getElementById('startDate').value;
-            const businessDescription = document.getElementById('businessDescription').value;
+        // Retrieve business data from local storage
+        const businesses = JSON.parse(localStorage.getItem('businesses')) || [];
 
-            if (firstName && middleName && lastName && businessName && businessEmail && businessContact && country && businessDescription) {
-                const businessInfo = {
-                    name: businessName,
-                    description: businessDescription,
-                    email: businessEmail,
-                    contact: businessContact,
-                    country: country,
-                    startDate: startDate,
-                    instagram: document.getElementById('businessInstagram').value,
-                    facebook: document.getElementById('businessFacebook').value,
-                    tiktok: document.getElementById('businessTikTok').value,
-                    shares: Math.floor(Math.random() * 500) + 100, // Random shares for demo
-                    growth: Math.floor(Math.random() * 30) + 5 // Random growth percentage for demo
-                };
+        const limit = 5; // Max businesses per graph
+        const graphsContainer = document.getElementById('graphsContainer');
+        const businessInfoContainer = document.getElementById('businessInfoContainer');
 
-                // Retrieve existing businesses or create a new array
-                const existingBusinesses = JSON.parse(localStorage.getItem('businesses')) || [];
-                existingBusinesses.push(businessInfo);
-                localStorage.setItem('businesses', JSON.stringify(existingBusinesses));
-                
-                alert('Business submitted successfully!');
-                window.location.href = 'share.html'; // Navigate to the graph page
-            } else {
-                alert('Please fill in all required fields.');
-            }
-        });
+        // Function to create graphs
+        function createGraph(data, index) {
+            const canvas = document.createElement('canvas');
+            canvas.id = `myChart${index}`;
+            graphsContainer.appendChild(canvas);
+
+            const chart = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: data.map(b => b.name),
+                    datasets: [{
+                        label: 'Shares',
+                        data: data.map(b => b.shares),
+                        backgroundColor: 'rgba(128, 0, 128, 0.6)',
+                        borderColor: 'rgba(128, 0, 128, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const percentage = data[context.dataIndex].growth;
+                                    return [`Shares: ${context.raw}`, `Growth: ${percentage}%`];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            data.forEach((business, i) => {
+                const percentage = business.growth;
+                const bar = chart.getDatasetMeta(0).data[i];
+                const ctx = chart.ctx;
+                ctx.fillStyle = '#000';
+                ctx.fillText(`${percentage}%`, bar.x, bar.y - 10);
+            });
+        }
+
+        // Function to display business info
+        function displayBusinessInfo() {
+            businessInfoContainer.innerHTML = '';
+
+            businesses.forEach(business => {
+                const businessDiv = document.createElement('div');
+                businessDiv.className = 'business';
+                businessDiv.innerHTML = `
+                    <strong>${business.name}</strong><br>
+                    Description: ${business.description}<br>
+                    Email: ${business.email}<br>
+                    Country: ${business.country}<br>
+                    Start Date: ${business.startDate}<br>
+                    Instagram: ${business.instagram || 'N/A'}<br>
+                    Facebook: ${business.facebook || 'N/A'}<br>
+                    TikTok: ${business.tiktok || 'N/A'}<br>
+                `;
+                businessInfoContainer.appendChild(businessDiv);
+            });
+        }
+
+        // Create graphs based on the business data
+        for (let i = 0; i < businesses.length; i += limit) {
+            const chunk = businesses.slice(i, i + limit);
+            createGraph(chunk, Math.floor(i / limit));
+        }
+
+        // Initially display business info
+        displayBusinessInfo();
     </script>
 </body>
 </html>
