@@ -207,7 +207,6 @@
         <a href="share.html"><i class="fas fa-chart-line"></i></a>
         <a href="index.html"><i class="fas fa-user"></i></a>
         <a href="chat.html"><i class="fas fa-comments"></i></a>
-       
         <a href="games.html"><i class="fas fa-gamepad"></i></a>
     </div>
     <button class="plus-button" id="toggleDropdown">+</button>
@@ -221,6 +220,7 @@
             <div>General Balance: <span id="generalBalance">$0.00</span></div>
             <div>Asset Balance: <span id="assetBalance">$0.00</span></div>
             <div>Shares Value: <span id="sharesValue">$0.00</span></div>
+            <div>Games Income: <span id="gamesIncomeDisplay">$0.00</span></div>
             <div>Rate of Growth: <span id="rateGrowth">0%</span></div>
             <div>Rate of Shares Growth: <span id="rateSharesGrowth">0%</span></div>
         </div>
@@ -274,24 +274,29 @@
         let assetBalance = 0;
         let sharesValue = 0;
         let totalFixedIncome = 0;
+        let gamesIncome = 0; // Initialize games income
 
         // Initialize Chart.js
         const ctx = document.getElementById('myChart').getContext('2d');
         const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Assets', 'Income', 'Shares'],
+                labels: ['Assets', 'Income', 'Games Income', 'Expenses', 'Shares'],
                 datasets: [{
                     label: 'Amount ($)',
-                    data: [0, 0, 0],
+                    data: [0, 0, 0, 0, 0],
                     backgroundColor: [
                         'rgba(52, 152, 219, 0.6)',
                         'rgba(155, 89, 182, 0.6)',
+                        'rgba(46, 204, 113, 0.6)',
+                        'rgba(231, 76, 60, 0.6)',
                         'rgba(241, 196, 15, 0.6)'
                     ],
                     borderColor: [
                         'rgba(52, 152, 219, 1)',
                         'rgba(155, 89, 182, 1)',
+                        'rgba(46, 204, 113, 1)',
+                        'rgba(231, 76, 60, 1)',
                         'rgba(241, 196, 15, 1)'
                     ],
                     borderWidth: 1
@@ -326,7 +331,7 @@
             const amount = parseFloat(document.getElementById('amount').value);
             
             if (description && !isNaN(amount) && amount > 0) {
-                balance -= amount;
+                balance -= amount; // Subtract expense from balance
                 addTransaction(description, amount, 'expense');
                 updateBalances();
             } else {
@@ -344,16 +349,11 @@
                 const incomeResponse = confirm(`Does the asset "${assetDescription}" generate income?`);
                 if (incomeResponse) {
                     const incomeAmount = parseFloat(prompt(`How much income does "${assetDescription}" generate per month?`));
-                    const goesToIncome = confirm(`Does this income go to income or remain in assets? Press "OK" for income, "Cancel" for assets.`);
                     if (!isNaN(incomeAmount) && incomeAmount > 0) {
-                        if (goesToIncome) {
-                            totalFixedIncome += incomeAmount;
-                        } else {
-                            assetBalance += incomeAmount;
-                        }
+                        totalFixedIncome += incomeAmount; // Add asset income to total fixed income
                     }
                 }
-                assetBalance += assetValue;
+                assetBalance += assetValue; // Add to asset balance
                 addAsset(assetDescription, assetValue);
                 updateBalances();
             } else {
@@ -380,6 +380,9 @@
             deleteBtn.classList.add('delete-btn');
             deleteBtn.onclick = function() {
                 transactionList.removeChild(tr);
+                if (type === 'expense') {
+                    balance += amount; // Add back the expense
+                }
                 updateBalances();
             };
 
@@ -422,17 +425,17 @@
         }
 
         function updateBalances() {
-            balance += totalFixedIncome;
             document.getElementById('balanceAmount').textContent = `$${balance.toFixed(2)}`;
             document.getElementById('generalBalance').textContent = `$${balance.toFixed(2)}`;
             document.getElementById('assetBalance').textContent = `$${assetBalance.toFixed(2)}`;
             document.getElementById('sharesValue').textContent = `$${sharesValue.toFixed(2)}`;
-            document.getElementById('rateGrowth').textContent = `${((balance / (balance + 1)) * 100).toFixed(2)}%`;
-            document.getElementById('rateSharesGrowth').textContent = `${((sharesValue / (sharesValue + 1)) * 100).toFixed(2)}%`;
+            document.getElementById('gamesIncomeDisplay').textContent = `$${gamesIncome.toFixed(2)}`; // Display games income
 
-            myChart.data.datasets[0].data[0] = assetBalance;
-            myChart.data.datasets[0].data[1] = Math.abs(balance);
-            myChart.data.datasets[0].data[2] = sharesValue;
+            myChart.data.datasets[0].data[0] = assetBalance; // Assets
+            myChart.data.datasets[0].data[1] = totalFixedIncome; // Income
+            myChart.data.datasets[0].data[2] = gamesIncome; // Games Income
+            myChart.data.datasets[0].data[3] = -Math.abs(balance); // Expenses (as negative)
+            myChart.data.datasets[0].data[4] = sharesValue; // Shares
             myChart.update();
         }
 
