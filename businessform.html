@@ -19,7 +19,7 @@
             background: #f4f4f4;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(128, 0, 128, 0.7);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         h1 {
@@ -30,7 +30,6 @@
         .form {
             display: flex;
             flex-direction: column;
-            margin-bottom: 20px;
         }
 
         label {
@@ -102,12 +101,6 @@
             <label for="country">Country <span class="required">*</span></label>
             <input type="text" id="country" required>
             
-            <label for="idPhoto">ID Photo <span class="required">*</span></label>
-            <input type="file" id="idPhoto" required>
-            
-            <label for="passportPhoto">Passport Photo <span class="required">*</span></label>
-            <input type="file" id="passportPhoto" required>
-            
             <label for="startDate">Start Date of Business <span class="required">*</span></label>
             <input type="month" id="startDate" required>
             
@@ -127,11 +120,31 @@
             const businessEmail = document.getElementById('businessEmail').value;
             const businessContact = document.getElementById('businessContact').value;
             const country = document.getElementById('country').value;
+            const startDate = document.getElementById('startDate').value;
             const businessDescription = document.getElementById('businessDescription').value;
 
             if (firstName && middleName && lastName && businessName && businessEmail && businessContact && country && businessDescription) {
+                const businessInfo = {
+                    name: businessName,
+                    description: businessDescription,
+                    email: businessEmail,
+                    contact: businessContact,
+                    country: country,
+                    startDate: startDate,
+                    instagram: document.getElementById('businessInstagram').value,
+                    facebook: document.getElementById('businessFacebook').value,
+                    tiktok: document.getElementById('businessTikTok').value,
+                    shares: Math.floor(Math.random() * 500) + 100, // Random shares for demo
+                    growth: Math.floor(Math.random() * 30) + 5 // Random growth percentage for demo
+                };
+
+                // Retrieve existing businesses or create a new array
+                const existingBusinesses = JSON.parse(localStorage.getItem('businesses')) || [];
+                existingBusinesses.push(businessInfo);
+                localStorage.setItem('businesses', JSON.stringify(existingBusinesses));
+                
                 alert('Business submitted successfully!');
-                // Add functionality to handle file uploads and save the data
+                window.location.href = 'share.html'; // Navigate to the graph page
             } else {
                 alert('Please fill in all required fields.');
             }
