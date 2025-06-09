@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000; /* Black background */
+            font-family: 'Arial', sans-serif;
+            color: #fff; /* White text */
+            text-align: center;
+            box-shadow: 0 0 20px 10px rgba(128, 0, 128, 0.5); /* Purple glow for the body */
+            margin: 0; /* Remove default margin */
+        }
+        #game {
+            background-color: #333; /* Dark container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px 10px rgba(128, 0, 128, 0.7); /* Purple glow for the container */
+        }
+        input[type="number"] {
+            padding: 10px;
+            border: none; /* Remove border */
+            border-radius: 5px;
+            width: 60%;
+            font-size: 16px;
+            color: #000; /* Black text inside input */
+            box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.7); /* Red glow for input field */
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #000; /* Black button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 0, 0.7); /* Yellow glow for button */
+        }
+        button:hover {
+            background-color: #333; /* Dark gray on hover */
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #32cd32; /* Green message text */
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff4500; /* Orange result text */
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <h1>Guess the Number!</h1>
+        <p>I'm thinking of a number between 1 and 100.</p>
+        <p>You have 5 guesses. Can you find it?</p>
+        <input type="number" id="guessInput" min="1" max="100">
+        <button id="guessButton">Guess</button>
+        <div class="message" id="message"></div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        let guessesRemaining = 5;
+
+        document.getElementById('guessButton').addEventListener('click', function() {
+            const userGuess = Number(document.getElementById('guessInput').value);
+            const messageElement = document.getElementById('message');
+            const resultElement = document.getElementById('result');
+
+            if (guessesRemaining > 0) {
+                guessesRemaining--;
+
+                if (userGuess === randomNumber) {
+                    messageElement.textContent = "Congratulations! You've guessed the number!";
+                    resultElement.textContent = '';
+                } else if (userGuess < randomNumber) {
+                    messageElement.textContent = "Higher! You have " + guessesRemaining + " guesses left.";
+                } else {
+                    messageElement.textContent = "Lower! You have " + guessesRemaining + " guesses left.";
+                }
+            }
+
+            if (guessesRemaining === 0 && userGuess !== randomNumber) {
+                messageElement.textContent = "Game over! The number was " + randomNumber + ".";
+                resultElement.textContent = '';
+            }
+
+            // Clear the input field
+            document.getElementById('guessInput').value = '';
+        });
+    </script>
+</body>
+</html>

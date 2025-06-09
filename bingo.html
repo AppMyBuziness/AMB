@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #000000; /* Black background */
+            color: #ffffff; /* White text color */
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        .ticket {
+            border: 2px solid transparent;
+            padding: 20px;
+            margin: 10px;
+            width: 120px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        .ticket:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .winner {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #2ecc71;
+            box-shadow: 0 0 20px rgba(46, 204, 113, 1);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+        .restart {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .restart:hover {
+            background-color: #0056b3;
+        }
+        .countdown {
+            font-size: 2em;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Bingo Game</h1>
+<div id="tickets"></div>
+<div class="result" id="result"></div>
+<div class="countdown" id="countdown" style="display: none;"></div>
+<button class="restart" id="restartBtn">Start Another Round</button>
+
+<script>
+    const ticketsContainer = document.getElementById('tickets');
+    const resultDisplay = document.getElementById('result');
+    const countdownDisplay = document.getElementById('countdown');
+    const restartBtn = document.getElementById('restartBtn');
+    const totalTickets = 10; // Number of tickets
+    let winningTicket;
+    let ticketIdentifiers = [];
+
+    function generateRandomTickets() {
+        const symbols = ['!', '@', '#', '$', '%', '^', '&', '*'];
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        ticketIdentifiers = [];
+
+        while (ticketIdentifiers.length < totalTickets) {
+            const randomNumbers = [
+                Math.floor(Math.random() * 10),
+                Math.floor(Math.random() * 10),
+                Math.floor(Math.random() * 10)
+            ];
+            const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+            const randomLetters = [
+                letters.charAt(Math.floor(Math.random() * letters.length)),
+                letters.charAt(Math.floor(Math.random() * letters.length))
+            ];
+
+            const ticketIdentifier = `${randomNumbers.join('')}${randomSymbol}${randomLetters.join('')}`;
+            ticketIdentifiers.push(ticketIdentifier);
+        }
+    }
+
+    function startGame() {
+        generateRandomTickets();
+        winningTicket = Math.floor(Math.random() * totalTickets);
+        ticketsContainer.innerHTML = '';
+
+        for (let i = 0; i < totalTickets; i++) {
+            const ticket = document.createElement('div');
+            ticket.className = 'ticket';
+            ticket.innerText = `Ticket ${ticketIdentifiers[i]}`; // Use random identifiers
+            ticket.onclick = () => checkTicket(i);
+            ticketsContainer.appendChild(ticket);
+        }
+
+        resultDisplay.innerText = '';
+        restartBtn.style.display = 'none';
+        countdownDisplay.style.display = 'none';
+    }
+
+    function checkTicket(selectedTicket) {
+        const winningTicketText = `Winning Ticket: Ticket ${ticketIdentifiers[winningTicket]}`;
+        countdownDisplay.style.display = 'block';
+        let countdown = 3; // Countdown starts at 3 seconds
+        countdownDisplay.innerText = countdown;
+
+        const interval = setInterval(() => {
+            countdown--;
+            countdownDisplay.innerText = countdown;
+            if (countdown <= 0) {
+                clearInterval(interval);
+                revealResult(selectedTicket, winningTicketText);
+            }
+        }, 1000);
+    }
+
+    function revealResult(selectedTicket, winningTicketText) {
+        if (selectedTicket === winningTicket) {
+            resultDisplay.innerText = `Congratulations! You won! ${winningTicketText}`;
+            document.querySelectorAll('.ticket')[winningTicket].classList.add('winner');
+        } else {
+            resultDisplay.innerText = `Sorry, try again! ${winningTicketText}`;
+        }
+        document.querySelectorAll('.ticket').forEach(ticket => ticket.onclick = null);
+        restartBtn.style.display = 'block';
+    }
+
+    restartBtn.onclick = startGame;
+
+    // Start the first game
+    startGame();
+</script>
+
+</body>
+</html>

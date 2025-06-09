@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Door Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .doors {
+            display: flex;
+            gap: 20px;
+        }
+        .door {
+            width: 100px;
+            height: 200px;
+            background-color: #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        #decision {
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pick a Door!</h1>
+    <div class="doors">
+        <div class="door" data-door="1">1</div>
+        <div class="door" data-door="2">2</div>
+        <div class="door" data-door="3">3</div>
+        <div class="door" data-door="4">4</div>
+    </div>
+    <div id="message"></div>
+    <div id="decision">
+        <p>Do you want to stay with your choice or change?</p>
+        <button id="stay">Stay</button>
+        <button id="change">Change</button>
+    </div>
+
+    <script>
+        let chosenDoor;
+        const doors = [1, 2, 3, 4];
+        let winningDoor;
+
+        function startGame() {
+            winningDoor = Math.floor(Math.random() * 4) + 1; // Randomly select the winning door
+            document.getElementById('message').innerText = '';
+            document.getElementById('decision').style.display = 'none';
+        }
+
+        document.querySelectorAll('.door').forEach(door => {
+            door.addEventListener('click', () => {
+                chosenDoor = parseInt(door.dataset.door);
+                let clueDoor;
+
+                // Select a clue door that is not the winning door and not the chosen door
+                do {
+                    clueDoor = Math.floor(Math.random() * 4) + 1;
+                } while (clueDoor === winningDoor || clueDoor === chosenDoor);
+
+                document.getElementById('message').innerText = Door number ${clueDoor} has nothing. Do you want to change or stay?;
+                document.getElementById('decision').style.display = 'block';
+            });
+        });
+
+        document.getElementById('stay').addEventListener('click', () => {
+            revealResult(chosenDoor);
+        });
+
+        document.getElementById('change').addEventListener('click', () => {
+            // Automatically select a new door for the user to "change" to
+            const newChoice = doors.find(door => door !== chosenDoor && door !== winningDoor);
+            revealResult(newChoice);
+        });
+
+        function revealResult(finalChoice) {
+            const resultMessage = finalChoice === winningDoor ? 'Congratulations! You won!' : 'Sorry, you lost.';
+            document.getElementById('message').innerText = ${resultMessage} The winning door was ${winningDoor}.;
+            document.getElementById('decision').style.display = 'none';
+            
+            // Restart the game after a short delay
+            setTimeout(() => {
+                startGame();
+            }, 3000); // 3 seconds delay before restarting
+        }
+
+        // Start the game when the page loads
+        startGame();
+    </script>
+
+</body>
+</html>
