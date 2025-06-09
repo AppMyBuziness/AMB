@@ -49,13 +49,11 @@
             margin-bottom: 20px;
         }
 
-        .balance {
+        .total-balance {
             text-align: center;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            color: #9b59b6;
+            margin: 10px 0;
+            font-size: 1.5em;
+            color: #e74c3c; /* Red color for total balance */
         }
 
         .game-item {
@@ -97,51 +95,56 @@
         .game-reddead {
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); /* Red glow */
         }
-
-        .game-witcher {
-            box-shadow: 0 0 15px rgba(0, 0, 255, 0.7); /* Blue glow */
-        }
-
-        .game-darksouls {
-            box-shadow: 0 0 15px rgba(255, 165, 0, 0.7); /* Orange glow */
-        }
     </style>
 </head>
 <body>
     <div class="navbar">
-         <div class="navbar">
         <a href="share.html"><i class="fas fa-chart-line"></i></a>
         <a href="index.html"><i class="fas fa-user"></i></a>
         <a href="chat.html"><i class="fas fa-comments"></i></a>
-       
         <a href="games.html"><i class="fas fa-gamepad"></i></a>
-    </div>
     </div>
 
     <div class="container">
         <h1>Games</h1>
-        <div class="balance">
-            <h2>Balance: <span id="balanceAmount">$100.00</span> | Hours Played: <span id="hoursCount">50</span></h2>
+        <div class="total-balance">
+            Total Games Balance: <span id="totalGamesBalance">$0.00</span>
         </div>
-        <a href="bingo.html" style="color: white;"><div class="game-item game-zelda">
-            <div class="game-title">bingo</div>
-            <div class="game-description">An open-world action-adventure game set in a vast world.</div>
-            <div class="game-price">$2</div>
-        </div></a>
+        <a href="bingo.html" style="color: white;">
+            <div class="game-item game-zelda">
+                <div class="game-title">Bingo</div>
+                <div class="game-description">An open-world action-adventure game set in a vast world.</div>
+                <div class="game-price">$2</div>
+            </div>
+        </a>
 
-        <a href="doors.html" style="color: white;"> <div class="game-item game-mario">
-            <div class="game-title">the door game</div>
-            <div class="game-description">A platform game featuring Mario on a globe-trotting adventure.</div>
-            <div class="game-price">$3</div>
-        </div></a>
-        <a href="guessing.html" style="color: white;" ><div class="game-item game-reddead">
-            <div class="game-title">the 5 guess game</div>
-            <div class="game-description">An epic tale of life in America’s unforgiving heartland.</div>
-            <div class="game-price">$3</div>
-        </div></a>
-
-       
+        <a href="doors.html" style="color: white;">
+            <div class="game-item game-mario">
+                <div class="game-title">The Door Game</div>
+                <div class="game-description">A platform game featuring Mario on a globe-trotting adventure.</div>
+                <div class="game-price">$3</div>
+            </div>
+        </a>
+        <a href="guessing.html" style="color: white;">
+            <div class="game-item game-reddead">
+                <div class="game-title">The 5 Guess Game</div>
+                <div class="game-description">An epic tale of life in America’s unforgiving heartland.</div>
+                <div class="game-price">$3</div>
+            </div>
+        </a>
     </div>
+
+    <script>
+        // Example function to update the total games balance dynamically
+        function updateTotalGamesBalance(amount) {
+            const totalBalanceElement = document.getElementById('totalGamesBalance');
+            let currentTotal = parseFloat(totalBalanceElement.textContent.replace('$', '')) || 0;
+            currentTotal += amount;
+            totalBalanceElement.textContent = `$${currentTotal.toFixed(2)}`;
+        }
+
+        // Example usage for adding game income
+        // updateTotalGamesBalance(5); // Uncomment to test adding $5 to the total balance
+    </script>
 </body>
 </html>
-
