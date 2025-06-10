@@ -133,9 +133,7 @@
                     startDate: startDate,
                     instagram: document.getElementById('businessInstagram').value,
                     facebook: document.getElementById('businessFacebook').value,
-                    tiktok: document.getElementById('businessTikTok').value,
-                    shares: Math.floor(Math.random() * 500) + 100, // Random shares for demo
-                    growth: Math.floor(Math.random() * 30) + 5 // Random growth percentage for demo
+                    tiktok: document.getElementById('businessTikTok').value
                 };
 
                 // Retrieve existing businesses or create a new array
@@ -144,7 +142,7 @@
                 localStorage.setItem('businesses', JSON.stringify(existingBusinesses));
                 
                 alert('Business submitted successfully!');
-                window.location.href = 'share.html'; // Navigate to the graph page
+                window.location.href = 'review.html'; // Navigate to the review page
             } else {
                 alert('Please fill in all required fields.');
             }
