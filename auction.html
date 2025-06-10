@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auction Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            margin: 0;
+            padding: 20px;
+        }
+
+        .navbar {
+            background-color: #000;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar a:hover {
+            background-color: #444;
+            border-radius: 5px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #000; /* Black container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5); /* Purple glow */
+        }
+
+        h1 {
+            text-align: center;
+            color: #9b59b6; /* Purple title */
+            margin-bottom: 20px;
+        }
+
+        .item {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none; /* Hidden by default */
+        }
+
+        .item h3 {
+            color: #9b59b6; /* Purple title */
+        }
+
+        .item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .countdown {
+            color: #e74c3c; /* Red for countdown */
+            font-weight: bold;
+        }
+
+        .bid-input {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #000;
+            color: white;
+            font-size: 16px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 5px purple; /* Purple glow */
+        }
+
+        button:hover {
+            background-color: #111;
+            box-shadow: 0 0 15px purple; /* Stronger purple glow */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="share.html"><i class="fas fa-chart-line"></i></a>
+        <a href="index.html"><i class="fas fa-user"></i></a>
+        <a href="chat.html"><i class="fas fa-comments"></i></a>
+        <a href="games.html"><i class="fas fa-gamepad"></i></a>
+        <a href="auction.html"><i class="fas fa-gavel"></i> Auction</a>
+    </div>
+
+    <div class="container">
+        <h1>Auction Listings</h1>
+        <div id="itemList" class="item-list">
+            <!-- Example Listings -->
+            <div class="item" id="item-1">
+                <h3>Antique Vase</h3>
+                <img src="https://via.placeholder.com/150" alt="Antique Vase">
+                <p>A beautiful antique vase from the 19th century.</p>
+                <p><strong>Price Range:</strong> $50 - $100</p>
+                <p><strong>Location:</strong> New York</p>
+                <div class="countdown" id="countdown-1">Time Left: <span>1:00</span></div>
+                <div class="bid-input">
+                    <input type="number" placeholder="Your Bid ($)" id="bid-1">
+                    <button onclick="placeBid('1')">Bid</button>
+                </div>
+            </div>
+            <div class="item" id="item-2">
+                <h3>Vintage Watch</h3>
+                <img src="https://via.placeholder.com/150" alt="Vintage Watch">
+                <p>A classic vintage watch in excellent condition.</p>
+                <p><strong>Price Range:</strong> $200 - $300</p>
+                <p><strong>Location:</strong> Los Angeles</p>
+                <div class="countdown" id="countdown-2">Time Left: <span>1:00</span></div>
+                <div class="bid-input">
+                    <input type="number" placeholder="Your Bid ($)" id="bid-2">
+                    <button onclick="placeBid('2')">Bid</button>
+                </div>
+            </div>
+            <div class="item" id="item-3">
+                <h3>Guitar</h3>
+                <img src="https://via.placeholder.com/150" alt="Guitar">
+                <p>A high-quality acoustic guitar for music lovers.</p>
+                <p><strong>Price Range:</strong> $150 - $250</p>
+                <p><strong>Location:</strong> Chicago</p>
+                <div class="countdown" id="countdown-3">Time Left: <span>1:00</span></div>
+                <div class="bid-input">
+                    <input type="number" placeholder="Your Bid ($)" id="bid-3">
+                    <button onclick="placeBid('3')">Bid</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const items = document.querySelectorAll('.item');
+
+        function showItem(index) {
+            items.forEach((item, i) => {
+                item.style.display = i === index ? 'block' : 'none';
+            });
+            startCountdown(index);
+        }
+
+        function startCountdown(index) {
+            let timeLeft = 60; // Countdown time in seconds
+            const countdownElement = document.getElementById(`countdown-${index + 1}`);
+            const timer = setInterval(function() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                countdownElement.querySelector('span').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                timeLeft--;
+
+                if (timeLeft < 0) {
+                    clearInterval(timer);
+                    countdownElement.textContent = 'Auction Ended';
+                    currentIndex++;
+                    if (currentIndex < items.length) {
+                        showItem(currentIndex);
+                    }
+                }
+            }, 1000);
+        }
+
+        function placeBid(itemId) {
+            const bidInput = document.getElementById(`bid-${itemId}`);
+            const bidAmount = bidInput.value;
+
+            if (bidAmount && !isNaN(bidAmount) && bidAmount > 0) {
+                alert(`Your bid of $${bidAmount} has been placed for item ${itemId}`);
+                bidInput.value = ''; // Clear the input
+            } else {
+                alert('Please enter a valid bid amount.');
+            }
+        }
+
+        // Show the first item initially
+        showItem(currentIndex);
+        // Start showing items at intervals
+        setInterval(() => {
+            currentIndex++;
+            if (currentIndex < items.length) {
+                showItem(currentIndex);
+            } else {
+                currentIndex = 0; // Reset to the first item if at the end
+                showItem(currentIndex);
+            }
+        }, 60000); // Change item every minute (60000 ms)
+    </script>
+</body>
+</html>
