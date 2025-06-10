@@ -71,7 +71,7 @@
             background-color: black;
             box-shadow: 0 0 10px rgba(255, 255, 0, 0.7);
         }
-        #viewBalancesBtn {
+        #addAssetBtn {
             background-color: black;
             box-shadow: 0 0 10px rgba(0, 165, 255, 0.7);
         }
@@ -105,11 +105,31 @@
         .account-title {
             font-weight: bold;
         }
+        .assets-container {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .assets-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .assets-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .asset-item {
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
         .transactions-container {
             margin-top: 20px;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background-color: #f9f9f9;
         }
         .transaction-title {
             font-weight: bold;
@@ -121,6 +141,7 @@
         }
         .transaction-item {
             padding: 5px 0;
+            border-bottom: 1px solid #ddd;
         }
         .dropdown {
             display: none;
@@ -154,6 +175,7 @@
         <a href="#" id="contactUsBtn">Contact Us</a>
         <a href="#" id="changePasswordBtn">Change Password</a>
         <a href="#" id="forgotPasswordBtn">Forgot Password</a>
+        <a href="share.html" id="addSharesBtn">Add Shares</a>
     </div>
     <div class="container">
         <h1>Budget Tracker</h1>
@@ -163,7 +185,7 @@
             <button id="addIncomeBtn">Add Income</button>
             <button id="addExpenseBtn">Add Expense</button>
             <button id="addScheduledExpenseBtn">Add Scheduled Expense</button>
-            <button id="viewBalancesBtn">View Account Balances</button>
+            <button id="addAssetBtn">Add Asset</button>
             <button id="viewMonthlyExpensesBtn">View Monthly Expenses</button>
             <button id="plannerBtn">Planner</button>
             <button id="addAccountBtn">Add Account</button>
@@ -187,7 +209,20 @@
                 <span id="gamesAccountBalance">$0.00</span>
                 <span id="gamesAccountGrowth">0%</span>
             </div>
+            <div class="account-item" id="sharesAccount">
+                <span class="account-title">Shares Account:</span>
+                <span id="sharesAccountBalance">$0.00</span>
+                <span id="sharesAccountGrowth">0%</span>
+            </div>
             <div id="additionalAccounts"></div>
+        </div>
+
+        <!-- Assets Container -->
+        <div class="assets-container">
+            <h2 class="assets-title">Assets</h2>
+            <ul class="assets-list" id="assetsList">
+                <!-- Assets will be added here -->
+            </ul>
         </div>
 
         <!-- Transactions Container -->
@@ -206,11 +241,13 @@
     <script>
         const transactions = [];
         const additionalAccountsContainer = document.getElementById('additionalAccounts');
+        const assetsList = document.getElementById('assetsList');
 
         const accounts = {
             main: { balance: 0, element: document.getElementById('mainAccountBalance') },
             savings: { balance: 0, element: document.getElementById('savingsAccountBalance') },
             games: { balance: 0, element: document.getElementById('gamesAccountBalance') },
+            shares: { balance: 0, element: document.getElementById('sharesAccountBalance') },
         };
 
         const updateTransactionList = () => {
@@ -230,7 +267,7 @@
         };
 
         const addTransaction = (type) => {
-            const accountName = prompt('Choose an account: main, savings, or games').toLowerCase();
+            const accountName = prompt('Choose an account: main, savings, games, or shares').toLowerCase();
             const name = prompt(`Enter the name of the ${type}:`);
             const price = parseFloat(prompt(`Enter the amount for the ${type}:`));
 
@@ -247,8 +284,22 @@
                 }
 
                 updateTransactionList();
+                updateChart();
             } else {
                 alert('Invalid input. Please try again.');
+            }
+        };
+
+        const addAsset = () => {
+            const assetName = prompt('Enter the name of the asset:');
+            const assetValue = parseFloat(prompt('Enter the value of the asset:'));
+            if (assetName && !isNaN(assetValue)) {
+                const li = document.createElement('li');
+                li.className = 'asset-item';
+                li.textContent = `${assetName}: $${assetValue.toFixed(2)}`;
+                assetsList.appendChild(li);
+            } else {
+                alert('Invalid asset details. Please try again.');
             }
         };
 
@@ -264,9 +315,23 @@
             }
         };
 
+        const updateChart = () => {
+            const data = [
+                accounts.main.balance,
+                accounts.savings.balance,
+                accounts.games.balance,
+                accounts.shares.balance,
+                transactions.filter(t => t.name.includes('Income')).reduce((acc, t) => acc + t.price, 0),
+                transactions.filter(t => t.name.includes('Expense')).reduce((acc, t) => acc + t.price, 0),
+            ];
+            myChart.data.datasets[0].data = data;
+            myChart.update();
+        };
+
         document.getElementById('addIncomeBtn').addEventListener('click', () => addTransaction('income'));
         document.getElementById('addExpenseBtn').addEventListener('click', () => addTransaction('expense'));
         document.getElementById('addScheduledExpenseBtn').addEventListener('click', () => addTransaction('scheduled expense'));
+        document.getElementById('addAssetBtn').addEventListener('click', addAsset);
         document.getElementById('addAccountBtn').addEventListener('click', addAccount);
 
         // Initialize main chart
@@ -274,19 +339,25 @@
         const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Assets', 'Income', 'Expenses'],
+                labels: ['Main Account', 'Savings Account', 'Games Account', 'Shares Account', 'Total Income', 'Total Expenses'],
                 datasets: [{
                     label: 'Amount ($)',
-                    data: [0, 0, 0],
+                    data: [0, 0, 0, 0, 0, 0],
                     backgroundColor: [
                         'rgba(52, 152, 219, 0.6)',
                         'rgba(155, 89, 182, 0.6)',
-                        'rgba(231, 76, 60, 0.6)'
+                        'rgba(231, 76, 60, 0.6)',
+                        'rgba(46, 204, 113, 0.6)',
+                        'rgba(241, 196, 15, 0.6)',
+                        'rgba(255, 165, 0, 0.6)'
                     ],
                     borderColor: [
                         'rgba(52, 152, 219, 1)',
                         'rgba(155, 89, 182, 1)',
-                        'rgba(231, 76, 60, 1)'
+                        'rgba(231, 76, 60, 1)',
+                        'rgba(46, 204, 113, 1)',
+                        'rgba(241, 196, 15, 1)',
+                        'rgba(255, 165, 0, 1)'
                     ],
                     borderWidth: 1
                 }]
@@ -364,15 +435,6 @@
         document.getElementById('toggleDropdown').addEventListener('click', function() {
             const dropdown = document.getElementById('dropdownMenu');
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        });
-
-        // Add event listeners for new buttons
-        document.getElementById('viewBalancesBtn').addEventListener('click', function() {
-            alert('Viewing account balances functionality will be implemented.');
-        });
-
-        document.getElementById('viewMonthlyExpensesBtn').addEventListener('click', function() {
-            alert('Viewing monthly expenses functionality will be implemented.');
         });
 
         // Add event listeners for dropdown options
