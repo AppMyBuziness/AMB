@@ -9,22 +9,23 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #000; /* Black background */
-            color: #fff; /* White text */
+            background-color: #fff; /* White background */
+            color: #000; /* Black text */
             margin: 0;
             padding: 20px;
         }
 
         .navbar {
-            background-color: #000;
+            background-color: #fff;
             padding: 10px;
             display: flex;
             justify-content: space-around;
             margin-bottom: 20px;
+            border: 1px solid #ccc; /* Border for navbar */
         }
 
         .navbar a {
-            color: white;
+            color: black;
             text-decoration: none;
             padding: 10px;
             transition: background-color 0.3s;
@@ -33,174 +34,136 @@
         }
 
         .navbar a:hover {
-            background-color: #444;
+            background-color: #f0f0f0;
             border-radius: 5px;
-        }
-
-        .dropdown {
-            display: none;
-            position: absolute;
-            background-color: #444;
-            min-width: 160px;
-            z-index: 1;
-        }
-
-        .dropdown a {
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown a:hover {
-            background-color: #555;
-        }
-
-        .plus-button {
-            background-color: #000;
-            border: none;
-            color: white;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s, box-shadow 0.3s;
-            box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); /* Purple glow */
-        }
-
-        .plus-button:hover {
-            background-color: #111;
-            box-shadow: 0 0 15px purple; /* Stronger purple glow */
         }
 
         .container {
             max-width: 600px;
             margin: auto;
-            background: #000; /* Black container */
+            background: #fff; /* White container */
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5); /* Purple glow */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
         }
 
         h1 {
             text-align: center;
-            color: #9b59b6; /* Purple title */
+            color: #000; /* Black title */
             margin-bottom: 20px;
         }
 
-        .top-bar {
-            background-color: #000;
-            padding: 10px;
-            color: white;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
+        .button-group {
             margin-bottom: 20px;
-        }
-
-        .top-bar div {
-            flex: 1;
-            text-align: center;
-        }
-
-        .top-bar button {
-            background-color: #000;
-            border: none;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-            transition: background-color 0.3s, box-shadow 0.3s;
-            box-shadow: 0 0 5px purple; /* Purple glow */
-        }
-
-        .top-bar button:hover {
-            background-color: #111;
-            box-shadow: 0 0 15px purple; /* Stronger purple glow */
-        }
-
-        .balance {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        h2 {
-            color: #9b59b6;
-        }
-
-        .form, .asset-form, .income-form {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        input[type="text"], input[type="number"] {
-            width: 45%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-            background-color: #333; /* Darker input background */
-            color: #fff; /* White text */
-             box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Purple glow */
         }
 
         button {
+            width: 100%; /* Full width */
             padding: 10px;
-            border: none;
+            border: none; /* No border */
             border-radius: 4px;
             cursor: pointer;
-            background-color: #000;
-            color: white;
+            background-color: black; /* Black background */
+            color: white; /* White text */
             font-size: 16px;
             transition: background-color 0.3s, box-shadow 0.3s;
-            margin-left: 10px;
-            box-shadow: 0 0 5px rgba(0, 225, 0, 0.5); /* Purple glow */
-            
+            margin-bottom: 10px; /* Space between buttons */
+        }
+
+        /* Different border shadows for each button */
+        #viewTransactionsBtn {
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* Red shadow */
+        }
+
+        #viewBalancesBtn {
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Green shadow */
+        }
+
+        #viewMonthlyExpensesBtn {
+            box-shadow: 0 0 10px rgba(0, 0, 255, 0.7); /* Blue shadow */
+        }
+
+        #addScheduledExpenseBtn {
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.7); /* Yellow shadow */
+        }
+
+        #addAccountBtn {
+            box-shadow: 0 0 10px rgba(255, 165, 0, 0.7); /* Orange shadow */
+        }
+
+        #addAssetBtn {
+            box-shadow: 0 0 10px rgba(128, 0, 128, 0.7); /* Purple shadow */
+        }
+
+        #gamesAccountBtn {
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.7); /* Cyan shadow */
         }
 
         button:hover {
-            background-color: #111;
-            box-shadow: 0 0 15px purple; /* Stronger purple glow */
+            background-color: #333; /* Darker black on hover */
         }
 
-        table {
-            width: 100%;
+        #myChart, #gamesChart {
             margin-top: 20px;
-            border-collapse: collapse;
         }
 
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #ccc;
-        }
-
-        th {
-            background-color: #9b59b6; /* Purple header */
-            color: white;
-        }
-
-        .income {
-            color: #9b59b6;
-        }
-
-        .expense {
-            color: #e74c3c;
-        }
-
-        .asset {
-            color: #3498db;
-        }
-
-        .delete-btn {
-            color: #e74c3c;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        #myChart {
+        .accounts-container {
             margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc; /* Border for accounts container */
+            border-radius: 5px;
+        }
+
+        .account-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 2px solid purple; /* Purple border */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(128, 0, 128, 0.5); /* Purple shadow */
+        }
+
+        .account-title {
+            font-weight: bold;
+        }
+
+        .transactions-container {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc; /* Border for transaction container */
+            border-radius: 5px;
+        }
+
+        .transaction-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .transaction-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .transaction-item {
+            padding: 5px 0;
+        }
+
+        .dropdown {
+            display: none; /* Initially hidden */
+            margin-bottom: 20px;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            background: #f0f0f0;
+            margin: 5px 0;
+            border-radius: 5px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown a:hover {
+            background-color: #ddd;
         }
     </style>
 </head>
@@ -210,68 +173,61 @@
         <a href="index.html"><i class="fas fa-user"></i></a>
         <a href="chat.html"><i class="fas fa-comments"></i></a>
         <a href="games.html"><i class="fas fa-gamepad"></i></a>
-         <a href="auction.html"><i class="fas fa-gavel"></i></a>
+        <a href="auction.html"><i class="fas fa-gavel"></i></a>
     </div>
     <button class="plus-button" id="toggleDropdown">+</button>
     <div class="dropdown" id="dropdownMenu">
-        <a href="businessform">List Business</a>
-        <a href="SBform">List Small Business</a>
+        <a href="#" id="aboutBtn">About</a>
+        <a href="#" id="contactUsBtn">Contact Us</a>
+        <a href="#" id="changePasswordBtn">Change Password</a>
+        <a href="#" id="forgotPasswordBtn">Forgot Password</a>
     </div>
     <div class="container">
-        <div class="balance">
-            <h2>Balance: <span id="balanceAmount">$0.00</span></h2>
-        </div>
-        <iframe src="https://giphy.com/embed/QpyF0jsO26GWKTWctv" width="90" height="90" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/graph-the-be-business-edit-QpyF0jsO26GWKTWctv"></a></p>
         <h1>Budget Tracker</h1>
-        <div class="top-bar">
-            <div>General Balance: <span id="generalBalance">$0.00</span></div>
-            <div>Asset Balance: <span id="assetBalance">$0.00</span></div>
-            <div>Shares Value: <span id="sharesValue">$0.00</span></div>
-            <div>Games Income: <span id="gamesIncomeDisplay">$0.00</span></div>
-            <div>Rate of Growth: <span id="rateGrowth">0%</span></div>
-            <div>Rate of Shares Growth: <span id="rateSharesGrowth">0%</span></div>
-        </div>
-        
+
         <canvas id="myChart" width="400" height="200"></canvas>
-        <div class="income-form">
-            <input type="text" id="incomeSource" placeholder="Income Source" required>
-            <input type="number" id="fixedIncomeAmount" placeholder="Amount per Month" required>
-            <button id="addFixedIncomeBtn">Add Fixed Income</button>
-        </div>
-        <div class="form">
-            <input type="text" id="description" placeholder="Transaction Description" required>
-            <input type="number" id="amount" placeholder="Amount" required>
-            <button id="addExpenseBtn">Add Expense</button>
-        </div>
-        <div class="asset-form">
-            <input type="text" id="assetDescription" placeholder="Asset Name" required>
-            <input type="number" id="assetValue" placeholder="Asset Worth" required>
+        
+        <div class="button-group">
+            <button id="viewTransactionsBtn">View Transactions</button>
+            <button id="viewBalancesBtn">View Account Balances</button>
+            <button id="viewMonthlyExpensesBtn">View Monthly Expenses</button>
+            <button id="addScheduledExpenseBtn">Add Scheduled Expense</button>
+            <button id="addAccountBtn">Add Account</button>
             <button id="addAssetBtn">Add Asset</button>
+            <button id="gamesAccountBtn">Games Account</button>
         </div>
-        <h3>Transactions</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Date Added</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="transactionList"></tbody>
-        </table>
-        <h3>Assets</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Asset Name</th>
-                    <th>Worth</th>
-                    <th>Date Added</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="assetList"></tbody>
-        </table>
+
+        <!-- Accounts Container -->
+        <div class="accounts-container">
+            <h2>Accounts</h2>
+            <div class="account-item">
+                <span class="account-title">Main Account:</span>
+                <span id="mainAccountBalance">$0.00</span>
+                <span id="mainAccountGrowth">0%</span>
+            </div>
+            <div class="account-item">
+                <span class="account-title">Savings Account:</span>
+                <span id="savingsAccountBalance">$0.00</span>
+                <span id="savingsAccountGrowth">0%</span>
+            </div>
+            <div class="account-item">
+                <span class="account-title">Other Accounts:</span>
+                <span id="otherAccountsBalance">$0.00</span>
+                <span id="otherAccountsGrowth">0%</span>
+            </div>
+        </div>
+
+        <!-- Transactions Container -->
+        <div class="transactions-container">
+            <div class="transaction-title">Transactions:</div>
+            <ul class="transaction-list" id="transactionList">
+                <!-- Transaction items will be added here -->
+            </ul>
+        </div>
+
+        <!-- Line Chart for Games Frequency -->
+        <h2>Games Frequency</h2>
+        <canvas id="gamesChart" width="400" height="200"></canvas>
     </div>
 
     <script>
@@ -281,7 +237,7 @@
         let totalFixedIncome = 0;
         let gamesIncome = 0; // Initialize games income
 
-        // Initialize Chart.js
+        // Initialize main chart
         const ctx = document.getElementById('myChart').getContext('2d');
         const myChart = new Chart(ctx, {
             type: 'bar',
@@ -316,152 +272,121 @@
             }
         });
 
-        document.getElementById('addFixedIncomeBtn').addEventListener('click', function() {
-            const incomeSource = document.getElementById('incomeSource').value;
-            const fixedIncomeAmount = parseFloat(document.getElementById('fixedIncomeAmount').value);
-            
-            if (incomeSource && !isNaN(fixedIncomeAmount) && fixedIncomeAmount > 0) {
-                totalFixedIncome += fixedIncomeAmount;
-                addTransaction(`Fixed Income from ${incomeSource}`, fixedIncomeAmount, 'income');
-                updateBalances();
-            } else {
-                alert('Please enter valid income source and amount.');
-            }
-
-            clearIncomeInputs();
-        });
-
-        document.getElementById('addExpenseBtn').addEventListener('click', function() {
-            const description = document.getElementById('description').value;
-            const amount = parseFloat(document.getElementById('amount').value);
-            
-            if (description && !isNaN(amount) && amount > 0) {
-                balance -= amount; // Subtract expense from balance
-                addTransaction(description, amount, 'expense');
-                updateBalances();
-            } else {
-                alert('Please enter valid description and amount.');
-            }
-
-            clearInputs();
-        });
-
-        document.getElementById('addAssetBtn').addEventListener('click', function() {
-            const assetDescription = document.getElementById('assetDescription').value;
-            const assetValue = parseFloat(document.getElementById('assetValue').value);
-            
-            if (assetDescription && !isNaN(assetValue) && assetValue > 0) {
-                const incomeResponse = confirm(`Does the asset "${assetDescription}" generate income?`);
-                if (incomeResponse) {
-                    const incomeAmount = parseFloat(prompt(`How much income does "${assetDescription}" generate per month?`));
-                    if (!isNaN(incomeAmount) && incomeAmount > 0) {
-                        totalFixedIncome += incomeAmount; // Add asset income to total fixed income
+        // Initialize games frequency chart with six lines
+        const gamesCtx = document.getElementById('gamesChart').getContext('2d');
+        const gamesChart = new Chart(gamesCtx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [
+                    {
+                        label: 'Game A',
+                        data: [5, 10, 7, 12],
+                        borderColor: 'rgba(255, 0, 0, 1)',
+                        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                        fill: true
+                    },
+                    {
+                        label: 'Game B',
+                        data: [3, 8, 5, 14],
+                        borderColor: 'rgba(0, 255, 0, 1)',
+                        backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                        fill: true
+                    },
+                    {
+                        label: 'Game C',
+                        data: [2, 6, 9, 11],
+                        borderColor: 'rgba(0, 0, 255, 1)',
+                        backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                        fill: true
+                    },
+                    {
+                        label: 'Game D',
+                        data: [4, 7, 3, 10],
+                        borderColor: 'rgba(255, 255, 0, 1)',
+                        backgroundColor: 'rgba(255, 255, 0, 0.2)',
+                        fill: true
+                    },
+                    {
+                        label: 'Game E',
+                        data: [1, 5, 8, 6],
+                        borderColor: 'rgba(255, 165, 0, 1)',
+                        backgroundColor: 'rgba(255, 165, 0, 0.2)',
+                        fill: true
+                    },
+                    {
+                        label: 'Game F',
+                        data: [0, 2, 3, 8],
+                        borderColor: 'rgba(128, 0, 128, 1)',
+                        backgroundColor: 'rgba(128, 0, 128, 0.2)',
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
-                assetBalance += assetValue; // Add to asset balance
-                addAsset(assetDescription, assetValue);
-                updateBalances();
-            } else {
-                alert('Please enter valid asset name and value.');
             }
-
-            clearAssetInputs();
         });
 
-        function addTransaction(description, amount, type) {
-            const transactionList = document.getElementById('transactionList');
-            const tr = document.createElement('tr');
-            const tdDescription = document.createElement('td');
-            const tdAmount = document.createElement('td');
-            const tdDate = document.createElement('td');
-            const tdAction = document.createElement('td');
-            const deleteBtn = document.createElement('span');
-
-            const dateAdded = new Date().toLocaleDateString();
-            tdDescription.textContent = description;
-            tdAmount.textContent = `$${amount.toFixed(2)}`;
-            tdDate.textContent = dateAdded;
-            deleteBtn.textContent = '❌'; // Delete symbol
-            deleteBtn.classList.add('delete-btn');
-            deleteBtn.onclick = function() {
-                transactionList.removeChild(tr);
-                if (type === 'expense') {
-                    balance += amount; // Add back the expense
-                }
-                updateBalances();
-            };
-
-            tr.classList.add(type);
-            tr.appendChild(tdDescription);
-            tr.appendChild(tdAmount);
-            tr.appendChild(tdDate);
-            tdAction.appendChild(deleteBtn);
-            tr.appendChild(tdAction);
-            transactionList.appendChild(tr);
-        }
-
-        function addAsset(description, value) {
-            const assetList = document.getElementById('assetList');
-            const tr = document.createElement('tr');
-            const tdDescription = document.createElement('td');
-            const tdValue = document.createElement('td');
-            const tdDate = document.createElement('td');
-            const tdAction = document.createElement('td');
-            const deleteBtn = document.createElement('span');
-
-            const dateAdded = new Date().toLocaleDateString();
-            tdDescription.textContent = description;
-            tdValue.textContent = `$${value.toFixed(2)}`;
-            tdDate.textContent = dateAdded;
-            deleteBtn.textContent = '❌'; // Delete symbol
-            deleteBtn.classList.add('delete-btn');
-            deleteBtn.onclick = function() {
-                assetList.removeChild(tr);
-                updateBalances();
-            };
-
-            tr.classList.add('asset');
-            tr.appendChild(tdDescription);
-            tr.appendChild(tdValue);
-            tr.appendChild(tdDate);
-            tdAction.appendChild(deleteBtn);
-            tr.appendChild(tdAction);
-            assetList.appendChild(tr);
-        }
-
-        function updateBalances() {
-            document.getElementById('balanceAmount').textContent = `$${balance.toFixed(2)}`;
-            document.getElementById('generalBalance').textContent = `$${balance.toFixed(2)}`;
-            document.getElementById('assetBalance').textContent = `$${assetBalance.toFixed(2)}`;
-            document.getElementById('sharesValue').textContent = `$${sharesValue.toFixed(2)}`;
-            document.getElementById('gamesIncomeDisplay').textContent = `$${gamesIncome.toFixed(2)}`; // Display games income
-
-            myChart.data.datasets[0].data[0] = assetBalance; // Assets
-            myChart.data.datasets[0].data[1] = totalFixedIncome; // Income
-            myChart.data.datasets[0].data[2] = gamesIncome; // Games Income
-            myChart.data.datasets[0].data[3] = -Math.abs(balance); // Expenses (as negative)
-            myChart.data.datasets[0].data[4] = sharesValue; // Shares
-            myChart.update();
-        }
-
-        function clearInputs() {
-            document.getElementById('description').value = '';
-            document.getElementById('amount').value = '';
-        }
-
-        function clearAssetInputs() {
-            document.getElementById('assetDescription').value = '';
-            document.getElementById('assetValue').value = '';
-        }
-
-        function clearIncomeInputs() {
-            document.getElementById('incomeSource').value = '';
-            document.getElementById('fixedIncomeAmount').value = '';
-        }
-
+        // Dropdown functionality
         document.getElementById('toggleDropdown').addEventListener('click', function() {
             const dropdown = document.getElementById('dropdownMenu');
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Add event listeners for new buttons
+        document.getElementById('viewTransactionsBtn').addEventListener('click', function() {
+            alert('Viewing transactions functionality will be implemented.');
+        });
+
+        document.getElementById('viewBalancesBtn').addEventListener('click', function() {
+            alert('Viewing account balances functionality will be implemented.');
+        });
+
+        document.getElementById('viewMonthlyExpensesBtn').addEventListener('click', function() {
+            alert('Viewing monthly expenses functionality will be implemented.');
+        });
+
+        document.getElementById('addScheduledExpenseBtn').addEventListener('click', function() {
+            const expense = prompt('Enter your scheduled expense:');
+            alert('Scheduled expense added: ' + expense);
+        });
+
+        document.getElementById('addAccountBtn').addEventListener('click', function() {
+            const accountName = prompt('Enter the account name:');
+            alert('Account added: ' + accountName);
+        });
+
+        document.getElementById('addAssetBtn').addEventListener('click', function() {
+            const assetName = prompt('Enter the asset name:');
+            alert('Asset added: ' + assetName);
+        });
+
+        document.getElementById('gamesAccountBtn').addEventListener('click', function() {
+            alert('Games account functionality will be implemented.');
+        });
+
+        // Add event listeners for dropdown options
+        document.getElementById('aboutBtn').addEventListener('click', function() {
+            alert('About: This is a budget tracking application.');
+        });
+
+        document.getElementById('contactUsBtn').addEventListener('click', function() {
+            alert('Contact Us: You can reach us at support@example.com.');
+        });
+
+        document.getElementById('changePasswordBtn').addEventListener('click', function() {
+            const newPassword = prompt('Enter your new password:');
+            alert('Password changed successfully.');
+        });
+
+        document.getElementById('forgotPasswordBtn').addEventListener('click', function() {
+            const email = prompt('Enter your email address to reset password:');
+            alert('Password reset link sent to ' + email);
         });
     </script>
 </body>
