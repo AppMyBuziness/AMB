@@ -72,22 +72,24 @@
     </div>
    
     <div class="container">
-         <iframe src="https://giphy.com/embed/vsiFWHBz8lTvdJUJHq" width="80" height="80" style="align:center;" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/CompanyCam-block-scale-graph-vsiFWHBz8lTvdJUJHq"></a></p>
-    
         <h1>Business Shares Graph</h1>
         <div id="graphsContainer"></div>
         <div class="business-info" id="businessInfoContainer"></div>
     </div>
 
     <script>
-        // Fake business data
-        const businesses = [
+        // Original example business data
+        const exampleBusinesses = [
             { name: "Tech Innovations", shares: 200, growth: 15, description: "Leading tech solutions.", email: "contact@techinnovations.com", country: "USA", startDate: "2020-03", instagram: "@techinnovations", facebook: "fb.com/techinnovations", tiktok: "@techinnovations" },
             { name: "Green Energy Co.", shares: 300, growth: 25, description: "Sustainable energy solutions.", email: "info@greenenergy.com", country: "Canada", startDate: "2019-02", instagram: "@greenenergyco", facebook: "fb.com/greenenergyco", tiktok: "@greenenergyco" },
             { name: "HealthPlus", shares: 150, growth: 10, description: "Health and wellness products.", email: "support@healthplus.com", country: "UK", startDate: "2021-05", instagram: "@healthplus", facebook: "fb.com/healthplus", tiktok: "@healthplus" },
             { name: "Fashion Hub", shares: 400, growth: 30, description: "Trendy fashion for everyone.", email: "contact@fashionhub.com", country: "Australia", startDate: "2018-09", instagram: "@fashionhub", facebook: "fb.com/fashionhub", tiktok: "@fashionhub" },
             { name: "Foodie Delight", shares: 250, growth: 20, description: "Gourmet food delivery.", email: "info@foodiedelight.com", country: "USA", startDate: "2020-11", instagram: "@foodiedelight", facebook: "fb.com/foodiedelight", tiktok: "@foodiedelight" }
         ];
+
+        // Retrieve accepted business data from localStorage
+        const acceptedBusinesses = JSON.parse(localStorage.getItem('acceptedBusinesses')) || [];
+        const businesses = acceptedBusinesses.length > 0 ? acceptedBusinesses : exampleBusinesses;
 
         const limit = 5; // Max businesses per graph
         const graphsContainer = document.getElementById('graphsContainer');
