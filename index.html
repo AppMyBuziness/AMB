@@ -9,21 +9,19 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #fff; /* White background */
-            color: #000; /* Black text */
+            background-color: #fff;
+            color: #000;
             margin: 0;
             padding: 20px;
         }
-
         .navbar {
             background-color: #fff;
             padding: 10px;
             display: flex;
             justify-content: space-around;
             margin-bottom: 20px;
-            border: 1px solid #ccc; /* Border for navbar */
+            border: 1px solid #ccc;
         }
-
         .navbar a {
             color: black;
             text-decoration: none;
@@ -32,126 +30,102 @@
             display: flex;
             align-items: center;
         }
-
         .navbar a:hover {
             background-color: #f0f0f0;
             border-radius: 5px;
         }
-
         .container {
             max-width: 600px;
             margin: auto;
-            background: #fff; /* White container */
+            background: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
         h1 {
             text-align: center;
-            color: #000; /* Black title */
-            margin-bottom: 20px;
         }
-
         .button-group {
             margin-bottom: 20px;
         }
-
         button {
-            width: 100%; /* Full width */
+            width: 100%;
             padding: 10px;
-            border: none; /* No border */
+            border: none;
             border-radius: 4px;
             cursor: pointer;
-            background-color: black; /* Black background */
-            color: white; /* White text */
+            color: white;
             font-size: 16px;
+            margin-bottom: 10px;
             transition: background-color 0.3s, box-shadow 0.3s;
-            margin-bottom: 10px; /* Space between buttons */
         }
-
-        /* Different border shadows for each button */
-        #viewTransactionsBtn {
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* Red shadow */
+        #addIncomeBtn {
+            background-color: black;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
         }
-
-        #viewBalancesBtn {
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Green shadow */
+        #addExpenseBtn {
+            background-color: black;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
         }
-
-        #viewMonthlyExpensesBtn {
-            box-shadow: 0 0 10px rgba(0, 0, 255, 0.7); /* Blue shadow */
-        }
-
         #addScheduledExpenseBtn {
-            box-shadow: 0 0 10px rgba(255, 255, 0, 0.7); /* Yellow shadow */
+            background-color: black;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.7);
         }
-
-        #addAccountBtn {
-            box-shadow: 0 0 10px rgba(255, 165, 0, 0.7); /* Orange shadow */
+        #viewBalancesBtn {
+            background-color: black;
+            box-shadow: 0 0 10px rgba(0, 165, 255, 0.7);
         }
-
-        #addAssetBtn {
-            box-shadow: 0 0 10px rgba(128, 0, 128, 0.7); /* Purple shadow */
+        #viewMonthlyExpensesBtn {
+            background-color: black;
+            box-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
         }
-
         #gamesAccountBtn {
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.7); /* Cyan shadow */
+            background-color: black;
+            box-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
         }
-
         button:hover {
-            background-color: #333; /* Darker black on hover */
+            background-color: #333;
         }
-
         #myChart, #gamesChart {
             margin-top: 20px;
         }
-
         .accounts-container {
             margin-top: 20px;
             padding: 10px;
-            border: 1px solid #ccc; /* Border for accounts container */
+            border: 1px solid #ccc;
             border-radius: 5px;
         }
-
         .account-item {
             margin-bottom: 20px;
             padding: 10px;
-            border: 2px solid purple; /* Purple border */
+            border: 2px solid purple;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(128, 0, 128, 0.5); /* Purple shadow */
+            box-shadow: 0 0 10px rgba(128, 0, 128, 0.5);
         }
-
         .account-title {
             font-weight: bold;
         }
-
         .transactions-container {
             margin-top: 20px;
             padding: 10px;
-            border: 1px solid #ccc; /* Border for transaction container */
+            border: 1px solid #ccc;
             border-radius: 5px;
         }
-
         .transaction-title {
             font-weight: bold;
             margin-bottom: 10px;
         }
-
         .transaction-list {
             list-style-type: none;
             padding: 0;
         }
-
         .transaction-item {
             padding: 5px 0;
         }
-
         .dropdown {
-            display: none; /* Initially hidden */
+            display: none;
             margin-bottom: 20px;
         }
-
         .dropdown a {
             display: block;
             padding: 10px;
@@ -161,7 +135,6 @@
             text-decoration: none;
             color: black;
         }
-
         .dropdown a:hover {
             background-color: #ddd;
         }
@@ -184,17 +157,16 @@
     </div>
     <div class="container">
         <h1>Budget Tracker</h1>
-
         <canvas id="myChart" width="400" height="200"></canvas>
         
         <div class="button-group">
-            <button id="viewTransactionsBtn">View Transactions</button>
+            <button id="addIncomeBtn">Add Income</button>
+            <button id="addExpenseBtn">Add Expense</button>
+            <button id="addScheduledExpenseBtn">Add Scheduled Expense</button>
             <button id="viewBalancesBtn">View Account Balances</button>
             <button id="viewMonthlyExpensesBtn">View Monthly Expenses</button>
-            <button id="addScheduledExpenseBtn">Add Scheduled Expense</button>
-            <button id="addAccountBtn">Add Account</button>
-            <button id="addAssetBtn">Add Asset</button>
             <button id="gamesAccountBtn">Games Account</button>
+            <button id="addAccountBtn">Add Account</button>
         </div>
 
         <!-- Accounts Container -->
@@ -210,11 +182,7 @@
                 <span id="savingsAccountBalance">$0.00</span>
                 <span id="savingsAccountGrowth">0%</span>
             </div>
-            <div class="account-item">
-                <span class="account-title">Other Accounts:</span>
-                <span id="otherAccountsBalance">$0.00</span>
-                <span id="otherAccountsGrowth">0%</span>
-            </div>
+            <div id="additionalAccounts"></div>
         </div>
 
         <!-- Transactions Container -->
@@ -231,34 +199,69 @@
     </div>
 
     <script>
-        let balance = 0;
-        let assetBalance = 0;
-        let sharesValue = 0;
-        let totalFixedIncome = 0;
-        let gamesIncome = 0; // Initialize games income
+        const transactions = [];
+        const additionalAccountsContainer = document.getElementById('additionalAccounts');
+
+        const updateTransactionList = () => {
+            const transactionList = document.getElementById('transactionList');
+            transactionList.innerHTML = ''; // Clear current list
+            transactions.forEach(transaction => {
+                const li = document.createElement('li');
+                li.className = 'transaction-item';
+                li.textContent = `${transaction.date} ${transaction.time} - ${transaction.name}: $${transaction.price.toFixed(2)}`;
+                transactionList.appendChild(li);
+            });
+        };
+
+        const addTransaction = (type) => {
+            const name = prompt(`Enter the name of the ${type}:`);
+            const price = parseFloat(prompt(`Enter the amount for the ${type}:`));
+            if (name && !isNaN(price)) {
+                const now = new Date();
+                const date = now.toLocaleDateString();
+                const time = now.toLocaleTimeString();
+                transactions.push({ date, time, name, price });
+                updateTransactionList();
+            } else {
+                alert('Invalid input. Please try again.');
+            }
+        };
+
+        const addAccount = () => {
+            const accountName = prompt('Enter the new account name:');
+            if (accountName) {
+                const div = document.createElement('div');
+                div.className = 'account-item';
+                div.innerHTML = `<span class="account-title">${accountName}:</span> <span>$0.00</span> <span>0%</span>`;
+                additionalAccountsContainer.appendChild(div);
+            } else {
+                alert('Invalid account name. Please try again.');
+            }
+        };
+
+        document.getElementById('addIncomeBtn').addEventListener('click', () => addTransaction('income'));
+        document.getElementById('addExpenseBtn').addEventListener('click', () => addTransaction('expense'));
+        document.getElementById('addScheduledExpenseBtn').addEventListener('click', () => addTransaction('scheduled expense'));
+        document.getElementById('addAccountBtn').addEventListener('click', addAccount);
 
         // Initialize main chart
         const ctx = document.getElementById('myChart').getContext('2d');
         const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Assets', 'Income', 'Games Income', 'Expenses', 'Shares'],
+                labels: ['Assets', 'Income', 'Expenses'],
                 datasets: [{
                     label: 'Amount ($)',
-                    data: [0, 0, 0, 0, 0],
+                    data: [0, 0, 0],
                     backgroundColor: [
                         'rgba(52, 152, 219, 0.6)',
                         'rgba(155, 89, 182, 0.6)',
-                        'rgba(46, 204, 113, 0.6)',
-                        'rgba(231, 76, 60, 0.6)',
-                        'rgba(241, 196, 15, 0.6)'
+                        'rgba(231, 76, 60, 0.6)'
                     ],
                     borderColor: [
                         'rgba(52, 152, 219, 1)',
                         'rgba(155, 89, 182, 1)',
-                        'rgba(46, 204, 113, 1)',
-                        'rgba(231, 76, 60, 1)',
-                        'rgba(241, 196, 15, 1)'
+                        'rgba(231, 76, 60, 1)'
                     ],
                     borderWidth: 1
                 }]
@@ -339,31 +342,12 @@
         });
 
         // Add event listeners for new buttons
-        document.getElementById('viewTransactionsBtn').addEventListener('click', function() {
-            alert('Viewing transactions functionality will be implemented.');
-        });
-
         document.getElementById('viewBalancesBtn').addEventListener('click', function() {
             alert('Viewing account balances functionality will be implemented.');
         });
 
         document.getElementById('viewMonthlyExpensesBtn').addEventListener('click', function() {
             alert('Viewing monthly expenses functionality will be implemented.');
-        });
-
-        document.getElementById('addScheduledExpenseBtn').addEventListener('click', function() {
-            const expense = prompt('Enter your scheduled expense:');
-            alert('Scheduled expense added: ' + expense);
-        });
-
-        document.getElementById('addAccountBtn').addEventListener('click', function() {
-            const accountName = prompt('Enter the account name:');
-            alert('Account added: ' + accountName);
-        });
-
-        document.getElementById('addAssetBtn').addEventListener('click', function() {
-            const assetName = prompt('Enter the asset name:');
-            alert('Asset added: ' + assetName);
         });
 
         document.getElementById('gamesAccountBtn').addEventListener('click', function() {
