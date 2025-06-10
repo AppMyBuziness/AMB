@@ -79,9 +79,9 @@
             background-color: black;
             box-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
         }
-        #gamesAccountBtn {
+        #plannerBtn {
             background-color: black;
-            box-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
+            box-shadow: 0 0 10px rgba(128, 0, 128, 0.7);
         }
         button:hover {
             background-color: #333;
@@ -165,22 +165,27 @@
             <button id="addScheduledExpenseBtn">Add Scheduled Expense</button>
             <button id="viewBalancesBtn">View Account Balances</button>
             <button id="viewMonthlyExpensesBtn">View Monthly Expenses</button>
-            <button id="gamesAccountBtn">Games Account</button>
+            <button id="plannerBtn">Planner</button>
             <button id="addAccountBtn">Add Account</button>
         </div>
 
         <!-- Accounts Container -->
         <div class="accounts-container">
             <h2>Accounts</h2>
-            <div class="account-item">
+            <div class="account-item" id="mainAccount">
                 <span class="account-title">Main Account:</span>
                 <span id="mainAccountBalance">$0.00</span>
                 <span id="mainAccountGrowth">0%</span>
             </div>
-            <div class="account-item">
+            <div class="account-item" id="savingsAccount">
                 <span class="account-title">Savings Account:</span>
                 <span id="savingsAccountBalance">$0.00</span>
                 <span id="savingsAccountGrowth">0%</span>
+            </div>
+            <div class="account-item" id="gamesAccount">
+                <span class="account-title">Games Account:</span>
+                <span id="gamesAccountBalance">$0.00</span>
+                <span id="gamesAccountGrowth">0%</span>
             </div>
             <div id="additionalAccounts"></div>
         </div>
@@ -202,6 +207,12 @@
         const transactions = [];
         const additionalAccountsContainer = document.getElementById('additionalAccounts');
 
+        const accounts = {
+            main: { balance: 0, element: document.getElementById('mainAccountBalance') },
+            savings: { balance: 0, element: document.getElementById('savingsAccountBalance') },
+            games: { balance: 0, element: document.getElementById('gamesAccountBalance') },
+        };
+
         const updateTransactionList = () => {
             const transactionList = document.getElementById('transactionList');
             transactionList.innerHTML = ''; // Clear current list
@@ -213,14 +224,28 @@
             });
         };
 
+        const updateAccountBalance = (accountName, amount) => {
+            accounts[accountName].balance += amount;
+            accounts[accountName].element.textContent = `$${accounts[accountName].balance.toFixed(2)}`;
+        };
+
         const addTransaction = (type) => {
+            const accountName = prompt('Choose an account: main, savings, or games').toLowerCase();
             const name = prompt(`Enter the name of the ${type}:`);
             const price = parseFloat(prompt(`Enter the amount for the ${type}:`));
-            if (name && !isNaN(price)) {
+
+            if (name && !isNaN(price) && accounts[accountName]) {
                 const now = new Date();
                 const date = now.toLocaleDateString();
                 const time = now.toLocaleTimeString();
                 transactions.push({ date, time, name, price });
+
+                if (type === 'income') {
+                    updateAccountBalance(accountName, price);
+                } else if (type === 'expense') {
+                    updateAccountBalance(accountName, -price);
+                }
+
                 updateTransactionList();
             } else {
                 alert('Invalid input. Please try again.');
@@ -348,10 +373,6 @@
 
         document.getElementById('viewMonthlyExpensesBtn').addEventListener('click', function() {
             alert('Viewing monthly expenses functionality will be implemented.');
-        });
-
-        document.getElementById('gamesAccountBtn').addEventListener('click', function() {
-            alert('Games account functionality will be implemented.');
         });
 
         // Add event listeners for dropdown options
