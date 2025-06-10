@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Business Shares Graph</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .navbar {
+            background-color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .navbar a {
+            color: #000;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #444;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        canvas {
+            margin-top: 20px;
+        }
+
+        .business-info {
+            margin-top: 20px;
+        }
+
+        .business {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="businessform.html"><i class="fas fa-chart-line"></i> </a>
+        <a href="index.html"><i class="fas fa-user"></i> </a>
+        <a href="chat.html"><i class="fas fa-comments"></i> </a>
+        <a href="games.html"><i class="fas fa-gamepad"></i></a>
+        <a href="auction.html"><i class="fas fa-gavel"></i></a>
+    </div>
+   
+    <div class="container">
+         <iframe src="https://giphy.com/embed/vsiFWHBz8lTvdJUJHq" width="80" height="80" style="align:center;" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/CompanyCam-block-scale-graph-vsiFWHBz8lTvdJUJHq"></a></p>
+    
+        <h1>Business Shares Graph</h1>
+        <div id="graphsContainer"></div>
+        <div class="business-info" id="businessInfoContainer"></div>
+    </div>
+
+    <script>
+        // Fake business data
+        const businesses = [
+            { name: "Tech Innovations", shares: 200, growth: 15, description: "Leading tech solutions.", email: "contact@techinnovations.com", country: "USA", startDate: "2020-03", instagram: "@techinnovations", facebook: "fb.com/techinnovations", tiktok: "@techinnovations" },
+            { name: "Green Energy Co.", shares: 300, growth: 25, description: "Sustainable energy solutions.", email: "info@greenenergy.com", country: "Canada", startDate: "2019-02", instagram: "@greenenergyco", facebook: "fb.com/greenenergyco", tiktok: "@greenenergyco" },
+            { name: "HealthPlus", shares: 150, growth: 10, description: "Health and wellness products.", email: "support@healthplus.com", country: "UK", startDate: "2021-05", instagram: "@healthplus", facebook: "fb.com/healthplus", tiktok: "@healthplus" },
+            { name: "Fashion Hub", shares: 400, growth: 30, description: "Trendy fashion for everyone.", email: "contact@fashionhub.com", country: "Australia", startDate: "2018-09", instagram: "@fashionhub", facebook: "fb.com/fashionhub", tiktok: "@fashionhub" },
+            { name: "Foodie Delight", shares: 250, growth: 20, description: "Gourmet food delivery.", email: "info@foodiedelight.com", country: "USA", startDate: "2020-11", instagram: "@foodiedelight", facebook: "fb.com/foodiedelight", tiktok: "@foodiedelight" }
+        ];
+
+        const limit = 5; // Max businesses per graph
+        const graphsContainer = document.getElementById('graphsContainer');
+        const businessInfoContainer = document.getElementById('businessInfoContainer');
+
+        // Function to create graphs
+        function createGraph(data, index) {
+            const canvas = document.createElement('canvas');
+            canvas.id = `myChart${index}`;
+            graphsContainer.appendChild(canvas);
+
+            const chart = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: data.map(b => b.name),
+                    datasets: [{
+                        label: 'Shares',
+                        data: data.map(b => b.shares),
+                        backgroundColor: 'rgba(128, 0, 128, 0.6)',
+                        borderColor: 'rgba(128, 0, 128, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const percentage = data[context.dataIndex].growth;
+                                    return [`Shares: ${context.raw}`, `Growth: ${percentage}%`];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            data.forEach((business, i) => {
+                const percentage = business.growth;
+                const bar = chart.getDatasetMeta(0).data[i];
+                const ctx = chart.ctx;
+                ctx.fillStyle = '#000';
+                ctx.fillText(`${percentage}%`, bar.x, bar.y - 10);
+            });
+        }
+
+        // Function to display business info
+        function displayBusinessInfo() {
+            businessInfoContainer.innerHTML = '';
+
+            businesses.forEach(business => {
+                const businessDiv = document.createElement('div');
+                businessDiv.className = 'business';
+                businessDiv.innerHTML = `
+                    <strong>${business.name}</strong><br>
+                    Description: ${business.description}<br>
+                    Email: ${business.email}<br>
+                    Country: ${business.country}<br>
+                    Start Date: ${business.startDate}<br>
+                    Instagram: ${business.instagram || 'N/A'}<br>
+                    Facebook: ${business.facebook || 'N/A'}<br>
+                    TikTok: ${business.tiktok || 'N/A'}<br>
+                `;
+                businessInfoContainer.appendChild(businessDiv);
+            });
+        }
+
+        // Create graphs based on the business data
+        for (let i = 0; i < businesses.length; i += limit) {
+            const chunk = businesses.slice(i, i + limit);
+            createGraph(chunk, Math.floor(i / limit));
+        }
+
+        // Initially display business info
+        displayBusinessInfo();
+    </script>
+</body>
+</html>
