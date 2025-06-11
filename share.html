@@ -28,19 +28,16 @@
             border-radius: 4px;
             cursor: pointer;
             transition: box-shadow 0.3s;
+            box-shadow: 0 0 20px rgba(0, 128, 255, 0.8); /* Default glowing border */
         }
 
-        /* Different glowing border shadows */
-        .business:nth-child(1) {
+        /* You can customize the glow colors for each container here */
+        .business:nth-child(2) {
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
         }
 
-        .business:nth-child(2) {
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
-        }
-
         .business:nth-child(3) {
-            box-shadow: 0 0 20px rgba(0, 0, 255, 0.8);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
         }
 
         .business:nth-child(4) {
@@ -103,7 +100,7 @@
         if (acceptedBusinesses.length === 0) {
             acceptedBusinessesContainer.innerHTML = '<p>No accepted businesses to display.</p>';
         } else {
-            acceptedBusinesses.forEach((business, index) => {
+            acceptedBusinesses.forEach(business => {
                 const businessDiv = document.createElement('div');
                 businessDiv.className = 'business';
                 businessDiv.innerHTML = `
