@@ -8,8 +8,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: white; /* Black background */
-            color: #000; /* White text */
+            background-color: white; /* White background */
+            color: #000; /* Black text */
             margin: 0;
             padding: 20px;
         }
@@ -39,7 +39,7 @@
         .container {
             max-width: 600px;
             margin: auto;
-            background: white; /* Black container */
+            background: white; /* White container */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(255, 0, 255, 0.5); /* Purple glow */
@@ -47,12 +47,12 @@
 
         h1 {
             text-align: center;
-            color: #000; /* Purple title */
+            color: #000; /* Black title */
             margin-bottom: 20px;
         }
 
         .item {
-            background-color:white;
+            background-color: white;
             padding: 15px;
             border-radius: 5px;
             margin: 10px 0;
@@ -75,10 +75,7 @@
             font-weight: bold;
         }
 
-        .bid-input {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .price-buttons {
             margin-top: 10px;
         }
 
@@ -92,11 +89,38 @@
             font-size: 16px;
             transition: background-color 0.3s, box-shadow 0.3s;
             box-shadow: 0 0 5px purple; /* Purple glow */
+            margin: 5px;
         }
 
         button:hover {
             background-color: #111;
             box-shadow: 0 0 15px purple; /* Stronger purple glow */
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Shadow for popup */
+        }
+
+        .close {
+            cursor: pointer;
+            float: right;
+            font-size: 20px;
+            color: #000;
         }
     </style>
 </head>
@@ -106,12 +130,12 @@
         <a href="index.html"><i class="fas fa-user"></i></a>
         <a href="chat.html"><i class="fas fa-comments"></i></a>
         <a href="games.html"><i class="fas fa-gamepad"></i></a>
-        <a href="auction.html"><i class="fas fa-gavel"></i> Auction</a>
+        <a href="auction.html"><i class="fas fa-gavel"></i> </a>
     </div>
 
     <div class="container">
-        <iframe src="https://giphy.com/embed/8hn8SROAxffok1OJQ7" width="80" height="80" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/burnttoastcreative-aoi-burnttoast-artoninternet-8hn8SROAxffok1OJQ7"></a></p>
         <h1>Auction Listings</h1>
+        <button id="addItemButton">+</button>
         <div id="itemList" class="item-list">
             <!-- Example Listings -->
             <div class="item" id="item-1">
@@ -121,10 +145,7 @@
                 <p><strong>Price Range:</strong> $50 - $100</p>
                 <p><strong>Location:</strong> New York</p>
                 <div class="countdown" id="countdown-1">Time Left: <span>1:00</span></div>
-                <div class="bid-input">
-                    <input type="number" placeholder="Your Bid ($)" id="bid-1">
-                    <button onclick="placeBid('1')">Bid</button>
-                </div>
+                <div class="price-buttons" id="priceButtons-1"></div>
             </div>
             <div class="item" id="item-2">
                 <h3>Vintage Watch</h3>
@@ -133,10 +154,7 @@
                 <p><strong>Price Range:</strong> $200 - $300</p>
                 <p><strong>Location:</strong> Los Angeles</p>
                 <div class="countdown" id="countdown-2">Time Left: <span>1:00</span></div>
-                <div class="bid-input">
-                    <input type="number" placeholder="Your Bid ($)" id="bid-2">
-                    <button onclick="placeBid('2')">Bid</button>
-                </div>
+                <div class="price-buttons" id="priceButtons-2"></div>
             </div>
             <div class="item" id="item-3">
                 <h3>Guitar</h3>
@@ -145,11 +163,24 @@
                 <p><strong>Price Range:</strong> $150 - $250</p>
                 <p><strong>Location:</strong> Chicago</p>
                 <div class="countdown" id="countdown-3">Time Left: <span>1:00</span></div>
-                <div class="bid-input">
-                    <input type="number" placeholder="Your Bid ($)" id="bid-3">
-                    <button onclick="placeBid('3')">Bid</button>
-                </div>
+                <div class="price-buttons" id="priceButtons-3"></div>
             </div>
+        </div>
+    </div>
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close" id="closePopup">&times;</span>
+            <h2>Add New Item</h2>
+            <form id="addItemForm">
+                <input type="text" id="itemName" placeholder="Product Name" required>
+                <input type="file" id="itemImage" accept="image/*" required>
+                <textarea id="itemDescription" placeholder="Description" rows="4" required></textarea>
+                <input type="number" id="itemMinPrice" placeholder="Minimum Price" required>
+                <input type="number" id="itemMaxPrice" placeholder="Maximum Price" required>
+                <input type="text" id="itemLocation" placeholder="Location" required>
+                <button type="submit">Add Item</button>
+            </form>
         </div>
     </div>
 
@@ -160,6 +191,9 @@
         function showItem(index) {
             items.forEach((item, i) => {
                 item.style.display = i === index ? 'block' : 'none';
+                if (i === index) {
+                    generatePriceButtons(index);
+                }
             });
             startCountdown(index);
         }
@@ -184,20 +218,39 @@
             }, 1000);
         }
 
-        function placeBid(itemId) {
-            const bidInput = document.getElementById(`bid-${itemId}`);
-            const bidAmount = bidInput.value;
+        function placeBid(price, itemId) {
+            alert(`Your bid of $${price} has been placed for item ${itemId}`);
+            const priceButtons = document.getElementById(`priceButtons-${itemId}`);
+            const buttons = priceButtons.querySelectorAll('button');
 
-            if (bidAmount && !isNaN(bidAmount) && bidAmount > 0) {
-                alert(`Your bid of $${bidAmount} has been placed for item ${itemId}`);
-                bidInput.value = ''; // Clear the input
-            } else {
-                alert('Please enter a valid bid amount.');
+            buttons.forEach(button => {
+                const buttonPrice = parseFloat(button.textContent.replace('$', ''));
+                if (buttonPrice < price) {
+                    button.style.display = 'none'; // Hide lower price buttons
+                }
+            });
+        }
+
+        function generatePriceButtons(index) {
+            const minPrice = parseFloat(document.getElementById(`itemMinPrice`).value);
+            const maxPrice = parseFloat(document.getElementById(`itemMaxPrice`).value);
+            const priceButtonsContainer = document.getElementById(`priceButtons-${index + 1}`);
+            priceButtonsContainer.innerHTML = ''; // Clear previous buttons
+
+            const priceStep = (maxPrice - minPrice) / 8;
+
+            for (let i = 0; i < 8; i++) {
+                const pricePoint = (minPrice + priceStep * i).toFixed(2);
+                const button = document.createElement('button');
+                button.textContent = `$${pricePoint}`;
+                button.onclick = () => placeBid(pricePoint, index + 1);
+                priceButtonsContainer.appendChild(button);
             }
         }
 
         // Show the first item initially
         showItem(currentIndex);
+        
         // Start showing items at intervals
         setInterval(() => {
             currentIndex++;
@@ -208,6 +261,50 @@
                 showItem(currentIndex);
             }
         }, 60000); // Change item every minute (60000 ms)
+
+        // Popup functionality
+        const popup = document.getElementById('popup');
+        const addItemButton = document.getElementById('addItemButton');
+        const closePopup = document.getElementById('closePopup');
+        const addItemForm = document.getElementById('addItemForm');
+
+        addItemButton.onclick = function() {
+            popup.style.display = 'flex';
+        }
+
+        closePopup.onclick = function() {
+            popup.style.display = 'none';
+        }
+
+        addItemForm.onsubmit = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('itemName').value;
+            const image = document.getElementById('itemImage').files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const newItem = document.createElement('div');
+                newItem.classList.add('item');
+                newItem.innerHTML = `
+                    <h3>${name}</h3>
+                    <img src="${event.target.result}" alt="${name}">
+                    <p>${document.getElementById('itemDescription').value}</p>
+                    <p><strong>Price Range:</strong> $${document.getElementById('itemMinPrice').value} - $${document.getElementById('itemMaxPrice').value}</p>
+                    <p><strong>Location:</strong> ${document.getElementById('itemLocation').value}</p>
+                    <div class="countdown">Time Left: <span>1:00</span></div>
+                    <div class="price-buttons" id="priceButtons-new"></div>
+                `;
+                document.getElementById('itemList').appendChild(newItem);
+
+                // Generate price buttons for the new item
+                generatePriceButtons(document.getElementById('itemList').children.length - 1);
+
+                // Reset form and close popup
+                addItemForm.reset();
+                popup.style.display = 'none';
+            };
+            reader.readAsDataURL(image); // Read the image as a data URL
+        }
     </script>
 </body>
 </html>
