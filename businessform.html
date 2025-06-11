@@ -5,7 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Registration Form</title>
     <style>
-        /* Your existing CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            color: #800080;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        input[type="text"], input[type="email"], input[type="file"], input[type="month"], input[type="tel"] {
+            padding: 10px;
+            border: 1px solid #800080;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #800080;
+            color: white;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #6a006a;
+        }
+
+        .required {
+            color: #ff0000;
+        }
     </style>
     <!-- Mixpanel Integration -->
     <script type="text/javascript">
@@ -21,7 +80,42 @@
     <div class="container">
         <h1>Business Registration Form</h1>
         <div class="form">
-            <!-- Your existing form fields -->
+            <label for="firstName">First Name <span class="required">*</span></label>
+            <input type="text" id="firstName" required>
+            
+            <label for="middleName">Middle Name <span class="required">*</span></label>
+            <input type="text" id="middleName" required>
+            
+            <label for="lastName">Last Name <span class="required">*</span></label>
+            <input type="text" id="lastName" required>
+            
+            <label for="businessName">Business/Company Name <span class="required">*</span></label>
+            <input type="text" id="businessName" required>
+            
+            <label for="businessInstagram">Business Instagram</label>
+            <input type="text" id="businessInstagram">
+            
+            <label for="businessFacebook">Business Facebook</label>
+            <input type="text" id="businessFacebook">
+            
+            <label for="businessTikTok">Business TikTok</label>
+            <input type="text" id="businessTikTok">
+            
+            <label for="businessEmail">Business Email <span class="required">*</span></label>
+            <input type="email" id="businessEmail" required>
+            
+            <label for="businessContact">Business Contact <span class="required">*</span></label>
+            <input type="tel" id="businessContact" required>
+            
+            <label for="country">Country <span class="required">*</span></label>
+            <input type="text" id="country" required>
+            
+            <label for="startDate">Start Date of Business <span class="required">*</span></label>
+            <input type="month" id="startDate" required>
+            
+            <label for="businessDescription">Business Description <span class="required">*</span></label>
+            <input type="text" id="businessDescription" required>
+            
             <button id="submitBusinessBtn">Submit Business</button>
         </div>
     </div>
