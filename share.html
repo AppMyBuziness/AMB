@@ -31,7 +31,7 @@
             box-shadow: 0 0 20px rgba(0, 128, 255, 0.8); /* Default glowing border */
         }
 
-        /* You can customize the glow colors for each container here */
+        /* Glow colors for each container */
         .business:nth-child(2) {
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
         }
@@ -74,6 +74,32 @@
             color: red;
             float: right;
         }
+
+        .button {
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .pay-button {
+            background-color: #4CAF50; /* Green */
+        }
+
+        .pay-button:hover {
+            background-color: #45a049;
+        }
+
+        .donate-button {
+            background-color: #f44336; /* Red */
+        }
+
+        .donate-button:hover {
+            background-color: #e53935;
+        }
     </style>
 </head>
 <body>
@@ -112,6 +138,8 @@
                     Instagram: <a href="${business.instagram}" target="_blank">${business.instagram || 'N/A'}</a><br>
                     Facebook: <a href="${business.facebook}" target="_blank">${business.facebook || 'N/A'}</a><br>
                     TikTok: <a href="${business.tiktok}" target="_blank">${business.tiktok || 'N/A'}</a><br>
+                    <button class="button pay-button">Pay</button>
+                    <button class="button donate-button">Donate</button>
                 `;
                 
                 businessDiv.addEventListener('click', () => {
