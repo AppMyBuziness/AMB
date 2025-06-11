@@ -122,6 +122,12 @@
             font-size: 20px;
             color: #000;
         }
+
+        .success-message {
+            color: green;
+            text-align: center;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -130,42 +136,16 @@
         <a href="index.html"><i class="fas fa-user"></i></a>
         <a href="chat.html"><i class="fas fa-comments"></i></a>
         <a href="games.html"><i class="fas fa-gamepad"></i></a>
-        <a href="auction.html"><i class="fas fa-gavel"></i> </a>
+        <a href="auction.html"><i class="fas fa-gavel"></i> Auction</a>
     </div>
 
     <div class="container">
         <h1>Auction Listings</h1>
         <button id="addItemButton">+</button>
         <div id="itemList" class="item-list">
-            <!-- Example Listings -->
-            <div class="item" id="item-1">
-                <h3>Antique Vase</h3>
-                <img src="https://via.placeholder.com/150" alt="Antique Vase">
-                <p>A beautiful antique vase from the 19th century.</p>
-                <p><strong>Price Range:</strong> $50 - $100</p>
-                <p><strong>Location:</strong> New York</p>
-                <div class="countdown" id="countdown-1">Time Left: <span>1:00</span></div>
-                <div class="price-buttons" id="priceButtons-1"></div>
-            </div>
-            <div class="item" id="item-2">
-                <h3>Vintage Watch</h3>
-                <img src="https://via.placeholder.com/150" alt="Vintage Watch">
-                <p>A classic vintage watch in excellent condition.</p>
-                <p><strong>Price Range:</strong> $200 - $300</p>
-                <p><strong>Location:</strong> Los Angeles</p>
-                <div class="countdown" id="countdown-2">Time Left: <span>1:00</span></div>
-                <div class="price-buttons" id="priceButtons-2"></div>
-            </div>
-            <div class="item" id="item-3">
-                <h3>Guitar</h3>
-                <img src="https://via.placeholder.com/150" alt="Guitar">
-                <p>A high-quality acoustic guitar for music lovers.</p>
-                <p><strong>Price Range:</strong> $150 - $250</p>
-                <p><strong>Location:</strong> Chicago</p>
-                <div class="countdown" id="countdown-3">Time Left: <span>1:00</span></div>
-                <div class="price-buttons" id="priceButtons-3"></div>
-            </div>
+            <!-- Items will be dynamically added here -->
         </div>
+        <div class="success-message" id="successMessage"></div>
     </div>
 
     <div class="popup" id="popup">
@@ -186,16 +166,26 @@
 
     <script>
         let currentIndex = 0;
-        const items = document.querySelectorAll('.item');
+        const items = [];
 
         function showItem(index) {
-            items.forEach((item, i) => {
-                item.style.display = i === index ? 'block' : 'none';
-                if (i === index) {
-                    generatePriceButtons(index);
-                }
-            });
-            startCountdown(index);
+            if (index < items.length) {
+                const item = items[index];
+                const itemList = document.getElementById('itemList');
+                itemList.innerHTML = `
+                    <div class="item" style="display: block;">
+                        <h3>${item.name}</h3>
+                        <img src="${item.image}" alt="${item.name}">
+                        <p>${item.description}</p>
+                        <p><strong>Price Range:</strong> $${item.minPrice} - $${item.maxPrice}</p>
+                        <p><strong>Location:</strong> ${item.location}</p>
+                        <div class="countdown" id="countdown-${index + 1}">Time Left: <span>1:00</span></div>
+                        <div class="price-buttons" id="priceButtons-${index + 1}"></div>
+                    </div>
+                `;
+                generatePriceButtons(index);
+                startCountdown(index);
+            }
         }
 
         function startCountdown(index) {
@@ -232,8 +222,8 @@
         }
 
         function generatePriceButtons(index) {
-            const minPrice = parseFloat(document.getElementById(`itemMinPrice`).value);
-            const maxPrice = parseFloat(document.getElementById(`itemMaxPrice`).value);
+            const minPrice = items[index].minPrice;
+            const maxPrice = items[index].maxPrice;
             const priceButtonsContainer = document.getElementById(`priceButtons-${index + 1}`);
             priceButtonsContainer.innerHTML = ''; // Clear previous buttons
 
@@ -248,9 +238,6 @@
             }
         }
 
-        // Show the first item initially
-        showItem(currentIndex);
-        
         // Start showing items at intervals
         setInterval(() => {
             currentIndex++;
@@ -267,6 +254,7 @@
         const addItemButton = document.getElementById('addItemButton');
         const closePopup = document.getElementById('closePopup');
         const addItemForm = document.getElementById('addItemForm');
+        const successMessage = document.getElementById('successMessage');
 
         addItemButton.onclick = function() {
             popup.style.display = 'flex';
@@ -283,25 +271,27 @@
             const reader = new FileReader();
 
             reader.onload = function(event) {
-                const newItem = document.createElement('div');
-                newItem.classList.add('item');
-                newItem.innerHTML = `
-                    <h3>${name}</h3>
-                    <img src="${event.target.result}" alt="${name}">
-                    <p>${document.getElementById('itemDescription').value}</p>
-                    <p><strong>Price Range:</strong> $${document.getElementById('itemMinPrice').value} - $${document.getElementById('itemMaxPrice').value}</p>
-                    <p><strong>Location:</strong> ${document.getElementById('itemLocation').value}</p>
-                    <div class="countdown">Time Left: <span>1:00</span></div>
-                    <div class="price-buttons" id="priceButtons-new"></div>
-                `;
-                document.getElementById('itemList').appendChild(newItem);
-
-                // Generate price buttons for the new item
-                generatePriceButtons(document.getElementById('itemList').children.length - 1);
+                const newItem = {
+                    name: name,
+                    image: event.target.result,
+                    description: document.getElementById('itemDescription').value,
+                    minPrice: parseFloat(document.getElementById('itemMinPrice').value),
+                    maxPrice: parseFloat(document.getElementById('itemMaxPrice').value),
+                    location: document.getElementById('itemLocation').value,
+                };
+                items.push(newItem); // Add new item to the list
+                successMessage.textContent = `Item "${name}" added successfully!`;
+                setTimeout(() => {
+                    successMessage.textContent = ''; // Clear message after 3 seconds
+                }, 3000);
 
                 // Reset form and close popup
                 addItemForm.reset();
                 popup.style.display = 'none';
+
+                // Show the new item immediately
+                currentIndex = items.length - 1; // Set to the last item added
+                showItem(currentIndex);
             };
             reader.readAsDataURL(image); // Read the image as a data URL
         }
