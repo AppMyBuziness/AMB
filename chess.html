@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #000; /* Black background */
-            color: #fff; /* White text */
+            background-color: #000;
+            color: #fff;
             margin: 0;
             padding: 20px;
         }
@@ -16,7 +16,7 @@
         .container {
             max-width: 600px;
             margin: auto;
-            background: #222; /* Darker container */
+            background: #222;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
@@ -24,7 +24,7 @@
         }
 
         h1 {
-            color: #ffcc00; /* Gold */
+            color: #ffcc00;
         }
 
         .ticket {
@@ -39,7 +39,7 @@
         }
 
         .ticket:hover {
-            background-color: #555; /* Slightly lighter on hover */
+            background-color: #555;
         }
 
         .countdown {
@@ -48,11 +48,11 @@
         }
 
         .selected {
-            background-color: #00ff00; /* Green for selected ticket */
+            background-color: #00ff00;
         }
 
         .eliminated {
-            background-color: #ff0000; /* Red for eliminated ticket */
+            background-color: #ff0000;
         }
 
         .hidden {
@@ -61,6 +61,11 @@
 
         .selected-tickets {
             margin-top: 20px;
+        }
+
+        .winning-tickets {
+            margin-top: 20px;
+            font-size: 18px;
         }
     </style>
 </head>
@@ -71,6 +76,7 @@
         <div id="countdown" class="countdown hidden"></div>
         <div id="eliminationCountdown" class="countdown hidden"></div>
         <div id="selectedTicket" class="selected-tickets"></div>
+        <div id="winningTickets" class="winning-tickets hidden"></div>
     </div>
 
     <script>
@@ -78,17 +84,19 @@
         const countdownDiv = document.getElementById('countdown');
         const eliminationCountdownDiv = document.getElementById('eliminationCountdown');
         const selectedTicketDiv = document.getElementById('selectedTicket');
+        const winningTicketsDiv = document.getElementById('winningTickets');
 
         let tickets = [];
         let eliminationInterval;
         let totalTickets = 100;
         let ticketsRemaining = totalTickets;
-        let selectedTicketNumber = null; // To track the selected ticket
+        let selectedTicketNumber = null;
+        let winningTicketsCount = 10; // Initial number of winning tickets
 
         function generateTickets() {
             tickets = [];
             for (let i = 0; i < totalTickets; i++) {
-                const ticketNumber = Math.floor(100000 + Math.random() * 900000); // 6-digit number
+                const ticketNumber = Math.floor(100000 + Math.random() * 900000);
                 tickets.push({ number: ticketNumber, active: true });
                 const ticketDiv = document.createElement('div');
                 ticketDiv.className = 'ticket';
@@ -99,25 +107,28 @@
         }
 
         function selectTicket(ticketNumber) {
-            // If a ticket is already selected, do nothing
             if (selectedTicketNumber !== null) return;
 
-            // Select the new ticket
             selectedTicketNumber = ticketNumber;
             const selectedDiv = Array.from(ticketsContainer.children).find(div => div.innerText == ticketNumber);
             if (selectedDiv) {
-                selectedDiv.classList.add('selected'); // Highlight selected ticket
+                selectedDiv.classList.add('selected');
             }
 
-            // Display the selected ticket number
             selectedTicketDiv.innerText = `Selected Ticket: ${ticketNumber}`;
         }
 
         function startGame() {
             generateTickets();
+            winningTicketsDiv.classList.remove('hidden');
+            updateWinningTickets();
             startCountdown(3600, countdownDiv, () => {
                 startElimination();
             });
+        }
+
+        function updateWinningTickets() {
+            winningTicketsDiv.innerText = `Winning Tickets for this Round: ${winningTicketsCount}`;
         }
 
         function startCountdown(duration, display, callback) {
@@ -151,7 +162,7 @@
                 } else {
                     clearInterval(eliminationInterval);
                 }
-            }, 480000); // 8 minutes in milliseconds
+            }, 480000);
         }
 
         function eliminateTicket() {
@@ -162,30 +173,33 @@
                 ticketToEliminate.active = false;
                 ticketsRemaining--;
 
-                // Update UI
                 const ticketDivs = Array.from(ticketsContainer.children);
                 ticketDivs.forEach(div => {
                     if (div.innerText == ticketToEliminate.number) {
-                        div.classList.add('eliminated'); // Mark eliminated ticket in red
-                        // Check if the eliminated ticket is the selected one
+                        div.classList.add('eliminated');
                         if (selectedTicketNumber === ticketToEliminate.number) {
                             alert(`Your ticket ${ticketToEliminate.number} is eliminated! You are out.`);
-                            selectedTicketDiv.innerText = ''; // Clear selected ticket message
+                            selectedTicketDiv.innerText = '';
                         }
                     }
                 });
+
+                // Adjust winning tickets count for next round
+                if (winningTicketsCount < 20) winningTicketsCount++;
+                else if (winningTicketsCount > 5) winningTicketsCount--;
+
+                updateWinningTickets();
             }
         }
 
         function resetGame() {
-            ticketsContainer.innerHTML = ''; // Clear previous tickets
-            selectedTicketDiv.innerText = ''; // Clear selected ticket display
-            selectedTicketNumber = null; // Reset selected ticket
-            ticketsRemaining = totalTickets; // Reset tickets remaining
-            startGame(); // Start a new game
+            ticketsContainer.innerHTML = '';
+            selectedTicketDiv.innerText = '';
+            selectedTicketNumber = null;
+            ticketsRemaining = totalTickets;
+            startGame();
         }
 
-        // Start the game automatically
         startGame();
     </script>
 </body>
