@@ -24,7 +24,7 @@
         }
 
         .navbar {
-            background-color: white; /* White background */
+            background-color: white;
             padding: 10px;
             display: flex;
             justify-content: space-around;
@@ -48,38 +48,19 @@
             border-radius: 4px;
             cursor: pointer;
             transition: box-shadow 0.3s;
-            box-shadow: 0 0 20px rgba(0, 128, 255, 0.8); /* Default glowing border */
+            box-shadow: 0 0 20px rgba(0, 128, 255, 0.8);
             display: flex;
             align-items: center;
         }
 
-        /* Image styles */
         .business-logo {
             width: 50px;
             height: 50px;
-            border-radius: 50%; /* Round image */
+            border-radius: 50%;
             margin-right: 10px;
-            object-fit: cover; /* Maintain aspect ratio */
+            object-fit: cover;
         }
 
-        /* Glow colors for each container */
-        .business:nth-child(2) {
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-        }
-
-        .business:nth-child(3) {
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
-        }
-
-        .business:nth-child(4) {
-            box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
-        }
-
-        .business:nth-child(5) {
-            box-shadow: 0 0 20px rgba(255, 165, 0, 0.8);
-        }
-
-        /* Popup styles */
         .popup {
             display: none;
             position: fixed;
@@ -114,20 +95,20 @@
             color: white;
             cursor: pointer;
             transition: background-color 0.3s, box-shadow 0.3s;
-            background-color: black; /* Black background */
-            box-shadow: 0 0 10px rgba(128, 0, 128, 0.8); /* Purple glowing border */
+            background-color: black;
+            box-shadow: 0 0 10px rgba(128, 0, 128, 0.8);
         }
 
         .button:hover {
-            box-shadow: 0 0 20px rgba(128, 0, 128, 1); /* Stronger purple glow on hover */
+            box-shadow: 0 0 20px rgba(128, 0, 128, 1);
         }
 
         .donate-button {
-            background-color: #000; /* Red for donate button */
+            background-color: #000;
         }
 
         .donate-button:hover {
-            background-color: #e53935; /* Darker red on hover */
+            background-color: #e53935;
         }
     </style>
 </head>
@@ -137,7 +118,7 @@
         <a href="index.html"><i class="fas fa-user"></i></a>
         <a href="chat.html"><i class="fas fa-comments"></i></a>
         <a href="games.html"><i class="fas fa-gamepad"></i></a>
-        <a href="auction.html"><i class="fas fa-gavel"></i> </a>
+        <a href="auction.html"><i class="fas fa-gavel"></i></a>
     </div>
 
     <div class="container">
@@ -168,7 +149,7 @@
                 const businessDiv = document.createElement('div');
                 businessDiv.className = 'business';
                 businessDiv.innerHTML = `
-                    <img src="${business.logo || 'default-logo.png'}" alt="${business.name} Logo" class="business-logo">
+                    <img src="${business.logo}" alt="${business.name} Logo" class="business-logo">
                     <div>
                         <strong>${business.name}</strong><br>
                         Description: ${business.description}<br>
