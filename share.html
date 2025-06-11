@@ -90,6 +90,14 @@
         .button:hover {
             box-shadow: 0 0 20px rgba(128, 0, 128, 1); /* Stronger purple glow on hover */
         }
+
+        .donate-button {
+            background-color: #f44336; /* Red for donate button */
+        }
+
+        .donate-button:hover {
+            background-color: #e53935; /* Darker red on hover */
+        }
     </style>
 </head>
 <body>
@@ -103,7 +111,6 @@
             <span class="close-popup" id="closePopup">&times;</span>
             <h2>Contract</h2>
             <p id="contractContent">Contract details will go here.</p>
-            <button class="button donate-button">Donate</button>
             <button class="button pay-button">Pay</button>
         </div>
     </div>
@@ -130,6 +137,7 @@
                     Instagram: <a href="${business.instagram}" target="_blank">${business.instagram || 'N/A'}</a><br>
                     Facebook: <a href="${business.facebook}" target="_blank">${business.facebook || 'N/A'}</a><br>
                     TikTok: <a href="${business.tiktok}" target="_blank">${business.tiktok || 'N/A'}</a><br>
+                    <button class="button donate-button">Donate</button>
                 `;
                 
                 businessDiv.addEventListener('click', () => {
