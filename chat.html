@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Group Chat</title>
     <style>
         body {
@@ -15,7 +15,7 @@
         }
 
         .navbar {
-            background-color: white; /* Black background */
+            background-color: white; /* White background */
             padding: 10px;
             display: flex;
             justify-content: space-around;
@@ -39,7 +39,7 @@
             background: white; /* Light gray container */
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5); /* Purple glow */
         }
 
         h1 {
@@ -82,8 +82,7 @@
             margin-top: 10px;
         }
 
-        .input-area input[type="text"], 
-        .input-area input[type="file"] {
+        .input-area input[type="text"] {
             width: 100%; /* Full width */
             padding: 10px;
             border: 1px solid #ccc; /* Light border */
@@ -91,7 +90,23 @@
             margin-bottom: 10px; /* Space between inputs */
         }
 
-        button {
+        .input-area .icon {
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 4px;
+            margin-bottom: 10px; /* Space below icon */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9; /* Light gray background */
+        }
+
+        .input-area .icon i {
+            font-size: 24px; /* Increase icon size */
+        }
+
+        .input-area button {
             padding: 10px;
             border: none;
             border-radius: 4px;
@@ -102,7 +117,7 @@
             transition: background-color 0.3s;
         }
 
-        button:hover {
+        .input-area button:hover {
             background-color: #8e44ad; /* Darker purple on hover */
         }
 
@@ -123,8 +138,7 @@
                 flex-direction: row; /* Side by side on larger screens */
             }
 
-            .input-area input[type="text"], 
-            .input-area input[type="file"] {
+            .input-area input[type="text"] {
                 margin-bottom: 0; /* No bottom margin */
                 margin-right: 10px; /* Space between inputs */
             }
@@ -136,7 +150,7 @@
     </style>
 </head>
 <body>
-     <div class="navbar">
+    <div class="navbar">
         <a href="share.html"><i class="fas fa-chart-line"></i></a>
         <a href="index.html"><i class="fas fa-user"></i></a>
         <a href="chat.html"><i class="fas fa-comments"></i></a>
@@ -144,17 +158,24 @@
         <a href="auction.html"><i class="fas fa-gavel"></i> </a>
     </div>
     <div class="container">
-       <iframe src="https://giphy.com/embed/2wl7kKh3BxgwlHk03U" width="80" height="80" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/ExpressVPN-message-messages-encrypted-2wl7kKh3BxgwlHk03U"></a></p>
+        <iframe src="https://giphy.com/embed/2wl7kKh3BxgwlHk03U" width="80" height="80" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         <h1>Group Chat</h1>
         <div class="messages" id="messages"></div>
         <div class="input-area">
             <input type="text" id="messageInput" placeholder="Type your message here" />
-            <input type="file" id="mediaInput" accept="image/*,video/*" />
+            <div class="icon" id="mediaIcon">
+                <i class="fas fa-camera"></i> <!-- Standalone camera icon -->
+                <input type="file" id="mediaInput" accept="image/*,video/*" style="display: none;" />
+            </div>
             <button id="sendMessageBtn">Send</button>
         </div>
     </div>
 
     <script>
+        document.getElementById('mediaIcon').onclick = function() {
+            document.getElementById('mediaInput').click();
+        };
+
         document.getElementById('sendMessageBtn').addEventListener('click', function() {
             const messageInput = document.getElementById('messageInput');
             const mediaInput = document.getElementById('mediaInput');
