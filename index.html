@@ -86,7 +86,7 @@
         button:hover {
             background-color: #333;
         }
-        #myChart, #gamesChart {
+        #myChart {
             margin-top: 20px;
         }
         .accounts-container {
@@ -143,6 +143,28 @@
             padding: 5px 0;
             border-bottom: 1px solid #ddd;
         }
+        .scheduled-expenses-container {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .scheduled-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .scheduled-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .scheduled-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
         .dropdown {
             display: none;
             margin-bottom: 20px;
@@ -175,7 +197,7 @@
         <a href="#" id="contactUsBtn">Contact Us</a>
         <a href="#" id="changePasswordBtn">Change Password</a>
         <a href="#" id="forgotPasswordBtn">Forgot Password</a>
-        <a href="businessform.html" id="addSharesBtn">Add Shares</a>
+        <a href="share.html" id="addSharesBtn">Add Shares</a>
     </div>
     <div class="container">
         <h1>Budget Tracker</h1>
@@ -225,6 +247,14 @@
             </ul>
         </div>
 
+        <!-- Scheduled Expenses Container -->
+        <div class="scheduled-expenses-container">
+            <h2 class="scheduled-title">Scheduled Expenses</h2>
+            <ul class="scheduled-list" id="scheduledList">
+                <!-- Scheduled expenses will be added here -->
+            </ul>
+        </div>
+
         <!-- Transactions Container -->
         <div class="transactions-container">
             <div class="transaction-title">Transactions:</div>
@@ -232,16 +262,13 @@
                 <!-- Transaction items will be added here -->
             </ul>
         </div>
-
-        <!-- Line Chart for Games Frequency -->
-        <h2>Games Frequency</h2>
-        <canvas id="gamesChart" width="400" height="200"></canvas>
     </div>
 
     <script>
         const transactions = [];
         const additionalAccountsContainer = document.getElementById('additionalAccounts');
         const assetsList = document.getElementById('assetsList');
+        const scheduledList = document.getElementById('scheduledList');
 
         const accounts = {
             main: { balance: 0, element: document.getElementById('mainAccountBalance') },
@@ -303,6 +330,34 @@
             }
         };
 
+        const addScheduledExpense = () => {
+            const expenseName = prompt('Enter the name of the scheduled expense:');
+            const expenseDate = prompt('Enter the date of the expense (YYYY-MM-DD):');
+            const expenseTime = prompt('Enter the time of the expense (HH:MM):');
+            const accountName = prompt('Choose an account: main, savings, games, or shares').toLowerCase();
+            const price = parseFloat(prompt('Enter the amount for the scheduled expense:'));
+
+            if (expenseName && expenseDate && expenseTime && !isNaN(price) && accounts[accountName]) {
+                const li = document.createElement('li');
+                li.className = 'scheduled-item';
+                li.innerHTML = `${expenseName} on ${expenseDate} at ${expenseTime}: $${price.toFixed(2)} 
+                                <button onclick="subtractScheduledExpense('${expenseName}', ${price}, '${accountName}')">Subtract</button>`;
+                scheduledList.appendChild(li);
+            } else {
+                alert('Invalid scheduled expense details. Please try again.');
+            }
+        };
+
+        const subtractScheduledExpense = (name, amount, accountName) => {
+            updateAccountBalance(accountName, -amount);
+            const items = document.querySelectorAll('.scheduled-item');
+            items.forEach(item => {
+                if (item.textContent.includes(name)) {
+                    item.remove();
+                }
+            });
+        };
+
         const addAccount = () => {
             const accountName = prompt('Enter the new account name:');
             if (accountName) {
@@ -330,7 +385,7 @@
 
         document.getElementById('addIncomeBtn').addEventListener('click', () => addTransaction('income'));
         document.getElementById('addExpenseBtn').addEventListener('click', () => addTransaction('expense'));
-        document.getElementById('addScheduledExpenseBtn').addEventListener('click', () => addTransaction('scheduled expense'));
+        document.getElementById('addScheduledExpenseBtn').addEventListener('click', addScheduledExpense);
         document.getElementById('addAssetBtn').addEventListener('click', addAsset);
         document.getElementById('addAccountBtn').addEventListener('click', addAccount);
 
@@ -361,66 +416,6 @@
                     ],
                     borderWidth: 1
                 }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        // Initialize games frequency chart with six lines
-        const gamesCtx = document.getElementById('gamesChart').getContext('2d');
-        const gamesChart = new Chart(gamesCtx, {
-            type: 'line',
-            data: {
-                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                datasets: [
-                    {
-                        label: 'Game A',
-                        data: [5, 10, 7, 12],
-                        borderColor: 'rgba(255, 0, 0, 1)',
-                        backgroundColor: 'rgba(255, 0, 0, 0.2)',
-                        fill: true
-                    },
-                    {
-                        label: 'Game B',
-                        data: [3, 8, 5, 14],
-                        borderColor: 'rgba(0, 255, 0, 1)',
-                        backgroundColor: 'rgba(0, 255, 0, 0.2)',
-                        fill: true
-                    },
-                    {
-                        label: 'Game C',
-                        data: [2, 6, 9, 11],
-                        borderColor: 'rgba(0, 0, 255, 1)',
-                        backgroundColor: 'rgba(0, 0, 255, 0.2)',
-                        fill: true
-                    },
-                    {
-                        label: 'Game D',
-                        data: [4, 7, 3, 10],
-                        borderColor: 'rgba(255, 255, 0, 1)',
-                        backgroundColor: 'rgba(255, 255, 0, 0.2)',
-                        fill: true
-                    },
-                    {
-                        label: 'Game E',
-                        data: [1, 5, 8, 6],
-                        borderColor: 'rgba(255, 165, 0, 1)',
-                        backgroundColor: 'rgba(255, 165, 0, 0.2)',
-                        fill: true
-                    },
-                    {
-                        label: 'Game F',
-                        data: [0, 2, 3, 8],
-                        borderColor: 'rgba(128, 0, 128, 1)',
-                        backgroundColor: 'rgba(128, 0, 128, 0.2)',
-                        fill: true
-                    }
-                ]
             },
             options: {
                 scales: {
