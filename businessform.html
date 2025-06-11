@@ -84,7 +84,7 @@
             <input type="text" id="businessName" required>
             
             <label for="businessLogo">Business Logo (Upload)</label>
-            <input type="file" id="businessLogo" accept="image/*">
+            <input type="file" id="businessLogo" accept="image/*" required>
             
             <label for="businessInstagram">Business Instagram (URL)</label>
             <input type="text" id="businessInstagram" pattern="https?://.+">
@@ -129,42 +129,51 @@
             const startDate = document.getElementById('startDate').value;
             const businessDescription = document.getElementById('businessDescription').value;
             const amountNeeded = document.getElementById('amountNeeded').value;
+            const businessLogoInput = document.getElementById('businessLogo').files[0];
 
-            if (firstName && middleName && lastName && businessName && businessEmail && businessContact && country && businessDescription && amountNeeded) {
-                const businessInfo = {
-                    name: businessName,
-                    description: businessDescription,
-                    email: businessEmail,
-                    contact: businessContact,
-                    country: country,
-                    startDate: startDate,
-                    amountNeeded: amountNeeded,
-                    instagram: document.getElementById('businessInstagram').value,
-                    facebook: document.getElementById('businessFacebook').value,
-                    tiktok: document.getElementById('businessTikTok').value
+            if (firstName && middleName && lastName && businessName && businessEmail && businessContact && country && businessDescription && amountNeeded && businessLogoInput) {
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    const businessInfo = {
+                        name: businessName,
+                        description: businessDescription,
+                        email: businessEmail,
+                        contact: businessContact,
+                        country: country,
+                        startDate: startDate,
+                        amountNeeded: amountNeeded,
+                        instagram: document.getElementById('businessInstagram').value,
+                        facebook: document.getElementById('businessFacebook').value,
+                        tiktok: document.getElementById('businessTikTok').value,
+                        logo: event.target.result // Get the logo data URL
+                    };
+
+                    // Store in localStorage
+                    const existingBusinesses = JSON.parse(localStorage.getItem('businesses')) || [];
+                    existingBusinesses.push(businessInfo);
+                    localStorage.setItem('businesses', JSON.stringify(existingBusinesses));
+                    
+                    // Track event in Mixpanel
+                    mixpanel.track('Business Submitted', {
+                        name: businessName,
+                        email: businessEmail,
+                        contact: businessContact,
+                        country: country,
+                        startDate: startDate,
+                        description: businessDescription,
+                        amountNeeded: amountNeeded,
+                        instagram: document.getElementById('businessInstagram').value,
+                        facebook: document.getElementById('businessFacebook').value,
+                        tiktok: document.getElementById('businessTikTok').value
+                    });
+
+                    alert('Business submitted successfully!');
+                    window.location.href = 'share.html'; // Navigate to the share page
                 };
 
-                // Store in localStorage
-                const existingBusinesses = JSON.parse(localStorage.getItem('businesses')) || [];
-                existingBusinesses.push(businessInfo);
-                localStorage.setItem('businesses', JSON.stringify(existingBusinesses));
-                
-                // Track event in Mixpanel
-                mixpanel.track('Business Submitted', {
-                    name: businessName,
-                    email: businessEmail,
-                    contact: businessContact,
-                    country: country,
-                    startDate: startDate,
-                    description: businessDescription,
-                    amountNeeded: amountNeeded,
-                    instagram: document.getElementById('businessInstagram').value,
-                    facebook: document.getElementById('businessFacebook').value,
-                    tiktok: document.getElementById('businessTikTok').value
-                });
-
-                alert('Business submitted successfully!');
-                window.location.href = 'review.html'; // Navigate to the review page
+                // Read the logo file
+                reader.readAsDataURL(businessLogoInput);
             } else {
                 alert('Please fill in all required fields.');
             }
