@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Flip Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #000; /* Black container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.5); /* Colorful glowing border */
+            text-align: center;
+        }
+
+        h1 {
+            color: #800080;
+        }
+
+        .choice-button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #000; /* Black button */
+            color: white;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+
+        /* Heads button with yellow glow */
+        #headsBtn {
+            box-shadow: 0 0 20px rgba(255, 255, 0, 1), 0 0 30px rgba(255, 255, 0, 0.5); /* Yellow glowing border */
+        }
+
+        /* Tails button with green glow */
+        #tailsBtn {
+            box-shadow: 0 0 20px rgba(0, 255, 0, 1), 0 0 30px rgba(0, 255, 0, 0.5); /* Green glowing border */
+        }
+
+        .choice-button:hover {
+            background-color: #6a006a; /* Change button color on hover */
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        .countdown {
+            margin-top: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Coin Flip Game</h1>
+        <p>Choose Heads or Tails:</p>
+        <button id="headsBtn" class="choice-button">Heads</button>
+        <button id="tailsBtn" class="choice-button">Tails</button>
+        <div id="result" class="result"></div>
+        <div id="countdown" class="countdown"></div>
+    </div>
+
+    <script>
+        const headsBtn = document.getElementById('headsBtn');
+        const tailsBtn = document.getElementById('tailsBtn');
+        const resultDiv = document.getElementById('result');
+        const countdownDiv = document.getElementById('countdown');
+
+        let userChoice = '';
+        let countdown;
+
+        headsBtn.addEventListener('click', () => {
+            userChoice = 'Heads';
+            startCountdown();
+        });
+
+        tailsBtn.addEventListener('click', () => {
+            userChoice = 'Tails';
+            startCountdown();
+        });
+
+        function startCountdown() {
+            resultDiv.textContent = '';
+            countdownDiv.textContent = 'Waiting for 10 minutes...';
+            let timeLeft = 600; // 10 minutes in seconds
+
+            countdown = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    revealResult();
+                } else {
+                    countdownDiv.textContent = `Time left: ${Math.floor(timeLeft / 60)}:${('0' + (timeLeft % 60)).slice(-2)}`;
+                    timeLeft--;
+                }
+            }, 1000);
+        }
+
+        function revealResult() {
+            const coinFlipResult = Math.random() < 0.5 ? 'Heads' : 'Tails';
+            resultDiv.textContent = `The result is: ${coinFlipResult}`;
+            if (userChoice === coinFlipResult) {
+                resultDiv.textContent += ' - You guessed correctly!';
+            } else {
+                resultDiv.textContent += ' - Better luck next time!';
+            }
+            countdownDiv.textContent = '';
+        }
+    </script>
+</body>
+</html>
