@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: white; /* Black background */
-            color: #000; /* White text */
+            background-color: white; /* White background */
+            color: #000; /* Black text */
             margin: 0;
             padding: 20px;
         }
@@ -37,7 +38,7 @@
         .container {
             max-width: 600px;
             margin: auto;
-            background: white; /* Black container */
+            background: white; /* White container */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(255, 0, 255, 0.5); /* Purple glow */
@@ -57,15 +58,16 @@
         }
 
         .game-item {
-            background-color: #333;
+            background-color: white; /* White container for each game */
             padding: 15px;
             margin: 10px 0;
             border-radius: 5px;
             transition: background-color 0.3s;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
         }
 
         .game-item:hover {
-            background-color: #444;
+            background-color: #f0f0f0; /* Light gray on hover */
         }
 
         .game-title {
@@ -81,6 +83,15 @@
         .game-price {
             font-size: 16px;
             color: #e74c3c; /* Red color for price */
+        }
+
+        .winner-statistics {
+            margin-top: 10px;
+            color: #f39c12; /* Orange for stats */
+        }
+
+        canvas {
+            margin-top: 15px;
         }
 
         /* Glowing borders for each game */
@@ -106,36 +117,111 @@
     </div>
 
     <div class="container">
-        <iframe src="https://giphy.com/embed/mXkqCkfBwuo1FsUacv" width="80" height="80" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/games-roblox-videogames-mXkqCkfBwuo1FsUacv"></a></p>
         <h1>Games</h1>
         <div class="total-balance">
             Total Games Balance: <span id="totalGamesBalance">$0.00</span>
         </div>
-        <a href="bingo.html" style="color: white;">
-            <div class="game-item game-zelda">
-                <div class="game-title">Bingo</div>
-                <div class="game-description">An open-world action-adventure game set in a vast world.</div>
-                <div class="game-price">$2</div>
-            </div>
-        </a>
 
-        <a href="doors.html" style="color: white;">
-            <div class="game-item game-mario">
-                <div class="game-title">The Door Game</div>
-                <div class="game-description">A platform game featuring Mario on a globe-trotting adventure.</div>
-                <div class="game-price">$3</div>
+        <div class="game-item game-zelda">
+            <div class="game-title">Bingo</div>
+            <div class="game-description">An open-world action-adventure game set in a vast world.</div>
+            <div class="game-price">$2</div>
+            <div class="winner-statistics">
+                Players: <span id="bingoPlayers">10</span> | Winners: <span id="bingoWinners">5</span> | Each Winner Gets: $<span id="bingoPrize">0.00</span>
             </div>
-        </a>
-        <a href="guessing.html" style="color: white;">
-            <div class="game-item game-reddead">
-                <div class="game-title">The 5 Guess Game</div>
-                <div class="game-description">An epic tale of life in America’s unforgiving heartland.</div>
-                <div class="game-price">$3</div>
+            <canvas id="bingoChart" width="400" height="200"></canvas>
+        </div>
+
+        <div class="game-item game-mario">
+            <div class="game-title">The Door Game</div>
+            <div class="game-description">A platform game featuring Mario on a globe-trotting adventure.</div>
+            <div class="game-price">$3</div>
+            <div class="winner-statistics">
+                Players: <span id="doorGamePlayers">20</span> | Winners: <span id="doorGameWinners">8</span> | Each Winner Gets: $<span id="doorGamePrize">0.00</span>
             </div>
-        </a>
+            <canvas id="doorGameChart" width="400" height="200"></canvas>
+        </div>
+
+        <div class="game-item game-reddead">
+            <div class="game-title">The 5 Guess Game</div>
+            <div class="game-description">An epic tale of life in America’s unforgiving heartland.</div>
+            <div class="game-price">$3</div>
+            <div class="winner-statistics">
+                Players: <span id="guessGamePlayers">15</span> | Winners: <span id="guessGameWinners">7</span> | Each Winner Gets: $<span id="guessGamePrize">0.00</span>
+            </div>
+            <canvas id="guessGameChart" width="400" height="200"></canvas>
+        </div>
     </div>
 
     <script>
+        const gameData = {
+            bingo: { players: 10, winners: 5, price: 2 },
+            doorGame: { players: 20, winners: 8, price: 3 },
+            guessGame: { players: 15, winners: 7, price: 3 }
+        };
+
+        // Function to calculate and display prize for each game
+        function updatePrizes() {
+            for (const [key, data] of Object.entries(gameData)) {
+                const prize = (data.players * data.price) / data.winners;
+                document.getElementById(`${key}Prize`).textContent = prize.toFixed(2);
+                document.getElementById(`${key}Players`).textContent = data.players;
+                document.getElementById(`${key}Winners`).textContent = data.winners;
+            }
+        }
+
+        function createChart(ctx, data) {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Playing', 'Winning', 'Losing'],
+                    datasets: [{
+                        label: 'Number of Players',
+                        data: [data.players, data.winners, data.players - data.winners],
+                        backgroundColor: 'white',
+                        borderColor: [
+                            'rgba(52, 152, 219, 1)',  // Playing
+                            'rgba(46, 204, 113, 1)',  // Winning
+                            'rgba(231, 76, 60, 1)'     // Losing
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 4,
+                        hoverBackgroundColor: [
+                            'rgba(52, 152, 219, 0.8)',
+                            'rgba(46, 204, 113, 0.8)',
+                            'rgba(231, 76, 60, 0.8)'
+                        ],
+                        hoverBorderColor: [
+                            'rgba(52, 152, 219, 1)',
+                            'rgba(46, 204, 113, 1)',
+                            'rgba(231, 76, 60, 1)'
+                        ]
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            bodyColor: '#000',
+                            titleColor: '#000',
+                        }
+                    }
+                }
+            });
+        }
+
+        // Creating charts for each game
+        createChart(document.getElementById('bingoChart').getContext('2d'), gameData.bingo);
+        createChart(document.getElementById('doorGameChart').getContext('2d'), gameData.doorGame);
+        createChart(document.getElementById('guessGameChart').getContext('2d'), gameData.guessGame);
+
+        // Update prizes on page load
+        updatePrizes();
+
         // Example function to update the total games balance dynamically
         function updateTotalGamesBalance(amount) {
             const totalBalanceElement = document.getElementById('totalGamesBalance');
