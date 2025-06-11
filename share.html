@@ -8,8 +8,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #fff;
-            color: #000;
+            background-color: #f8f9fa;
+            color: #343a40;
             margin: 0;
             padding: 20px;
         }
@@ -18,13 +18,13 @@
             max-width: 600px;
             margin: auto;
             background: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .navbar {
-            background-color: white;
+            background-color: #fff;
             padding: 10px;
             display: flex;
             justify-content: space-around;
@@ -32,33 +32,40 @@
         }
 
         .navbar a {
-            color: #000;
+            color: #343a40;
             text-decoration: none;
-            padding: 10px 20px;
-            transition: background-color 0.3s;
+            padding: 10px 15px;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .navbar a:hover {
-            background-color: #444; /* Darker gray on hover */
+            background-color: #007bff; /* Blue on hover */
+            color: #fff;
         }
 
         .business {
-            padding: 10px;
-            margin-bottom: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
             border-radius: 4px;
             cursor: pointer;
             transition: box-shadow 0.3s;
-            box-shadow: 0 0 20px rgba(0, 128, 255, 0.8);
+            box-shadow: 0 4px 10px rgba(0, 128, 255, 0.3);
             display: flex;
             align-items: center;
+            background-color: #f1f1f1;
         }
 
         .business-logo {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            margin-right: 10px;
+            margin-right: 15px;
             object-fit: cover;
+            border: 2px solid #007bff;
+        }
+
+        .business div {
+            flex: 1;
         }
 
         .popup {
@@ -75,28 +82,30 @@
 
         .popup-content {
             background: #fff;
-            padding: 20px;
+            padding: 30px;
             border-radius: 8px;
             max-width: 500px;
             width: 100%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .close-popup {
             cursor: pointer;
             color: red;
             float: right;
+            font-size: 1.5em;
         }
 
         .button {
-            padding: 10px;
-            margin: 5px 0;
+            padding: 10px 15px;
+            margin: 10px 0;
             border: none;
             border-radius: 4px;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s, box-shadow 0.3s;
-            background-color: black;
-            box-shadow: 0 0 10px rgba(128, 0, 128, 0.8);
+            background-color: #007bff;
+            box-shadow: 0 0 10px rgba(128, 0, 128, 0.5);
         }
 
         .button:hover {
@@ -104,11 +113,30 @@
         }
 
         .donate-button {
-            background-color: #000;
+            background-color: #28a745;
         }
 
         .donate-button:hover {
-            background-color: #e53935;
+            background-color: #218838;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
