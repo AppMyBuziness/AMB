@@ -52,9 +52,9 @@
                     Email: ${business.email}<br>
                     Country: ${business.country}<br>
                     Start Date: ${business.startDate}<br>
-                    Instagram: ${business.instagram || 'N/A'}<br>
-                    Facebook: ${business.facebook || 'N/A'}<br>
-                    TikTok: ${business.tiktok || 'N/A'}<br>
+                    Instagram: <a href="${business.instagram}" target="_blank">${business.instagram || 'N/A'}</a><br>
+                    Facebook: <a href="${business.facebook}" target="_blank">${business.facebook || 'N/A'}</a><br>
+                    TikTok: <a href="${business.tiktok}" target="_blank">${business.tiktok || 'N/A'}</a><br>
                 `;
                 acceptedBusinessesContainer.appendChild(businessDiv);
             });
