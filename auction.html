@@ -64,7 +64,7 @@
         }
 
         .item img {
-            max-width: 100%;
+            max-width: 100px; /* Reduced image size */
             height: auto;
             border-radius: 5px;
             margin-bottom: 10px;
@@ -209,10 +209,17 @@
         }
 
         function placeBid(price, itemId) {
-            alert(`Your bid of $${price} has been placed for item ${itemId}`);
-            const priceButtons = document.getElementById(`priceButtons-${itemId}`);
-            const buttons = priceButtons.querySelectorAll('button');
+            const maxPrice = items[itemId - 1].maxPrice;
+            if (parseFloat(price) === maxPrice) {
+                alert(`Your bid of $${price} has been placed for item ${itemId}. Item sold!`);
+                const priceButtons = document.getElementById(`priceButtons-${itemId}`);
+                priceButtons.innerHTML = ''; // Clear price buttons
+                priceButtons.parentElement.innerHTML += '<p style="color: green;">Sold</p>';
+            } else {
+                alert(`Your bid of $${price} has been placed for item ${itemId}`);
+            }
 
+            const buttons = document.getElementById(`priceButtons-${itemId}`).querySelectorAll('button');
             buttons.forEach(button => {
                 const buttonPrice = parseFloat(button.textContent.replace('$', ''));
                 if (buttonPrice < price) {
