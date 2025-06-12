@@ -9,8 +9,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #000; White background */
-            color: white; /* Black text */
+            background-color: #000;
+            color: white;
             margin: 0;
             padding: 20px;
         }
@@ -38,15 +38,15 @@
         .container {
             max-width: 600px;
             margin: auto;
-            background: #000; /* White container */
+            background: #000;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5); /* Purple glow */
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
         }
 
         h1 {
             text-align: center;
-            color: white; /* Purple title */
+            color: white;
             margin-bottom: 20px;
         }
 
@@ -54,20 +54,20 @@
             text-align: center;
             margin: 10px 0;
             font-size: 1.5em;
-            color: #e74c3c; /* Red color for total balance */
+            color: #e74c3c;
         }
 
         .game-item {
-            background-color: white; /* White container for each game */
+            background-color: white;
             padding: 15px;
             margin: 10px 0;
             border-radius: 5px;
             transition: background-color 0.3s;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .game-item:hover {
-            background-color: #f0f0f0; /* Light gray on hover */
+            background-color: #f0f0f0;
         }
 
         .game-title {
@@ -78,43 +78,32 @@
         .game-description {
             font-size: 14px;
             margin: 5px 0;
+            color:#000;
         }
 
         .game-price {
             font-size: 16px;
-            color: #e74c3c; /* Red color for price */
-        }
-
-        .winner-statistics {
-            margin-top: 10px;
-            color: #f39c12; /* Orange for stats */
+            color: #e74c3c;
         }
 
         canvas {
             margin-top: 15px;
+            max-width: 100%;
         }
 
-        /* Glowing borders for each game */
-        .game-zelda {
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); /* Green glow */
-        }
-
-        .game-mario {
-            box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* Yellow glow */
-        }
-
-        .game-reddead {
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); /* Red glow */
+        iframe {
+            margin-right: 10px;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
-     <div class="navbar">
+    <div class="navbar">
         <a href="share.html"><i class="fas fa-chart-line"></i></a>
         <a href="index.html"><i class="fas fa-user"></i></a>
         <a href="chat.html"><i class="fas fa-comments"></i></a>
         <a href="games.html"><i class="fas fa-gamepad"></i></a>
-        <a href="auction.html"><i class="fas fa-gavel"></i> </a>
+        <a href="auction.html"><i class="fas fa-gavel"></i></a>
     </div>
 
     <div class="container">
@@ -123,91 +112,76 @@
             Total Games Balance: <span id="totalGamesBalance">$0.00</span>
         </div>
 
-      <div class="game-item game-zelda">
-           <iframe src="https://giphy.com/embed/i9Uh3JinoFvDtVD0oK" width="70" height="70" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/eku-games-bingo-studentlife-i9Uh3JinoFvDtVD0oK"></a></p>
-             <a href=bingo.html><div class="game-title">Bingo</div></a>
-            <div class="game-description">An open-world action-adventure game set in a vast world.</div>
+        <canvas id="gamesChart"></canvas>
+
+        <div class="game-item">
+            <iframe src="https://giphy.com/embed/i9Uh3JinoFvDtVD0oK" width="70" height="70" frameBorder="0" allowFullScreen></iframe>
+            <a href="bingo.html">
+                <div class="game-title">Bingo</div>
+            </a>
+            <div class="game-description">An exciting game of chance where players mark numbers on cards.</div>
             <div class="game-price">$2</div>
-           
         </div>
 
-       <div class="game-item game-mario">
-           <iframe src="https://giphy.com/embed/FoXqQO6JU3v4ZIpa4a" width="70" height="70" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/hsp-derjob-fundraiser-hsp-hspderjob-FoXqQO6JU3v4ZIpa4a"></a></p>
-            <a href="doors.html"> <div class="game-title">The Door Game</div></a>
+        <div class="game-item">
+            <iframe src="https://giphy.com/embed/FoXqQO6JU3v4ZIpa4a" width="70" height="70" frameBorder="0" allowFullScreen></iframe>
+            <a href="doors.html">
+                <div class="game-title">The Door Game</div>
+            </a>
             <div class="game-description">A platform game featuring Mario on a globe-trotting adventure.</div>
             <div class="game-price">$3</div>
-          
         </div>
 
-       <div class="game-item game-reddead">
-            <iframe src="https://giphy.com/embed/RMlLEra8fRDP38oM60" width="70" height="70" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/Clash-Royale-thinking-clash-royale-hog-rider-RMlLEra8fRDP38oM60"></a></p>
-             <a href="guessing"><div class="game-title">The 5 Guess Game</div></a>
+        <div class="game-item">
+            <iframe src="https://giphy.com/embed/RMlLEra8fRDP38oM60" width="70" height="70" frameBorder="0" allowFullScreen></iframe>
+            <a href="guessing.html">
+                <div class="game-title">The 5 Guess Game</div>
+            </a>
             <div class="game-description">An epic tale of life in America’s unforgiving heartland.</div>
             <div class="game-price">$3</div>
-           
         </div>
         
-        <div class="game-item game-mario">
-            <iframe src="https://giphy.com/embed/8G7Hy0sFbnM5BIAaTt" width="70" height="70" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/Axitour-referee-axiwi-axitour-8G7Hy0sFbnM5BIAaTt"></a></p>
-             <a href="tail.html"><div class="game-title">head or tail</div></a>
-            <div class="game-description">An epic tale of life in America’s unforgiving heartland.</div>
+        <div class="game-item">
+            <iframe src="https://giphy.com/embed/8G7Hy0sFbnM5BIAaTt" width="70" height="70" frameBorder="0" allowFullScreen></iframe>
+            <a href="tail.html">
+                <div class="game-title">Head or Tail</div>
+            </a>
+            <div class="game-description">A game of chance where you predict the outcome of a flip.</div>
             <div class="game-price">$3</div>
-          
         </div>
-        
- <div class="game-item game-mario">
-      <iframe src="https://giphy.com/embed/9GXuiwDu7H5CZBRJKR" width="70" height="70" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/no-out-cross-9GXuiwDu7H5CZBRJKR"></a></p>
-              <a href="chess.html"><div class="game-title">elimination</div></a>
-            <div class="game-description">An epic tale of life in America’s unforgiving heartland.</div>
+
+        <div class="game-item">
+            <iframe src="https://giphy.com/embed/9GXuiwDu7H5CZBRJKR" width="70" height="70" frameBorder="0" allowFullScreen></iframe>
+            <a href="chess.html">
+                <div class="game-title">Elimination</div>
+            </a>
+            <div class="game-description">Strategic gameplay in a chess-like environment.</div>
             <div class="game-price">$3</div>
-            
         </div>
-        
     </div>
 
     <script>
         const gameData = {
-            bingo: { players: 10, winners: 5, price: 2 },
-            doorGame: { players: 20, winners: 8, price: 3 },
-            guessGame: { players: 15, winners: 7, price: 3 }
+            bingo: { players: 10, winners: 5 },
+            doorGame: { players: 20, winners: 8 },
+            guessGame: { players: 15, winners: 7 },
+            headTail: { players: 12, winners: 6 },
+            elimination: { players: 18, winners: 5 }
         };
-
-        // Function to calculate and display prize for each game
-        function updatePrizes() {
-            for (const [key, data] of Object.entries(gameData)) {
-                const prize = (data.players * data.price) / data.winners;
-                document.getElementById(`${key}Prize`).textContent = prize.toFixed(2);
-                document.getElementById(`${key}Players`).textContent = data.players;
-                document.getElementById(`${key}Winners`).textContent = data.winners;
-            }
-        }
 
         function createChart(ctx, data) {
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Playing', 'Winning', 'Losing'],
+                    labels: Object.keys(data),
                     datasets: [{
-                        label: 'Number of Players',
-                        data: [data.players, data.winners, data.players - data.winners],
-                        backgroundColor: 'white',
-                        borderColor: [
-                            'rgba(52, 152, 219, 1)',  // Playing
-                            'rgba(46, 204, 113, 1)',  // Winning
-                            'rgba(231, 76, 60, 1)'     // Losing
-                        ],
-                        borderWidth: 2,
-                        borderRadius: 4,
-                        hoverBackgroundColor: [
-                            'rgba(52, 152, 219, 0.8)',
-                            'rgba(46, 204, 113, 0.8)',
-                            'rgba(231, 76, 60, 0.8)'
-                        ],
-                        hoverBorderColor: [
-                            'rgba(52, 152, 219, 1)',
-                            'rgba(46, 204, 113, 1)',
-                            'rgba(231, 76, 60, 1)'
-                        ]
+                        label: 'Players',
+                        data: Object.values(data).map(game => game.players),
+                        backgroundColor: 'rgba(52, 152, 219, 0.5)',
+                    }, {
+                        label: 'Winners',
+                        data: Object.values(data).map(game => game.winners),
+                        backgroundColor: 'rgba(46, 204, 113, 0.5)',
                     }]
                 },
                 options: {
@@ -215,26 +189,14 @@
                         y: {
                             beginAtZero: true
                         }
-                    },
-                    plugins: {
-                        tooltip: {
-                            bodyColor: '#000',
-                            titleColor: '#000',
-                        }
                     }
                 }
             });
         }
 
-        // Creating charts for each game
-        createChart(document.getElementById('bingoChart').getContext('2d'), gameData.bingo);
-        createChart(document.getElementById('doorGameChart').getContext('2d'), gameData.doorGame);
-        createChart(document.getElementById('guessGameChart').getContext('2d'), gameData.guessGame);
+        const ctx = document.getElementById('gamesChart').getContext('2d');
+        createChart(ctx, gameData);
 
-        // Update prizes on page load
-        updatePrizes();
-
-        // Example function to update the total games balance dynamically
         function updateTotalGamesBalance(amount) {
             const totalBalanceElement = document.getElementById('totalGamesBalance');
             let currentTotal = parseFloat(totalBalanceElement.textContent.replace('$', '')) || 0;
@@ -243,7 +205,7 @@
         }
 
         // Example usage for adding game income
-        // updateTotalGamesBalance(5); // Uncomment to test adding $5 to the total balance
+        // updateTotalGamesBalance(5);
     </script>
 </body>
 </html>
