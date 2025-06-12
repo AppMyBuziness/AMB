@@ -173,6 +173,7 @@
     <script>
         let currentIndex = 0;
         const items = [];
+        const displayDuration = 60000; // 1 minute (60,000 ms)
 
         function showItem(index) {
             if (index < items.length) {
@@ -209,7 +210,7 @@
                     countdownElement.textContent = 'Auction Ended';
                     currentIndex++;
                     if (currentIndex < items.length) {
-                        showItem(currentIndex);
+                        setTimeout(() => showItem(currentIndex), 1000); // Delay before showing the next item
                     }
                 }
             }, 1000);
@@ -255,15 +256,13 @@
         }
 
         // Start showing items at intervals
-        setInterval(() => {
-            currentIndex++;
+        function displayItems() {
             if (currentIndex < items.length) {
                 showItem(currentIndex);
-            } else {
-                currentIndex = 0; // Reset to the first item if at the end
-                showItem(currentIndex);
+                currentIndex++;
+                setTimeout(displayItems, displayDuration); // Show the next item after the specified duration
             }
-        }, 60000); // Change item every minute (60000 ms)
+        }
 
         // Popup functionality
         const popup = document.getElementById('popup');
@@ -305,9 +304,10 @@
                 addItemForm.reset();
                 popup.style.display = 'none';
 
-                // Show the new item immediately
-                currentIndex = items.length - 1; // Set to the last item added
-                showItem(currentIndex);
+                // Show the new item immediately after existing items
+                if (items.length === 1) {
+                    displayItems(); // Start displaying if this is the first item
+                }
             };
             reader.readAsDataURL(image); // Read the image as a data URL
         }
