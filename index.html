@@ -191,6 +191,7 @@
         <a href="games.html"><i class="fas fa-gamepad"></i></a>
         <a href="auction.html"><i class="fas fa-gavel"></i></a>
     </div>
+
     <button class="plus-button" id="toggleDropdown">+</button>
     <div class="dropdown" id="dropdownMenu">
         <a href="#" id="aboutBtn">About</a>
@@ -199,11 +200,11 @@
         <a href="#" id="forgotPasswordBtn">Forgot Password</a>
         <a href="businessform.html" id="addSharesBtn">Add Shares</a>
     </div>
+
     <div class="container">
-        <iframe src="https://giphy.com/embed/vsiFWHBz8lTvdJUJHq" width="80" height="80" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/CompanyCam-block-scale-graph-vsiFWHBz8lTvdJUJHq"></a></p>
         <h1>Budget Tracker</h1>
         <canvas id="myChart" width="400" height="200"></canvas>
-        
+
         <div class="button-group">
             <button id="addIncomeBtn">Add Income</button>
             <button id="addExpenseBtn">Add Expense</button>
@@ -220,22 +221,18 @@
             <div class="account-item" id="mainAccount">
                 <span class="account-title">Main Account:</span>
                 <span id="mainAccountBalance">$0.00</span>
-                <span id="mainAccountGrowth">0%</span>
             </div>
             <div class="account-item" id="savingsAccount">
                 <span class="account-title">Savings Account:</span>
                 <span id="savingsAccountBalance">$0.00</span>
-                <span id="savingsAccountGrowth">0%</span>
             </div>
             <div class="account-item" id="gamesAccount">
                 <span class="account-title">Games Account:</span>
                 <span id="gamesAccountBalance">$0.00</span>
-                <span id="gamesAccountGrowth">0%</span>
             </div>
             <div class="account-item" id="sharesAccount">
                 <span class="account-title">Shares Account:</span>
                 <span id="sharesAccountBalance">$0.00</span>
-                <span id="sharesAccountGrowth">0%</span>
             </div>
             <div id="additionalAccounts"></div>
         </div>
@@ -243,25 +240,19 @@
         <!-- Assets Container -->
         <div class="assets-container">
             <h2 class="assets-title">Assets</h2>
-            <ul class="assets-list" id="assetsList">
-                <!-- Assets will be added here -->
-            </ul>
+            <ul class="assets-list" id="assetsList"></ul>
         </div>
 
         <!-- Scheduled Expenses Container -->
         <div class="scheduled-expenses-container">
             <h2 class="scheduled-title">Scheduled Expenses</h2>
-            <ul class="scheduled-list" id="scheduledList">
-                <!-- Scheduled expenses will be added here -->
-            </ul>
+            <ul class="scheduled-list" id="scheduledList"></ul>
         </div>
 
         <!-- Transactions Container -->
         <div class="transactions-container">
-            <div class="transaction-title">Transactions:</div>
-            <ul class="transaction-list" id="transactionList">
-                <!-- Transaction items will be added here -->
-            </ul>
+            <h2>Transactions:</h2>
+            <ul class="transaction-list" id="transactionList"></ul>
         </div>
     </div>
 
@@ -290,12 +281,16 @@
         };
 
         const updateAccountBalance = (accountName, amount) => {
-            accounts[accountName].balance += amount;
-            accounts[accountName].element.textContent = `$${accounts[accountName].balance.toFixed(2)}`;
+            if (accountName !== 'games' && accountName !== 'shares') {
+                accounts[accountName].balance += amount;
+                accounts[accountName].element.textContent = `$${accounts[accountName].balance.toFixed(2)}`;
+            } else {
+                alert(`You cannot modify the balance of the ${accountName.charAt(0).toUpperCase() + accountName.slice(1)} account.`);
+            }
         };
 
         const addTransaction = (type) => {
-            const accountName = prompt('Choose an account: main, savings, games, or shares').toLowerCase();
+            const accountName = prompt('Choose an account: main or savings').toLowerCase();
             const name = prompt(`Enter the name of the ${type}:`);
             const price = parseFloat(prompt(`Enter the amount for the ${type}:`));
 
@@ -335,28 +330,32 @@
             const expenseName = prompt('Enter the name of the scheduled expense:');
             const expenseDate = prompt('Enter the date of the expense (YYYY-MM-DD):');
             const expenseTime = prompt('Enter the time of the expense (HH:MM):');
-            const accountName = prompt('Choose an account: main, savings, games, or shares').toLowerCase();
             const price = parseFloat(prompt('Enter the amount for the scheduled expense:'));
 
-            if (expenseName && expenseDate && expenseTime && !isNaN(price) && accounts[accountName]) {
+            if (expenseName && expenseDate && expenseTime && !isNaN(price)) {
                 const li = document.createElement('li');
                 li.className = 'scheduled-item';
                 li.innerHTML = `${expenseName} on ${expenseDate} at ${expenseTime}: $${price.toFixed(2)} 
-                                <button onclick="subtractScheduledExpense('${expenseName}', ${price}, '${accountName}')">Subtract</button>`;
+                                <button onclick="subtractScheduledExpense('${expenseName}', ${price})">Subtract</button>`;
                 scheduledList.appendChild(li);
             } else {
                 alert('Invalid scheduled expense details. Please try again.');
             }
         };
 
-        const subtractScheduledExpense = (name, amount, accountName) => {
-            updateAccountBalance(accountName, -amount);
-            const items = document.querySelectorAll('.scheduled-item');
-            items.forEach(item => {
-                if (item.textContent.includes(name)) {
-                    item.remove();
-                }
-            });
+        const subtractScheduledExpense = (name, amount) => {
+            const accountName = prompt('Choose an account: main or savings').toLowerCase();
+            if (accountName !== 'games' && accountName !== 'shares') {
+                updateAccountBalance(accountName, -amount);
+                const items = document.querySelectorAll('.scheduled-item');
+                items.forEach(item => {
+                    if (item.textContent.includes(name)) {
+                        item.remove();
+                    }
+                });
+            } else {
+                alert(`You cannot modify the balance of the ${accountName.charAt(0).toUpperCase() + accountName.slice(1)} account.`);
+            }
         };
 
         const addAccount = () => {
@@ -364,7 +363,7 @@
             if (accountName) {
                 const div = document.createElement('div');
                 div.className = 'account-item';
-                div.innerHTML = `<span class="account-title">${accountName}:</span> <span>$0.00</span> <span>0%</span>`;
+                div.innerHTML = `<span class="account-title">${accountName}:</span> <span>$0.00</span>`;
                 additionalAccountsContainer.appendChild(div);
             } else {
                 alert('Invalid account name. Please try again.');
@@ -377,8 +376,6 @@
                 accounts.savings.balance,
                 accounts.games.balance,
                 accounts.shares.balance,
-                transactions.filter(t => t.name.includes('Income')).reduce((acc, t) => acc + t.price, 0),
-                transactions.filter(t => t.name.includes('Expense')).reduce((acc, t) => acc + t.price, 0),
             ];
             myChart.data.datasets[0].data = data;
             myChart.update();
@@ -395,25 +392,21 @@
         const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Main Account', 'Savings Account', 'Games Account', 'Shares Account', 'Total Income', 'Total Expenses'],
+                labels: ['Main Account', 'Savings Account', 'Games Account', 'Shares Account'],
                 datasets: [{
                     label: 'Amount ($)',
-                    data: [0, 0, 0, 0, 0, 0],
+                    data: [0, 0, 0, 0],
                     backgroundColor: [
                         'rgba(52, 152, 219, 0.6)',
                         'rgba(155, 89, 182, 0.6)',
                         'rgba(231, 76, 60, 0.6)',
                         'rgba(46, 204, 113, 0.6)',
-                        'rgba(241, 196, 15, 0.6)',
-                        'rgba(255, 165, 0, 0.6)'
                     ],
                     borderColor: [
                         'rgba(52, 152, 219, 1)',
                         'rgba(155, 89, 182, 1)',
                         'rgba(231, 76, 60, 1)',
                         'rgba(46, 204, 113, 1)',
-                        'rgba(241, 196, 15, 1)',
-                        'rgba(255, 165, 0, 1)'
                     ],
                     borderWidth: 1
                 }]
